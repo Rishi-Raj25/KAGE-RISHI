@@ -17,8 +17,8 @@ export default function Home() {
     <main className="kage-host" data-ready={ready ? "true" : "false"}>
       <iframe
         className="kage-document"
-        title="KAGE — Rishi's creative portfolio"
-        src="/landing-pages/portfolio.html"
+        title="KAGE — Can Robots Replace Humans?"
+        src="/landing-pages/kage.html"
         loading="eager"
         allow="autoplay; fullscreen; picture-in-picture"
         allowFullScreen
