@@ -6,17 +6,19 @@ const source = path.resolve(
 );
 const destination = path.resolve("public/landing-pages");
 const customKage = path.resolve("custom/kage.html");
+const bookshelfSource = path.resolve("public/bookshelf/complete-shelf-v2.html");
 
 try {
   await access(path.join(source, "kage.html"));
+  await access(customKage);
+  await access(bookshelfSource);
 } catch {
-  console.error("ThreeUI KAGE assets were not found. Ensure @designcodeio/threeui is installed.");
+  console.error("Required KAGE or BOOKSHELF assets are missing.");
   process.exit(1);
 }
 
 await mkdir(destination, { recursive: true });
 await cp(source, destination, { recursive: true });
-// Restore the repository-owned presentation after copying the package assets.
-// The package copy contains the original demo and would otherwise overwrite it.
+// Restore the repository-owned KAGE page after package assets are copied.
 await cp(customKage, path.join(destination, "kage.html"));
-console.log("Copied ThreeUI assets and restored the customized KAGE landing page.");
+console.log("Copied ThreeUI assets, restored KAGE, and retained BOOKSHELF-CN assets.");
