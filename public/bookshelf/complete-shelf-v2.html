@@ -2080,6 +2080,25 @@
       });
     });
 
+    document.head.appendChild(kageThemeStyle);
+
+    const collectionName = shelfTheme === "abstract" ? "Skills" : "Projects";
+    document.title = collectionName + " — BOOKSHELF-CN";
+    document.querySelector('meta[name="description"]')?.setAttribute("content", "The " + collectionName.toLowerCase() + " bookshelf — an interactive collection by KAGE.");
+    document.querySelector(".editorial-identity strong")?.replaceChildren(document.createTextNode(collectionName));
+    const identitySub = document.querySelector(".editorial-identity span");
+    if (identitySub) identitySub.textContent = shelfTheme === "abstract" ? "Seven skill volumes · an evolving practice" : "Seven project volumes · selected worlds";
+    const edition = document.querySelector(".editorial-index span:first-child");
+    if (edition) edition.textContent = shelfTheme === "abstract" ? "Skills edition · 2026" : "Projects edition · 2026";
+    const fallbackKicker = document.querySelector(".fallback__kicker");
+    if (fallbackKicker) fallbackKicker.textContent = collectionName + " · Static catalogue";
+    const fallbackTitle = document.getElementById("fallback-title");
+    if (fallbackTitle) fallbackTitle.textContent = shelfTheme === "abstract" ? "The tools behind the work." : "A universe of things made real.";
+    const fallbackStatus = document.getElementById("fallback-status");
+    if (fallbackStatus) fallbackStatus.textContent = "The complete " + collectionName.toLowerCase() + " catalogue remains readable while the interactive shelf is prepared.";
+    const fallbackBooks = [...document.querySelectorAll(".fallback-book strong")];
+    fallbackBooks.forEach((node,index) => { if (collectionData[index]) node.textContent = collectionData[index].title; });
+
     const COVER_ATLAS_DATA = "https://ublctyddhtbgaersvxxb.supabase.co/storage/v1/object/public/threeui-media/scene-images/embedded/30536331bc911f1e9310f2ea44dca373201b83f2b11dac4434f8acf07018e963.webp";
     // The walnut map and the new GPT Image cover atlas are embedded so the browser
     // never calls a generation service or depends on an asset host.
