@@ -882,6 +882,23 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
   [data-rv]{ opacity:1 !important; transform:none !important; }
   .mask-line > span,.word{ opacity:1 !important; transform:none !important; }
 }
+
+
+/* Two KAGE decks — original chapter and cinematic experience preserved. */
+.kage-decks{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,1.5vw,24px);align-items:stretch}
+.kage-deck{position:relative;display:block;isolation:isolate;min-height:clamp(380px,58vw,680px);overflow:hidden;border:1px solid rgba(223,231,224,.17);border-radius:18px;color:var(--bone);text-decoration:none;background:#07090e;transition:border-color .55s var(--ease),transform .65s var(--ease-out)}
+.kage-deck:hover{border-color:rgba(223,231,224,.48);transform:translateY(-5px)}
+.kage-deck__top,.kage-deck__bottom{position:absolute;z-index:4;left:clamp(18px,2.4vw,34px);right:clamp(18px,2.4vw,34px);display:flex;justify-content:space-between;align-items:center;gap:12px;text-transform:uppercase;letter-spacing:.16em;font-size:9px}
+.kage-deck__top{top:24px;color:rgba(239,239,245,.72)}.kage-deck__bottom{bottom:28px;align-items:end}.kage-deck__bottom strong{font-size:clamp(34px,5vw,68px);line-height:.85;letter-spacing:-.06em;font-weight:400;color:#f0eee9}.kage-deck__bottom i{font-style:normal;color:#d6d1e2;white-space:nowrap;font-size:9px}
+.kage-deck--cosmos{background:radial-gradient(ellipse at 50% 48%,#29204c 0,#11162b 30%,#080b14 66%,#030509 100%)}.kage-deck--cosmos:before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 22% 25%,rgba(134,75,174,.4),transparent 30%),radial-gradient(ellipse at 80% 65%,rgba(38,104,154,.3),transparent 34%),radial-gradient(ellipse at 55% 10%,rgba(211,91,122,.2),transparent 24%)}
+.kage-deck__stars{position:absolute;inset:0;background-image:radial-gradient(2px 2px at 12% 22%,#fff 60%,transparent),radial-gradient(1px 1px at 24% 68%,#d9d4ff 60%,transparent),radial-gradient(2px 2px at 78% 18%,#fff 60%,transparent),radial-gradient(1px 1px at 87% 56%,#fff 60%,transparent),radial-gradient(1.5px 1.5px at 62% 78%,#d6d2ff 60%,transparent),radial-gradient(1px 1px at 39% 37%,#fff 60%,transparent),radial-gradient(1px 1px at 8% 82%,#fff 60%,transparent)}
+.kage-deck__planet{position:absolute;width:clamp(210px,30vw,390px);aspect-ratio:1;border-radius:50%;left:50%;top:49%;transform:translate(-50%,-50%);background:radial-gradient(circle at 32% 28%,#fff0 0,#d3a3bc 2%,#895c91 13%,#3b315f 38%,#101426 68%,#03050b 82%);box-shadow:inset -28px -25px 60px #000,0 0 65px rgba(154,117,226,.28),0 0 150px rgba(92,88,187,.22)}
+.kage-deck__orbit{position:absolute;width:78%;height:27%;left:50%;top:50%;border:1px solid rgba(222,213,255,.62);border-radius:50%;transform:translate(-50%,-50%) rotate(-24deg);box-shadow:0 0 18px rgba(173,154,255,.2)}.kage-deck__orbit:after{content:'';position:absolute;width:8px;height:8px;left:16%;top:11%;border-radius:50%;background:#f6eaff;box-shadow:0 0 16px 5px rgba(210,193,255,.8)}
+.kage-deck--abstract{background:radial-gradient(ellipse at 52% 45%,#252525 0,#111 43%,#050505 100%)}.kage-deck--abstract:before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 20%,rgba(255,255,255,.09),transparent 30%),linear-gradient(125deg,transparent 25%,rgba(255,255,255,.035),transparent 70%)}
+.kage-deck__sculpture{position:absolute;width:65%;height:82%;left:18%;top:9%;border-radius:48% 52% 26% 74%/45% 32% 68% 55%;background:linear-gradient(135deg,#aaa 0,#555 19%,#202020 48%,#070707 72%);box-shadow:inset -32px -28px 55px #000,inset 14px 12px 24px rgba(255,255,255,.25),0 0 70px rgba(255,255,255,.08);transform:rotate(23deg)}
+.kage-deck__orb{position:absolute;width:clamp(90px,13vw,165px);aspect-ratio:1;right:12%;top:22%;border-radius:50%;background:radial-gradient(circle at 30% 25%,#eee,#777 22%,#202020 66%,#050505 82%);box-shadow:inset -14px -12px 25px #000,0 0 45px rgba(255,255,255,.12)}
+.kage-deck__ring{position:absolute;width:72%;height:22%;left:42%;top:55%;border:1px solid rgba(220,220,220,.55);border-radius:50%;transform:rotate(34deg)}
+@media(max-width:760px){.kage-decks{grid-template-columns:1fr}.kage-deck{min-height:390px}.kage-deck__planet{width:min(68vw,320px)}.kage-deck__sculpture{width:58%;height:76%;left:20%}}
 </style>
 </head>
 <body data-layout-hero="b" data-layout-story="b" data-layout-gallery="b"
@@ -1029,31 +1046,17 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
   <div class="sec-head" data-rv="fade">
     <span class="k"><b>02</b> — What Machines Do</span><span class="rule"></span><span class="k jp">機械</span>
   </div>
-  <div class="cards" id="cards">
-    <article class="card" data-rv="up" data-view="0" data-cursor>
-      <div class="card-fr" data-frame>
-                <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
-        <i class="glow" style="--gx:80.2%; --gy:23.9%; --gr:22%; --gt:6.1s; --gt2:9.7s; --gc1:rgba(255,142,108,.50); --gc2:rgba(212,56,38,.24)"></i>
-        <div class="card-lab"><b>Automation</b><span class="jp">自動化</span></div>
-      </div>
-      <div class="card-meta"><span>Repetitive tasks</span><span>01 / 03</span></div>
-    </article>
-    <article class="card" data-rv="up" data-view="1" data-cursor>
-      <div class="card-fr" data-frame>
-                <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
-        <i class="glow glow--flame" style="--gx:70.5%; --gy:47.2%; --gr:14%; --gt:3.7s; --gt2:5.3s; --gc1:rgba(255,198,124,.62); --gc2:rgba(226,118,40,.30)"></i>
-        <div class="card-lab"><b>Precision</b><span class="jp">精密</span></div>
-      </div>
-      <div class="card-meta"><span>Dangerous work</span><span>02 / 03</span></div>
-    </article>
-    <article class="card" data-rv="up" data-view="2" data-cursor>
-      <div class="card-fr" data-frame>
-                <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
-        <i class="glow" style="--gx:48.0%; --gy:16.8%; --gr:20%; --gt:7.3s; --gt2:11.2s; --gc1:rgba(255,138,104,.52); --gc2:rgba(208,54,36,.24)"></i>
-        <div class="card-lab"><b>Generative AI</b><span class="jp">創造</span></div>
-      </div>
-      <div class="card-meta"><span>Data and ideas</span><span>03 / 03</span></div>
-    </article>
+  <div class="kage-decks" id="cards">
+    <a class="kage-deck kage-deck--cosmos" href="/landing-pages/projects.html" data-rv="up" data-cursor aria-label="Open Projects bookshelf">
+      <span class="kage-deck__stars" aria-hidden="true"></span><span class="kage-deck__planet" aria-hidden="true"></span><span class="kage-deck__orbit" aria-hidden="true"></span>
+      <span class="kage-deck__top"><span>01 / PROJECTS</span><span>THE COSMIC ARCHIVE</span></span>
+      <span class="kage-deck__bottom"><strong>PROJECTS</strong><i>Open bookshelf ↗</i></span>
+    </a>
+    <a class="kage-deck kage-deck--abstract" href="/landing-pages/skills.html" data-rv="up" data-cursor aria-label="Open Skills bookshelf">
+      <span class="kage-deck__sculpture" aria-hidden="true"></span><span class="kage-deck__orb" aria-hidden="true"></span><span class="kage-deck__ring" aria-hidden="true"></span>
+      <span class="kage-deck__top"><span>02 / SKILLS</span><span>THE ABSTRACT INDEX</span></span>
+      <span class="kage-deck__bottom"><strong>SKILLS</strong><i>Open bookshelf ↗</i></span>
+    </a>
   </div>
 </section>
 
