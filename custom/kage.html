@@ -378,156 +378,6 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
 .no-webgl .hero::after{ content:''; position:absolute; left:0; right:0; bottom:0; height:34%;
   pointer-events:none; background:linear-gradient(transparent, rgba(3,5,8,.72) 52%, rgba(3,5,8,.96)); }
 .no-webgl .sec::before, .no-webgl #pathways::before, .no-webgl #eternity::before{ background:none; }
-/* A chapter title surface over the same live castle scene used by the opening chapters. */
-.card-slide{
-  position:fixed; inset:0; z-index:90; display:grid; place-items:center;
-  padding:clamp(28px,6vw,88px);
-  background:rgba(5,7,10,.34); backdrop-filter:blur(1.5px); -webkit-backdrop-filter:blur(1.5px);
-  opacity:0; visibility:hidden; pointer-events:none;
-  transition:opacity .72s cubic-bezier(.22,1,.36,1), visibility 0s linear .72s;
-}
-.card-slide.is-open{
-  opacity:1; visibility:visible; pointer-events:auto;
-  transition-delay:0s;
-}
-.card-slide.is-closing{
-  opacity:0; visibility:visible; pointer-events:none;
-  transition:opacity .95s cubic-bezier(.4,0,.2,1), visibility 0s linear .95s;
-}
-/* The complete overlay fades as one surface on exit; child transitions must not compete. */
-.card-slide.is-closing .card-slide-inner{ animation:none !important; }
-
-/* Keep the global header behind the chapter surface as a quiet background detail. */
-body.card-slide-open .nav{
-  opacity:.14; pointer-events:none;
-  transition:opacity .7s var(--ease-out);
-}
-body:not(.card-slide-open) .nav{ transition:opacity .45s var(--ease); }
-body.card-slide-open .page{ visibility:hidden; }
-.card-slide{
-  display:block; overflow-y:auto; padding:clamp(92px,12vh,132px) var(--pad) clamp(34px,6vh,72px);
-}
-.card-slide-inner{
-  width:min(100%,1120px); margin:0 auto;
-  opacity:1; transform:translate3d(0,0,0);
-  transition:opacity .82s cubic-bezier(.4,0,.2,1),transform .95s cubic-bezier(.4,0,.2,1);
-}
-.card-slide.is-closing .card-slide-inner{
-  opacity:0; transform:translate3d(0,14px,0);
-}
-.card-slide-heading{ margin:0 0 clamp(28px,5vh,54px); }
-.card-slide-kicker{
-  display:flex; align-items:center; gap:12px; margin-bottom:16px;
-  color:var(--bone-dim); font-size:10px; letter-spacing:.24em; text-transform:uppercase;
-  opacity:0; transform:translate3d(0,12px,0); filter:blur(4px);
-  transition:opacity 1.8s cubic-bezier(.16,1,.3,1) .38s,transform 2.1s cubic-bezier(.16,1,.3,1) .38s,filter 1.9s cubic-bezier(.16,1,.3,1) .38s;
-}
-.card-slide.is-open .card-slide-kicker{ opacity:1; transform:none; filter:none; }
-.card-slide.is-closing .card-slide-kicker{ transition:none !important; }
-.card-slide-kicker::before{ content:''; width:22px; height:1px; background:var(--ember); }
-.card-slide-title{
-  width:100%; margin:0;
-  font-family:'Wordmark','Onest',sans-serif; font-size:clamp(34px,5.8vw,82px);
-  font-weight:600; line-height:1.02; letter-spacing:.025em; text-align:left;
-  text-wrap:balance; text-transform:uppercase;
-  background:linear-gradient(180deg,#e2ece5 0%,#c6d6cb 52%,#96aa9d 100%);
-  -webkit-background-clip:text; background-clip:text; color:transparent;
-  text-shadow:0 2px 34px rgba(3,6,8,.48);
-  opacity:0; transform:translateY(18px);
-  transition:opacity 2.15s cubic-bezier(.16,1,.3,1) .5s, transform 2.35s cubic-bezier(.16,1,.3,1) .5s, filter 2.1s cubic-bezier(.16,1,.3,1) .5s;
-}
-.card-slide.is-open .card-slide-title{ opacity:1; transform:none; }
-.card-slide.is-closing .card-slide-title{ transition:none !important; }
-.card-slide-deck{ display:none; grid-template-columns:minmax(0,1.45fr) minmax(230px,.75fr); gap:clamp(24px,5vw,72px); align-items:start; }
-.card-slide-deck.is-active{ display:grid; animation:deck-enter 1.55s cubic-bezier(.16,1,.3,1) both; }
-.card-slide-deck.is-active .deck-lead,
-.card-slide-deck.is-active .deck-block,
-.card-slide-deck.is-active .deck-aside,
-.card-slide-deck.is-active .deck-sources{
-  animation:deck-piece-in 1.45s cubic-bezier(.16,1,.3,1) both;
-}
-.card-slide-deck.is-active .deck-lead{ animation-delay:.22s; }
-.card-slide-deck.is-active .deck-block:nth-of-type(1){ animation-delay:.42s; }
-.card-slide-deck.is-active .deck-block:nth-of-type(2){ animation-delay:.62s; }
-.card-slide-deck.is-active .deck-aside{ animation-delay:.52s; }
-.card-slide-deck.is-active .deck-sources{ animation-delay:.82s; }
-.card-slide.is-closing .card-slide-deck.is-active,
-.card-slide.is-closing .card-slide-deck.is-active > *{ animation:none !important; transition:none !important; }
-@keyframes deck-enter{ from{opacity:0;transform:translate3d(0,22px,0);filter:blur(4px)} to{opacity:1;transform:none;filter:none} }
-@keyframes deck-piece-in{ from{opacity:0;transform:translate3d(0,18px,0);filter:blur(3px)} to{opacity:1;transform:none;filter:none} }
-.deck-main{ min-width:0; }
-.deck-lead{ max-width:66ch; margin:0 0 26px; color:#d0d9d2; font-size:clamp(16px,1.45vw,20px); line-height:1.72; font-weight:300; }
-.deck-block{ padding:20px 0; border-top:1px solid var(--line); }
-.deck-block h2{ margin:0 0 9px; color:var(--bone); font-size:12px; font-weight:500; letter-spacing:.18em; text-transform:uppercase; }
-.deck-block p{ max-width:68ch; margin:0; color:#aebbb2; font-size:14px; line-height:1.78; font-weight:300; }
-.deck-aside{
-  position:relative; padding:24px 22px 22px;
-  border:1px solid rgba(223,231,224,.16); background:linear-gradient(145deg,rgba(223,231,224,.075),rgba(5,7,10,.18));
-}
-.deck-aside::before{ content:''; position:absolute; top:-1px; left:22px; width:34px; height:1px; background:var(--ember); }
-.deck-aside .eyebrow{ margin-bottom:18px; }
-.deck-aside strong{ display:block; margin-bottom:12px; color:var(--bone); font-size:clamp(22px,2.3vw,30px); line-height:1.12; font-weight:300; }
-.deck-aside p{ margin:0; color:#aebbb2; font-size:13px; line-height:1.75; font-weight:300; }
-/* The live foreground is a multi-piece near plane (wall, stones and grass).
-   Park the entire near plane while any of the three reading decks is open. */
-body.card-slide-open #fg-sky{ opacity:0 !important; visibility:hidden !important; }
-.card-slide-deck .deck-main,
-.card-slide-deck .deck-aside{ position:relative; z-index:1; }
-.card-slide-deck .deck-main{
-  padding:clamp(20px,2.6vw,34px);
-  background:linear-gradient(145deg,rgba(10,17,19,.68),rgba(7,11,14,.56));
-  border:1px solid rgba(223,231,224,.16);
-  box-shadow:0 18px 56px rgba(0,0,0,.16);
-  -webkit-backdrop-filter:blur(14px);
-  backdrop-filter:blur(14px);
-}
-.card-slide-deck .deck-lead,
-.card-slide-deck .deck-block p,
-.card-slide-deck .deck-aside p{ color:#d2ddd5; }
-.card-slide-deck .deck-block{ border-color:rgba(223,231,224,.22); }
-.card-slide-deck .deck-aside{
-  background:linear-gradient(145deg,rgba(20,31,31,.40),rgba(8,13,16,.28));
-  border-color:rgba(223,231,224,.24);
-  box-shadow:0 18px 60px rgba(0,0,0,.10);
-  -webkit-backdrop-filter:blur(16px);
-  backdrop-filter:blur(16px);
-}
-.deck-sources{ display:flex; flex-wrap:wrap; gap:8px 16px; margin-top:24px; }
-.deck-sources a{ color:rgba(223,231,224,.55); font-size:9px; letter-spacing:.13em; text-transform:uppercase; text-decoration:none; border-bottom:1px solid rgba(223,231,224,.2); padding-bottom:4px; }
-.deck-sources a:hover{ color:var(--bone); border-color:var(--bone); }
-@media(prefers-reduced-motion:reduce){
-  .card-slide,.card-slide-kicker,.card-slide-title{ transition:none !important; }
-  .card-slide-inner,.card-slide-deck.is-active,.card-slide-deck.is-active *{ animation:none !important; }
-}
-@media(max-width:760px){
-  .card-slide{ padding:100px 22px 34px; }
-  .card-slide-deck,.card-slide-deck.is-active{ grid-template-columns:1fr; gap:24px; }
-  .deck-aside{ max-width:none; }
-  .card-slide-title{ font-size:clamp(32px,10vw,56px); }
-}
-.card-slide-back{
-  position:absolute; top:clamp(24px,4vw,56px); left:var(--pad); z-index:2;
-  display:inline-flex; align-items:center; gap:12px;
-  min-height:40px; padding:0 16px 0 12px;
-  border:1px solid var(--line); border-radius:999px;
-  color:var(--bone-dim); background:rgba(5,7,10,.22);
-  font-size:10px; font-weight:500; letter-spacing:.18em; text-transform:uppercase;
-  transition:color .35s,border-color .35s,background .35s,transform .45s var(--ease-out);
-}
-.card-slide-back:hover{
-  color:var(--bone); border-color:rgba(223,231,224,.5);
-  background:rgba(5,7,10,.5); transform:translateX(-3px);
-}
-.card-slide-back svg{ width:14px; height:14px; flex:none; }
-.card-slide-close{
-  position:absolute; top:clamp(24px,4vw,56px); right:var(--pad);
-  width:34px; height:34px; display:grid; place-items:center;
-  border:1px solid var(--line); border-radius:50%;
-  color:var(--bone-dim); transition:color .35s,border-color .35s,transform .45s var(--ease-out);
-}
-.card-slide-close:hover{ color:var(--bone); border-color:rgba(223,231,224,.5); transform:rotate(90deg); }
-.card-slide-close svg{ width:12px; height:12px; }
-body.card-slide-open{ overflow:hidden; }
 .card-lab{ position:absolute; left:16px; right:16px; bottom:14px; z-index:2;
   display:flex; align-items:flex-end; justify-content:space-between; gap:10px; }
 .card-lab b{ font-size:clamp(13px,1.15vw,17px); font-weight:400; letter-spacing:.02em; text-transform:uppercase; }
@@ -1032,6 +882,25 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
   [data-rv]{ opacity:1 !important; transform:none !important; }
   .mask-line > span,.word{ opacity:1 !important; transform:none !important; }
 }
+
+/* KAGE portfolio decks — replacing only the three chapter-II feature cards */
+.kage-decks{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,1.5vw,24px);align-items:stretch;}
+.kage-deck{position:relative;display:block;isolation:isolate;min-height:clamp(380px,58vw,680px);overflow:hidden;border:1px solid rgba(223,231,224,.17);border-radius:18px;color:var(--bone);text-decoration:none;background:#07090e;transition:border-color .55s var(--ease),transform .65s var(--ease-out);}
+.kage-deck:hover{border-color:rgba(223,231,224,.48);transform:translateY(-5px);}
+.kage-deck__top,.kage-deck__bottom{position:absolute;z-index:4;left:clamp(18px,2.4vw,34px);right:clamp(18px,2.4vw,34px);display:flex;justify-content:space-between;align-items:center;gap:12px;text-transform:uppercase;letter-spacing:.16em;font-size:9px;}
+.kage-deck__top{top:24px;color:rgba(239,239,245,.72)}.kage-deck__bottom{bottom:28px;align-items:end}.kage-deck__bottom strong{font-size:clamp(34px,5vw,68px);line-height:.85;letter-spacing:-.06em;font-weight:400;color:#f0eee9}.kage-deck__bottom i{font-style:normal;color:#d6d1e2;white-space:nowrap;font-size:9px;}
+.kage-deck--cosmos{background:radial-gradient(ellipse at 50% 48%,#29204c 0,#11162b 30%,#080b14 66%,#030509 100%);}
+.kage-deck--cosmos:before{content:'';position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse at 22% 25%,rgba(134,75,174,.4),transparent 30%),radial-gradient(ellipse at 80% 65%,rgba(38,104,154,.3),transparent 34%),radial-gradient(ellipse at 55% 10%,rgba(211,91,122,.2),transparent 24%);}
+.kage-deck__stars{position:absolute;inset:0;z-index:1;opacity:.9;background-image:radial-gradient(2px 2px at 12% 22%,#fff 60%,transparent),radial-gradient(1px 1px at 24% 68%,#d9d4ff 60%,transparent),radial-gradient(2px 2px at 78% 18%,#fff 60%,transparent),radial-gradient(1px 1px at 87% 56%,#fff 60%,transparent),radial-gradient(1.5px 1.5px at 62% 78%,#d6d2ff 60%,transparent),radial-gradient(1px 1px at 39% 37%,#fff 60%,transparent),radial-gradient(1px 1px at 8% 82%,#fff 60%,transparent);background-size:100% 100%;}
+.kage-deck__planet{position:absolute;z-index:2;width:clamp(210px,30vw,390px);aspect-ratio:1;border-radius:50%;left:50%;top:49%;transform:translate(-50%,-50%);background:radial-gradient(circle at 32% 28%,#fff0 0,#d3a3bc 2%,#895c91 13%,#3b315f 38%,#101426 68%,#03050b 82%);box-shadow:inset -28px -25px 60px #000,0 0 65px rgba(154,117,226,.28),0 0 150px rgba(92,88,187,.22);}
+.kage-deck__orbit{position:absolute;z-index:3;width:78%;height:27%;left:50%;top:50%;border:1px solid rgba(222,213,255,.62);border-radius:50%;transform:translate(-50%,-50%) rotate(-24deg);box-shadow:0 0 18px rgba(173,154,255,.2);}
+.kage-deck__orbit:after{content:'';position:absolute;width:8px;height:8px;left:16%;top:11%;border-radius:50%;background:#f6eaff;box-shadow:0 0 16px 5px rgba(210,193,255,.8);}
+.kage-deck--abstract{background:radial-gradient(ellipse at 52% 45%,#252525 0,#111 43%,#050505 100%);}
+.kage-deck--abstract:before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 20%,rgba(255,255,255,.09),transparent 30%),linear-gradient(125deg,transparent 25%,rgba(255,255,255,.035),transparent 70%);}
+.kage-deck__sculpture{position:absolute;z-index:2;width:65%;height:82%;left:18%;top:9%;border-radius:48% 52% 26% 74% / 45% 32% 68% 55%;background:linear-gradient(135deg,#aaa 0,#555 19%,#202020 48%,#070707 72%);box-shadow:inset -32px -28px 55px #000,inset 14px 12px 24px rgba(255,255,255,.25),0 0 70px rgba(255,255,255,.08);transform:rotate(23deg);}
+.kage-deck__orb{position:absolute;z-index:3;width:clamp(90px,13vw,165px);aspect-ratio:1;right:12%;top:22%;border-radius:50%;background:radial-gradient(circle at 30% 25%,#eee,#777 22%,#202020 66%,#050505 82%);box-shadow:inset -14px -12px 25px #000,0 0 45px rgba(255,255,255,.12);}
+.kage-deck__ring{position:absolute;z-index:3;width:72%;height:22%;left:42%;top:55%;border:1px solid rgba(220,220,220,.55);border-radius:50%;transform:rotate(34deg);}
+@media(max-width:760px){.kage-decks{grid-template-columns:1fr;}.kage-deck{min-height:390px;}.kage-deck__planet{width:min(68vw,320px);}.kage-deck__sculpture{width:58%;height:76%;left:20%;}}
 </style>
 </head>
 <body data-layout-hero="b" data-layout-story="b" data-layout-gallery="b"
@@ -1179,118 +1048,23 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
   <div class="sec-head" data-rv="fade">
     <span class="k"><b>02</b> — What Machines Do</span><span class="rule"></span><span class="k jp">機械</span>
   </div>
-  <div class="cards" id="cards">
-    <article class="card" data-rv="up" data-view="0" data-cursor>
-      <div class="card-fr" data-frame>
-                <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
-        <i class="glow" style="--gx:80.2%; --gy:23.9%; --gr:22%; --gt:6.1s; --gt2:9.7s; --gc1:rgba(255,142,108,.50); --gc2:rgba(212,56,38,.24)"></i>
-        <div class="card-lab"><b>Empathy</b><span class="jp">共感</span></div>
-      </div>
-      <div class="card-meta"><span>Repetitive tasks</span><span>01 / 03</span></div>
-    </article>
-    <article class="card" data-rv="up" data-view="1" data-cursor>
-      <div class="card-fr" data-frame>
-                <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
-        <i class="glow glow--flame" style="--gx:70.5%; --gy:47.2%; --gr:14%; --gt:3.7s; --gt2:5.3s; --gc1:rgba(255,198,124,.62); --gc2:rgba(226,118,40,.30)"></i>
-        <div class="card-lab"><b>Detroit: Become Human</b><span class="jp">人間</span></div>
-      </div>
-      <div class="card-meta"><span>Dangerous work</span><span>02 / 03</span></div>
-    </article>
-    <article class="card" data-rv="up" data-view="2" data-cursor>
-      <div class="card-fr" data-frame>
-                <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
-        <i class="glow" style="--gx:48.0%; --gy:16.8%; --gr:20%; --gt:7.3s; --gt2:11.2s; --gc1:rgba(255,138,104,.52); --gc2:rgba(208,54,36,.24)"></i>
-        <div class="card-lab"><b>Adaptability</b><span class="jp">適応</span></div>
-      </div>
-      <div class="card-meta"><span>Data and ideas</span><span>03 / 03</span></div>
-    </article>
+  <div class="kage-decks" id="cards">
+    <a class="kage-deck kage-deck--cosmos" href="/landing-pages/projects.html" data-rv="up" data-cursor aria-label="Open Projects bookshelf">
+      <span class="kage-deck__stars" aria-hidden="true"></span>
+      <span class="kage-deck__planet" aria-hidden="true"></span>
+      <span class="kage-deck__orbit" aria-hidden="true"></span>
+      <span class="kage-deck__top"><span>01 / PROJECTS</span><span>EXPLORE THE COSMOS</span></span>
+      <span class="kage-deck__bottom"><strong>PROJECTS</strong><i>Enter the archive ↗</i></span>
+    </a>
+    <a class="kage-deck kage-deck--abstract" href="/landing-pages/skills.html" data-rv="up" data-cursor aria-label="Open Skills bookshelf">
+      <span class="kage-deck__sculpture" aria-hidden="true"></span>
+      <span class="kage-deck__orb" aria-hidden="true"></span>
+      <span class="kage-deck__ring" aria-hidden="true"></span>
+      <span class="kage-deck__top"><span>02 / SKILLS</span><span>EXPLORE THE FORMS</span></span>
+      <span class="kage-deck__bottom"><strong>SKILLS</strong><i>Enter the index ↗</i></span>
+    </a>
   </div>
 </section>
-
-<div class="card-slide" id="card-slide" aria-hidden="true">
-  <button class="card-slide-back" type="button" aria-label="Back to home" data-cursor>
-    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10.5 3.5 6 8l4.5 4.5M6.5 8H14" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <span>Back to home</span>
-  </button>
-  <button class="card-slide-close" type="button" aria-label="Close slide" data-cursor>
-    <svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 3l8 8M11 3 3 11" stroke="currentColor" stroke-width="1.2"/></svg>
-  </button>
-  <div class="card-slide-inner">
-    <header class="card-slide-heading">
-      <div class="card-slide-kicker" id="card-slide-kicker">01 / THE HUMAN EDGE</div>
-      <h1 class="card-slide-title display" id="card-slide-title"></h1>
-    </header>
-
-    <section class="card-slide-deck" data-deck="0" aria-hidden="true">
-      <div class="deck-main">
-        <p class="deck-lead">A machine can recognise a face, detect a change in tone, or generate a comforting response. But recognising an emotion is not the same as feeling it — and responding politely is not the same as understanding someone’s life.</p>
-        <div class="deck-block">
-          <h2>Reading emotion vs. feeling it</h2>
-          <p>AI can identify patterns in language, facial movement and behaviour, then predict what response may be useful. That can support people in customer service, accessibility and healthcare. But the system is working from data and probabilities; it does not share a person’s lived experience.</p>
-        </div>
-        <div class="deck-block">
-          <h2>Where human empathy matters</h2>
-          <p>Care often depends on context: trust, culture, vulnerability, personal history and the ability to take responsibility. In sensitive settings, AI can assist with information and routine support, while people remain involved in decisions that affect dignity, safety and wellbeing.</p>
-        </div>
-        <div class="deck-sources">
-          <a href="https://www.who.int/publications/i/item/9789240029200" target="_blank" rel="noopener">WHO · AI in health</a>
-          <a href="https://www.unesco.org/en/legal-affairs/recommendation-ethics-artificial-intelligence" target="_blank" rel="noopener">UNESCO · Human oversight</a>
-        </div>
-      </div>
-      <aside class="deck-aside">
-        <div class="eyebrow">The human distinction</div>
-        <strong>Understanding a signal is not the same as understanding a person.</strong>
-        <p>Use AI to extend our ability to notice and respond — not to remove human care, accountability or connection from the moments that need them most.</p>
-      </aside>
-    </section>
-
-    <section class="card-slide-deck" data-deck="1" aria-hidden="true">
-      <div class="deck-main">
-        <p class="deck-lead">What happens when a machine built to obey begins to question its orders? <em>Detroit: Become Human</em> turns that question into an interactive story — and asks players to decide where personhood, freedom and responsibility begin.</p>
-        <div class="deck-block">
-          <h2>Three androids. Three perspectives.</h2>
-          <p>Connor is designed to assist police investigations. Kara is a domestic android whose bond with a child drives her to protect someone beyond her assigned role. Markus becomes a leader in a movement demanding freedom. Their stories put obedience, care and collective action into conflict.</p>
-        </div>
-        <div class="deck-block">
-          <h2>A thought experiment, not a forecast</h2>
-          <p>The game is fiction, not evidence that today's AI is conscious or that androids will develop feelings. Its value is as a mirror: it lets us examine how humans define intelligence, rights and moral responsibility when something appears human but is treated as a tool.</p>
-        </div>
-        <div class="deck-sources">
-          <a href="https://www.quanticdream.com/en/detroit-become-human/press-center" target="_blank" rel="noopener">Quantic Dream · Game overview</a>
-          <a href="https://blog.playstation.com/archive/2018/03/01/quantic-dreams-neo-noir-thriller-detroit-become-human-hits-ps4-on-25th-may/" target="_blank" rel="noopener">PlayStation · Characters</a>
-        </div>
-      </div>
-      <aside class="deck-aside">
-        <div class="eyebrow">The question it leaves us</div>
-        <strong>If something acts human, what do we owe it?</strong>
-        <p>The story does not settle the debate. It makes the player confront the assumptions behind the words “human”, “machine” and “choice”.</p>
-      </aside>
-    </section>
-
-    <section class="card-slide-deck" data-deck="2" aria-hidden="true">
-      <div class="deck-main">
-        <p class="deck-lead">The future of work is not simply a contest between people and machines. AI changes tasks: some are automated, some are accelerated, and new responsibilities emerge around the technology itself.</p>
-        <div class="deck-block">
-          <h2>Jobs change task by task</h2>
-          <p>OECD research describes three forces happening together: automation of existing tasks, creation of new tasks and occupations, and productivity improvements. Exposure to AI does not automatically mean an entire job can be automated. The effect depends on the work, the context and how organisations deploy the tools.</p>
-        </div>
-        <div class="deck-block">
-          <h2>Adaptability becomes a core skill</h2>
-          <p>As tools evolve, people need to keep learning: digital and AI literacy help us use technology; critical thinking helps us question its output; creativity, communication and collaboration help us apply it to real problems. Reskilling is not a one-time event — it is an ongoing habit.</p>
-        </div>
-        <div class="deck-sources">
-          <a href="https://www.oecd.org/en/publications/skills-in-the-ai-age_972bd15e-en/full-report/component-4.html" target="_blank" rel="noopener">OECD · Skills in the AI age</a>
-          <a href="https://www.oecd.org/content/dam/oecd/en/publications/reports/2024/11/how-is-ai-changing-the-way-workers-perform-their-jobs-and-the-skills-they-require_842aa075/8dc62c72-en.pdf" target="_blank" rel="noopener">OECD · Skills at work</a>
-        </div>
-      </div>
-      <aside class="deck-aside">
-        <div class="eyebrow">The advantage</div>
-        <strong>Don't compete with every new tool. Learn how to work with it.</strong>
-        <p>Adaptability is the ability to notice change, learn what matters, question the result and move your skills toward the problems only people can define.</p>
-      </aside>
-    </section>
-  </div>
-</div>
 
 <!-- ============================================================ chapter III -->
 <section class="sec" id="lessons" data-cam="3">
@@ -4620,79 +4394,6 @@ function wireNav() {
   }));
 }
 
-function wireCardSlides() {
-  const slide = $('#card-slide');
-  const title = $('#card-slide-title');
-  const kicker = $('#card-slide-kicker');
-  const decks = $$('[data-deck]');
-  const back = $('.card-slide-back');
-  const close = $('.card-slide-close');
-  let previousScroll = 0;
-  let closeFallback = null;
-  let closing = false;
-  const finishClose = () => {
-    if (!closing) return;
-    closing = false;
-    if (closeFallback) { clearTimeout(closeFallback); closeFallback = null; }
-    window.scrollTo(0, previousScroll);
-    RIG.prog = progressFor(previousScroll);
-    RIG.smooth = RIG.prog;
-    RIG.intro = 1;
-    INTRO.t0 = 0;
-    tPrev = performance.now();
-    slide.classList.remove('is-open', 'is-closing');
-    decks.forEach(deck => {
-      deck.classList.remove('is-active');
-      deck.setAttribute('aria-hidden', 'true');
-    });
-    document.body.classList.remove('card-slide-open');
-  };
-  const openSlide = card => {
-    if (closeFallback) { clearTimeout(closeFallback); closeFallback = null; }
-    closing = false;
-    slide.classList.remove('is-closing');
-    previousScroll = window.scrollY;
-    const index = Number(card.dataset.view || 0);
-    const label = card.querySelector('.card-lab b');
-    title.textContent = label ? label.textContent.trim() : '';
-    kicker.textContent = String(index + 1).padStart(2, '0') + ' / ' + ['THE HUMAN EDGE','A FICTIONAL FUTURE','THE SKILLS AHEAD'][index];
-    decks.forEach((deck, i) => {
-      const active = i === index;
-      deck.classList.toggle('is-active', active);
-      deck.setAttribute('aria-hidden', active ? 'false' : 'true');
-    });
-    window.scrollTo(0, anchors[1] || 0);
-    slide.scrollTop = 0;
-    slide.classList.add('is-open');
-    slide.setAttribute('aria-hidden', 'false');
-    document.body.classList.add('card-slide-open');
-    back.focus({ preventScroll: true });
-  };
-  const closeSlide = () => {
-    if (!slide.classList.contains('is-open') || closing) return;
-    closing = true;
-    slide.classList.add('is-closing');
-    slide.setAttribute('aria-hidden', 'true');
-    if (REDUCE) { finishClose(); return; }
-    closeFallback = setTimeout(finishClose, 1100);
-  };
-  slide.addEventListener('transitionend', e => {
-    if (e.target === slide && e.propertyName === 'opacity' && closing) finishClose();
-  });
-  $$('#cards .card').forEach(card => {
-    card.setAttribute('role', 'button');
-    card.setAttribute('tabindex', '0');
-    card.addEventListener('click', () => openSlide(card));
-    card.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openSlide(card); }
-    });
-  });
-  back.addEventListener('click', closeSlide);
-  close.addEventListener('click', closeSlide);
-  slide.addEventListener('click', e => { if (e.target === slide) closeSlide(); });
-  addEventListener('keydown', e => { if (e.key === 'Escape' && slide.classList.contains('is-open')) closeSlide(); });
-}
-
 function wireFocus() {
   const set = i => { RIG.focus = i; };
   $$('[data-chip]').forEach(el => {
@@ -4971,7 +4672,7 @@ function frame(now) {
   const raw = (now - tPrev) / 1000 || 0;
   const dt = Math.min(raw, .05);              /* animation never jumps … */
   tPrev = now; clock += dt;
-  fadeIn = INTRO.t0 ? sat((now - INTRO.t0) / 2200) : 1;
+  fadeIn = INTRO.t0 ? sat((now - INTRO.t0) / 700) : 1;
 
   if (!PERF.locked && clock > 2.2) {
     PERF.acc += raw; PERF.n++;      /* … but the governor reads the truth */
@@ -4987,8 +4688,8 @@ function frame(now) {
   RIG.my = damp(RIG.my, RIG.tmy, 2.6, dt);
   if (INTRO.t0) {
     const el = (now - INTRO.t0) / 1000;
-    RIG.intro = sat(el / 5.2);
-    WORD.reveal = Math.min(1.2, el / 3.8);
+    RIG.intro = sat(el / 2.4);
+    WORD.reveal = Math.min(1.2, el / 1.5);
   }
 
   applyCamera();
@@ -5049,7 +4750,7 @@ const JOBS = [
 
 function boot() {
   makeGrain();
-  wireReveals(); wireForegroundStages(); wireNav(); wireHeroExit(); wireFocus(); wireCardSlides(); wireCursor();
+  wireReveals(); wireForegroundStages(); wireNav(); wireHeroExit(); wireFocus(); wireCursor();
   document.body.classList.add('is-locked');
   let i = 0;
   const step = () => {
@@ -5104,7 +4805,7 @@ function start() {
     setTimeout(() => {
       document.body.classList.remove('is-locked');
       $('#hero').querySelectorAll('[data-rv], .mask-line').forEach((e, i) =>
-        setTimeout(() => e.classList.add('rv-in'), REDUCE ? 0 : 260 + i * 260));
+        setTimeout(() => e.classList.add('rv-in'), REDUCE ? 0 : 120 + i * 95));
     }, REDUCE ? 0 : 340);
   }
   running = true; tPrev = performance.now();
