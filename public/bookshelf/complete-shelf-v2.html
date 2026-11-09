@@ -1833,6 +1833,26 @@
       .frame{border-color:rgba(190,175,255,.2)}
     `;
     document.head.appendChild(themeStyles);
+    const kageTheme = new URLSearchParams(window.location.search).get("theme") === "abstract" ? "abstract" : "cosmos";
+    const kageThemeStyle = document.createElement("style");
+    kageThemeStyle.textContent = kageTheme === "abstract" ? `
+      :root { --paper:#080808; --paper-deep:#050505; --paper-pale:#e5e5e2; --ink:#eeeeeb; --ink-soft:#aaa9a4; --walnut:#252525; --walnut-deep:#090909; --rule:rgba(235,235,230,.22); --accent:#9a9a95; }
+      .experience { background:radial-gradient(ellipse at 45% 35%,#222,#080808 68%); }
+      .editorial-header { color:#efefeb; }
+      .editorial-identity span,.editorial-index span { color:#aaa; }
+      .hero-word { color:rgba(255,255,255,.045); }
+      .frame { border-color:rgba(240,240,240,.18); }
+      #scene { filter:grayscale(.78) contrast(1.08); }
+    ` : `
+      :root { --paper:#090b1b; --paper-deep:#050713; --paper-pale:#e7e3f3; --ink:#f2efff; --ink-soft:#aaa8c2; --walnut:#2b2446; --walnut-deep:#090b1c; --rule:rgba(206,195,255,.25); --accent:#a78bfa; }
+      .experience { background:radial-gradient(ellipse at 48% 32%,#242044,#070916 72%); }
+      .editorial-header { color:#eeeaff; }
+      .editorial-identity span,.editorial-index span { color:#b9b3d4; }
+      .hero-word { color:rgba(174,157,255,.09); }
+      .frame { border-color:rgba(190,175,255,.2); }
+    `;
+    document.head.appendChild(kageThemeStyle);
+
     const BOOKS = [
       {
         id: "network-layer",
