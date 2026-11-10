@@ -1,8 +1,3 @@
-"use client";
-
-import { SylvaHero } from "@designcodeio/threeui";
-import "@designcodeio/threeui/style.css";
-
 export default function JourneyPage() {
   return (
     <main
@@ -17,15 +12,22 @@ export default function JourneyPage() {
         background: "#4a4d44",
       }}
     >
-      <SylvaHero
-        headingFont="lexend"
-        bodyFont="lexend"
-        headingWeight="300"
-        bodyWeight="300"
-        primaryColor="#ffffff"
-        headingSize={63}
-        bodySize={16.5}
-        headingLetterSpacing={-0.006}
+      <iframe
+        title="Sylva — Into the Living Green"
+        src="/landing-pages/inner-green-3d.html"
+        loading="eager"
+        allow="fullscreen"
+        allowFullScreen
+        sandbox="allow-scripts allow-same-origin allow-forms allow-modals allow-popups allow-downloads"
+        style={{
+          position: "absolute",
+          inset: 0,
+          display: "block",
+          width: "100%",
+          height: "100%",
+          border: 0,
+          background: "#4a4d44",
+        }}
       />
     </main>
   );
