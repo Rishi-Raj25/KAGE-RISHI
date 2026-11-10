@@ -103,6 +103,10 @@
     white-space:nowrap; user-select:none; pointer-events:none;
   }
 
+  /* The vertical continuation reuses Sylva's actual moss-root meshes.
+     It sits behind the primary scene and chapter decks. */
+  #sylva-root-flow{ position:absolute; inset:0; z-index:2; width:100%; height:100%; pointer-events:none; opacity:.92; }
+
   /* ── three.js canvas (z 3 — above card 1, below everything else) ─────── */
   #scene{
     position:absolute; inset:0; z-index:3;
@@ -718,6 +722,7 @@
 <body>
 
 <main class="hero" id="hero">
+  <canvas id="sylva-root-flow" aria-hidden="true"></canvas>
   <canvas id="scene"></canvas>
 
   <div class="ghost fade" style="--d:1150ms" aria-hidden="true">SYLVA</div>
@@ -4213,12 +4218,94 @@ window.__seek   = v => { clock = v; drawn = null; };
     emitSpray(dt);
 
     renderer.render(scene, camera);
+    var rootFlowCanvas = document.getElementById("sylva-root-flow");
+    if (window.__mountSylvaRootFlow && rootFlowCanvas && !rootFlowCanvas.__mounted && nearGroup) {
+      window.__mountSylvaRootFlow(rootFlowCanvas);
+    }
+    if (window.__renderSylvaRootFlow) window.__renderSylvaRootFlow();
     if (++frames === 2) window.__ready = true;
   }
 
 
   /* Expose the homepage's actual moss-root geometry for the vertical continuation.
      The continuation clones the built root meshes; it does not draw substitute vines. */
+  /* Expose the homepage's actual moss-root geometry for the vertical continuation.
+     The continuation clones the built root meshes; it does not draw substitute vines. */
+  window.__mountSylvaRootFlow = function (target) {
+    if (!target || !nearGroup || !window.THREE || target.__mounted) return;
+    target.__mounted = true;
+    var smallFlow = window.innerWidth < 760;
+    var flowRenderer;
+    try {
+      flowRenderer = new THREE.WebGLRenderer({ canvas: target, alpha: true, antialias: !smallFlow, powerPreference: 'high-performance' });
+    } catch (err) {
+      target.__mounted = false;
+      console.error('Sylva vertical root renderer could not start', err);
+      return;
+    }
+    flowRenderer.setClearColor(0x000000, 0);
+    flowRenderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, smallFlow ? 1.2 : 1.5));
+    flowRenderer.toneMapping = THREE.ACESFilmicToneMapping;
+    flowRenderer.toneMappingExposure = 1.30;
+    if ('sRGBEncoding' in THREE) flowRenderer.outputEncoding = THREE.sRGBEncoding;
+
+    var flowScene = new THREE.Scene();
+    var flowCamera = new THREE.OrthographicCamera(-36, 36, 48, -48, 0.1, 300);
+    flowCamera.position.set(0, 0, 80);
+    flowCamera.lookAt(0, 0, 0);
+
+    /* Three large copies of Sylva's original, fully modelled root cluster.
+       They overlap vertically so the bark and moss read as one continuous,
+       branching structure rather than separate decorative cards. */
+    var placements = [
+      { x: -2.4, y:  27, s: 4.3, r: 1.5708 },
+      { x:  2.0, y:   0, s: 4.3, r: 1.4050 },
+      { x: -1.7, y: -27, s: 4.3, r: 1.7350 }
+    ];
+    placements.forEach(function (p) {
+      var root = nearGroup.clone(true);
+      root.position.set(p.x, p.y, 0);
+      root.rotation.set(0, 0, p.r);
+      root.scale.setScalar(p.s);
+      root.traverse(function (node) {
+        node.frustumCulled = false;
+        if (!node.material) return;
+        if (Array.isArray(node.material)) node.material = node.material.map(function (mat) { return mat.clone(); });
+        else node.material = node.material.clone();
+        var mats = Array.isArray(node.material) ? node.material : [node.material];
+        mats.forEach(function (mat) {
+          if (mat && mat.uniforms && mat.uniforms.uMouse) mat.uniforms.uMouse.value.set(9999, 9999, 9999);
+        });
+      });
+      flowScene.add(root);
+    });
+
+    function resizeFlow() {
+      var rect = target.getBoundingClientRect();
+      var width = Math.max(1, rect.width), height = Math.max(1, rect.height);
+      flowRenderer.setSize(width, height, false);
+      var halfH = 48;
+      var halfW = halfH * width / height;
+      flowCamera.left = -halfW;
+      flowCamera.right = halfW;
+      flowCamera.top = halfH;
+      flowCamera.bottom = -halfH;
+      flowCamera.updateProjectionMatrix();
+      flowRenderer.render(flowScene, flowCamera);
+    }
+    var flowObserver = new ResizeObserver(resizeFlow);
+    flowObserver.observe(target);
+    resizeFlow();
+    window.__renderSylvaRootFlow = function () {
+      if (target.isConnected) flowRenderer.render(flowScene, flowCamera);
+    };
+    target.__flowDispose = function () {
+      flowObserver.disconnect();
+      flowRenderer.dispose();
+      window.__renderSylvaRootFlow = null;
+    };
+  };
+
   /* ── boot ──────────────────────────────────────────────────────────── */
   /* Kick the entrance off first. Growing the roots and compiling the
      shaders costs a few hundred ms of main thread, and doing that before
