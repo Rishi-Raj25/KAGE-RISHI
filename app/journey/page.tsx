@@ -19,6 +19,17 @@ export default function JourneyPage() {
         allow="fullscreen"
         allowFullScreen
         sandbox="allow-scripts allow-same-origin allow-forms allow-modals allow-popups allow-downloads"
+        onLoad={(event) => {
+          const frame = event.currentTarget;
+          const frameDocument = frame.contentDocument;
+          if (!frameDocument || frameDocument.getElementById("kage-journey-enhancements-loader")) return;
+
+          const enhancement = frameDocument.createElement("script");
+          enhancement.id = "kage-journey-enhancements-loader";
+          enhancement.src = "/journey-enhancements.js";
+          enhancement.async = true;
+          frameDocument.body.appendChild(enhancement);
+        }}
         style={{
           position: "absolute",
           inset: 0,
