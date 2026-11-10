@@ -884,21 +884,21 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
 }
 
 
-/* Two KAGE decks — original chapter and cinematic experience preserved. */
-.kage-decks{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,1.5vw,24px);align-items:stretch}
-.kage-deck{position:relative;display:block;isolation:isolate;min-height:clamp(380px,58vw,680px);overflow:hidden;border:1px solid rgba(223,231,224,.17);border-radius:18px;color:var(--bone);text-decoration:none;background:#07090e;transition:border-color .55s var(--ease),transform .65s var(--ease-out)}
-.kage-deck:hover{border-color:rgba(223,231,224,.48);transform:translateY(-5px)}
-.kage-deck__top,.kage-deck__bottom{position:absolute;z-index:4;left:clamp(18px,2.4vw,34px);right:clamp(18px,2.4vw,34px);display:flex;justify-content:space-between;align-items:center;gap:12px;text-transform:uppercase;letter-spacing:.16em;font-size:9px}
-.kage-deck__top{top:24px;color:rgba(239,239,245,.72)}.kage-deck__bottom{bottom:28px;align-items:end}.kage-deck__bottom strong{font-size:clamp(34px,5vw,68px);line-height:.85;letter-spacing:-.06em;font-weight:400;color:#f0eee9}.kage-deck__bottom i{font-style:normal;color:#d6d1e2;white-space:nowrap;font-size:9px}
-.kage-deck--cosmos{background:radial-gradient(ellipse at 50% 48%,#29204c 0,#11162b 30%,#080b14 66%,#030509 100%)}.kage-deck--cosmos:before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 22% 25%,rgba(134,75,174,.4),transparent 30%),radial-gradient(ellipse at 80% 65%,rgba(38,104,154,.3),transparent 34%),radial-gradient(ellipse at 55% 10%,rgba(211,91,122,.2),transparent 24%)}
-.kage-deck__stars{position:absolute;inset:0;background-image:radial-gradient(2px 2px at 12% 22%,#fff 60%,transparent),radial-gradient(1px 1px at 24% 68%,#d9d4ff 60%,transparent),radial-gradient(2px 2px at 78% 18%,#fff 60%,transparent),radial-gradient(1px 1px at 87% 56%,#fff 60%,transparent),radial-gradient(1.5px 1.5px at 62% 78%,#d6d2ff 60%,transparent),radial-gradient(1px 1px at 39% 37%,#fff 60%,transparent),radial-gradient(1px 1px at 8% 82%,#fff 60%,transparent)}
-.kage-deck__planet{position:absolute;width:clamp(210px,30vw,390px);aspect-ratio:1;border-radius:50%;left:50%;top:49%;transform:translate(-50%,-50%);background:radial-gradient(circle at 32% 28%,#fff0 0,#d3a3bc 2%,#895c91 13%,#3b315f 38%,#101426 68%,#03050b 82%);box-shadow:inset -28px -25px 60px #000,0 0 65px rgba(154,117,226,.28),0 0 150px rgba(92,88,187,.22)}
-.kage-deck__orbit{position:absolute;width:78%;height:27%;left:50%;top:50%;border:1px solid rgba(222,213,255,.62);border-radius:50%;transform:translate(-50%,-50%) rotate(-24deg);box-shadow:0 0 18px rgba(173,154,255,.2)}.kage-deck__orbit:after{content:'';position:absolute;width:8px;height:8px;left:16%;top:11%;border-radius:50%;background:#f6eaff;box-shadow:0 0 16px 5px rgba(210,193,255,.8)}
-.kage-deck--abstract{background:radial-gradient(ellipse at 52% 45%,#252525 0,#111 43%,#050505 100%)}.kage-deck--abstract:before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 20%,rgba(255,255,255,.09),transparent 30%),linear-gradient(125deg,transparent 25%,rgba(255,255,255,.035),transparent 70%)}
-.kage-deck__sculpture{position:absolute;width:65%;height:82%;left:18%;top:9%;border-radius:48% 52% 26% 74%/45% 32% 68% 55%;background:linear-gradient(135deg,#aaa 0,#555 19%,#202020 48%,#070707 72%);box-shadow:inset -32px -28px 55px #000,inset 14px 12px 24px rgba(255,255,255,.25),0 0 70px rgba(255,255,255,.08);transform:rotate(23deg)}
-.kage-deck__orb{position:absolute;width:clamp(90px,13vw,165px);aspect-ratio:1;right:12%;top:22%;border-radius:50%;background:radial-gradient(circle at 30% 25%,#eee,#777 22%,#202020 66%,#050505 82%);box-shadow:inset -14px -12px 25px #000,0 0 45px rgba(255,255,255,.12)}
-.kage-deck__ring{position:absolute;width:72%;height:22%;left:42%;top:55%;border:1px solid rgba(220,220,220,.55);border-radius:50%;transform:rotate(34deg)}
-@media(max-width:760px){.kage-decks{grid-template-columns:1fr}.kage-deck{min-height:390px}.kage-deck__planet{width:min(68vw,320px)}.kage-deck__sculpture{width:58%;height:76%;left:20%}}
+/* Original KAGE photographic cards, adapted to two full-size destinations. */
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,1.4vw,22px);align-items:stretch}
+.card{position:relative;display:flex;flex-direction:column;min-width:0;cursor:pointer;transform:none!important}
+.card-fr{position:relative;aspect-ratio:auto;height:min(68vh,700px);min-height:420px;overflow:hidden;border-radius:18px;outline:1px solid rgba(223,231,224,.16);outline-offset:-1px;transition:outline-color .5s var(--ease),transform .6s var(--ease-out)}
+.card:hover .card-fr{outline-color:rgba(223,231,224,.42);transform:translateY(-3px)}
+.card:nth-child(1) .card-fr{background:linear-gradient(180deg,rgba(3,6,9,.04) 36%,rgba(3,6,9,.76) 100%),url('https://ublctyddhtbgaersvxxb.supabase.co/storage/v1/object/public/threeui-media/scene-images/6884c5281949d2c3530ad4cf/kage-approach.webp') center/cover no-repeat}
+.card:nth-child(2) .card-fr{background:linear-gradient(180deg,rgba(3,6,9,.06) 36%,rgba(3,6,9,.78) 100%),url('https://ublctyddhtbgaersvxxb.supabase.co/storage/v1/object/public/threeui-media/scene-images/6884c5281949d2c3530ad4cf/kage-lantern-court.webp') center/cover no-repeat}
+.card-fr::after{content:'';position:absolute;inset:0;background:linear-gradient(transparent 46%,rgba(4,6,9,.82));pointer-events:none}
+.card-fr{isolation:isolate}
+.card-lab{position:absolute;left:clamp(18px,2vw,28px);right:clamp(18px,2vw,28px);bottom:clamp(18px,2vw,28px);z-index:2;display:flex;align-items:flex-end;justify-content:space-between;gap:10px}
+.card-lab b{font-size:clamp(22px,2.4vw,36px);font-weight:400;letter-spacing:.015em;text-transform:uppercase}
+.card-lab .jp{font-size:12px;letter-spacing:.3em;color:rgba(223,231,224,.72)}
+.card-ar{position:absolute;top:18px;right:18px;z-index:2;width:30px;height:30px;opacity:.85;transition:.5s var(--ease-out)}
+.card-meta{display:flex;justify-content:space-between;margin-top:12px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+@media(max-width:760px){.cards{grid-template-columns:1fr;gap:18px}.card-fr{height:auto;min-height:0;aspect-ratio:4/3}.card-lab b{font-size:clamp(21px,6vw,30px)}}
 </style>
 </head>
 <body data-layout-hero="b" data-layout-story="b" data-layout-gallery="b"
@@ -1044,18 +1044,22 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
     </span>
   </div>
   <div class="sec-head" data-rv="fade">
-    <span class="k"><b>02</b> — What Machines Do</span><span class="rule"></span><span class="k jp">機械</span>
+    <span class="k"><b>02</b> — The Archive</span><span class="rule"></span><span class="k jp">収蔵庫</span>
   </div>
-  <div class="kage-decks" id="cards">
-    <a class="kage-deck kage-deck--cosmos" href="/bookshelf/complete-shelf-v2.html?theme=cosmos" data-rv="up" data-cursor aria-label="Open Projects bookshelf">
-      <span class="kage-deck__stars" aria-hidden="true"></span><span class="kage-deck__planet" aria-hidden="true"></span><span class="kage-deck__orbit" aria-hidden="true"></span>
-      <span class="kage-deck__top"><span>01 / PROJECTS</span><span>THE COSMIC ARCHIVE</span></span>
-      <span class="kage-deck__bottom"><strong>PROJECTS</strong><i>Open bookshelf ↗</i></span>
+  <div class="cards" id="cards">
+    <a class="card" href="/bookshelf/complete-shelf-v2.html?theme=cosmos" data-rv="up" data-cursor aria-label="Open Projects bookshelf">
+      <div class="card-fr" data-frame>
+        <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
+        <div class="card-lab"><b>Projects</b><span class="jp">作品</span></div>
+      </div>
+      <div class="card-meta"><span>Selected work & experiments</span><span>01 / 02</span></div>
     </a>
-    <a class="kage-deck kage-deck--abstract" href="/bookshelf/complete-shelf-v2.html?theme=abstract" data-rv="up" data-cursor aria-label="Open Skills bookshelf">
-      <span class="kage-deck__sculpture" aria-hidden="true"></span><span class="kage-deck__orb" aria-hidden="true"></span><span class="kage-deck__ring" aria-hidden="true"></span>
-      <span class="kage-deck__top"><span>02 / SKILLS</span><span>THE ABSTRACT INDEX</span></span>
-      <span class="kage-deck__bottom"><strong>SKILLS</strong><i>Open bookshelf ↗</i></span>
+    <a class="card" href="/bookshelf/complete-shelf-v2.html?theme=abstract" data-rv="up" data-cursor aria-label="Open Skills bookshelf">
+      <div class="card-fr" data-frame>
+        <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
+        <div class="card-lab"><b>Skills</b><span class="jp">技能</span></div>
+      </div>
+      <div class="card-meta"><span>Tools, craft & capabilities</span><span>02 / 02</span></div>
     </a>
   </div>
 </section>
