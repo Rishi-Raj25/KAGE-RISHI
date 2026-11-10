@@ -784,11 +784,11 @@
     </span>
 
     <h1 class="headline" style="--pd:18; --pr:1.2">
-      <span><i style="--d:260ms">Step into</i></span>
-      <span><i style="--d:360ms">the living world</i></span>
+      <span><i style="--d:260ms">A life, growing</i></span>
+      <span><i style="--d:360ms">in many directions.</i></span>
     </h1>
 
-    <p class="lede mask" style="--d:480ms; --pd:14; --pr:1">We restore wild places through patient design, native planting, and a deeper kind of stewardship.</p>
+    <p class="lede mask" style="--d:480ms; --pd:14; --pr:1">A continuous landscape of roots, branches, moss and growth.</p>
 
     <div class="pill-clip">
       <div class="pill mask" style="--d:600ms; --pd:15; --pr:1.4">
@@ -4278,82 +4278,12 @@ window.__seek   = v => { clock = v; drawn = null; };
     emitSpray(dt);
 
     renderer.render(scene, camera);
-    if (window.__renderSylvaRootFlow) window.__renderSylvaRootFlow();
     if (++frames === 2) window.__ready = true;
   }
 
 
   /* Expose the homepage's actual moss-root geometry for the vertical continuation.
      The continuation clones the built root meshes; it does not draw substitute vines. */
-  window.__mountSylvaRootFlow = function (target) {
-    if (!target || !nearGroup || !window.THREE || target.__mounted) return;
-    target.__mounted = true;
-    var smallFlow = window.innerWidth < 760;
-    var flowRenderer;
-    try {
-      flowRenderer = new THREE.WebGLRenderer({ canvas: target, alpha: true, antialias: !smallFlow, powerPreference: 'high-performance' });
-    } catch (err) {
-      target.__mounted = false;
-      console.error('Sylva vertical continuation renderer could not start', err);
-      return;
-    }
-    flowRenderer.setClearColor(0x000000, 0);
-    flowRenderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, smallFlow ? 1.15 : 1.5));
-    flowRenderer.toneMapping = THREE.ACESFilmicToneMapping;
-    flowRenderer.toneMappingExposure = 1.30;
-    if ('sRGBEncoding' in THREE) flowRenderer.outputEncoding = THREE.sRGBEncoding;
-
-    var flowScene = new THREE.Scene();
-    var flowCamera = new THREE.OrthographicCamera(-42, 42, 52, -52, 0.1, 300);
-    flowCamera.position.set(0, 0, 80);
-    flowCamera.lookAt(0, 0, 0);
-
-    /* One continuous vertical continuation made from the exact original
-       Sylva near-root group. No repeated segments, generated paths or new
-       branch geometry: this is the existing three-limb tree structure,
-       rotated as a whole so its long root runs down the page. */
-    var verticalRoot = nearGroup.clone(true);
-    verticalRoot.position.set(0, 0, 0);
-    verticalRoot.rotation.set(0, 0, Math.PI / 2);
-    verticalRoot.scale.setScalar(smallFlow ? 9.3 : 9.8);
-    verticalRoot.traverse(function (node) {
-      node.frustumCulled = false;
-      if (!node.material) return;
-      if (Array.isArray(node.material)) node.material = node.material.map(function (mat) { return mat.clone(); });
-      else node.material = node.material.clone();
-      var mats = Array.isArray(node.material) ? node.material : [node.material];
-      mats.forEach(function (mat) {
-        if (mat && mat.uniforms && mat.uniforms.uMouse) mat.uniforms.uMouse.value.set(9999, 9999, 9999);
-      });
-    });
-    flowScene.add(verticalRoot);
-
-    function resizeFlow() {
-      var rect = target.getBoundingClientRect();
-      var width = Math.max(1, rect.width), height = Math.max(1, rect.height);
-      flowRenderer.setSize(width, height, false);
-      var halfH = 52;
-      var halfW = halfH * width / height;
-      flowCamera.left = -halfW;
-      flowCamera.right = halfW;
-      flowCamera.top = halfH;
-      flowCamera.bottom = -halfH;
-      flowCamera.updateProjectionMatrix();
-      flowRenderer.render(flowScene, flowCamera);
-    }
-    var flowObserver = new ResizeObserver(resizeFlow);
-    flowObserver.observe(target);
-    resizeFlow();
-    window.__renderSylvaRootFlow = function () {
-      if (target.isConnected) flowRenderer.render(flowScene, flowCamera);
-    };
-    target.__flowDispose = function () {
-      flowObserver.disconnect();
-      flowRenderer.dispose();
-      window.__renderSylvaRootFlow = null;
-    };
-  };
-
   /* ── boot ──────────────────────────────────────────────────────────── */
   /* Kick the entrance off first. Growing the roots and compiling the
      shaders costs a few hundred ms of main thread, and doing that before
