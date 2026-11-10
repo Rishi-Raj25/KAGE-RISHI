@@ -16,7 +16,7 @@ export default function JourneyPage() {
     >
       <iframe
         title="Sylva — Into the Living Green"
-        src="/landing-pages/inner-green-3d.html?v=20261110-clean"
+        src="/landing-pages/inner-green-3d.html?v=20261110-journey-v2"
         loading="eager"
         allow="fullscreen"
         allowFullScreen
@@ -28,7 +28,7 @@ export default function JourneyPage() {
 
           const enhancement = frameDocument.createElement("script");
           enhancement.id = "kage-journey-enhancements-loader";
-          enhancement.src = "/journey-enhancements.js?v=20261110-clean";
+          enhancement.src = "/journey-enhancements.js?v=20261110-journey-v2";
           enhancement.async = true;
           frameDocument.body.appendChild(enhancement);
         }}
