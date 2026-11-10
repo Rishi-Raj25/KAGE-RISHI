@@ -2094,8 +2094,8 @@
     if (fallbackKicker) fallbackKicker.textContent = collectionName + " · Static catalogue";
     const fallbackTitle = document.getElementById("fallback-title");
     if (fallbackTitle) fallbackTitle.textContent = kageTheme === "abstract" ? "The tools behind the work." : "A universe of things made real.";
-    const fallbackStatus = document.getElementById("fallback-status");
-    if (fallbackStatus) fallbackStatus.textContent = "The complete " + collectionName.toLowerCase() + " catalogue remains readable while the interactive shelf is prepared.";
+    const fallbackStatusNode = document.getElementById("fallback-status");
+    if (fallbackStatusNode) fallbackStatusNode.textContent = "The complete " + collectionName.toLowerCase() + " catalogue remains readable while the interactive shelf is prepared.";
     const fallbackBooks = [...document.querySelectorAll(".fallback-book strong")];
     fallbackBooks.forEach((node,index) => { if (collectionData[index]) node.textContent = collectionData[index].title; });
 
