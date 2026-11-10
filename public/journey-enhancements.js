@@ -1,92 +1,80 @@
 (() => {
-  if (window.__kageJourneyEnhanced) return;
-  window.__kageJourneyEnhanced = true;
+  if (window.__kageJourneyV2) return;
+  window.__kageJourneyV2 = true;
+
   const doc = document;
   const style = doc.createElement("style");
-  style.id = "kage-journey-enhancements";
-  style.textContent = \`
-    html{scroll-behavior:smooth} body{min-height:100%;overflow-x:hidden;overflow-y:auto}
-    .hero{height:100svh;min-height:620px}
-    .play-wrap,.card--about,.knob-float,.card--stove,.stat{display:none!important}
-    .journey-extension{position:relative;z-index:8;isolation:isolate;overflow:hidden;padding:clamp(92px,12vw,170px) clamp(22px,7vw,110px) 120px;color:#f0f2e9;background:radial-gradient(60% 48% at 15% 10%,rgba(189,207,159,.10),transparent 72%),radial-gradient(55% 60% at 90% 70%,rgba(121,145,99,.13),transparent 72%),linear-gradient(180deg,#42483b 0%,#343b31 48%,#30382e 100%)}
-    .journey-extension:before,.journey-extension:after{content:"";position:absolute;pointer-events:none;z-index:-1;width:1px;height:100%;top:0;opacity:.22;background:linear-gradient(180deg,transparent,#c3d3a6 14%,#c3d3a6 82%,transparent)}
-    .journey-extension:before{left:8%;transform:rotate(9deg)}.journey-extension:after{right:11%;transform:rotate(-8deg)}
-    .journey-kicker{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:#b9c6a8}
-    .journey-heading{max-width:760px;margin:18px 0;font-size:clamp(38px,7vw,88px);line-height:.98;letter-spacing:-.055em;font-weight:300}
-    .journey-intro{max-width:540px;color:rgba(239,243,230,.7);font-size:15px;line-height:1.8}
-    .journey-vine{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:-1;opacity:.56;overflow:visible}
-    .journey-vine path{fill:none;stroke:#9eae83;stroke-width:2;stroke-linecap:round}.journey-vine .fine{stroke-width:1;opacity:.65}.journey-vine circle{fill:#c4d2a6}
-    .habitat-grid{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(18px,3vw,42px);margin:92px 0 0;align-items:start}
-    .habitat-card{position:relative;min-height:270px;padding:30px 28px 26px;text-align:left;border:1px solid rgba(224,235,207,.22);border-radius:26px;color:#263026;background:linear-gradient(145deg,rgba(246,248,239,.97),rgba(218,226,204,.94));box-shadow:0 26px 70px rgba(8,15,8,.23),inset 0 1px rgba(255,255,255,.8);cursor:pointer;transition:transform .6s cubic-bezier(.16,1,.3,1),box-shadow .6s}
-    .habitat-card:nth-child(2){margin-top:74px}.habitat-card:nth-child(3){margin-top:20px}
-    .habitat-card:hover,.habitat-card:focus-visible{transform:translateY(-9px) rotate(-.5deg);box-shadow:0 34px 86px rgba(8,15,8,.32);outline:none}
-    .habitat-card:before{content:"";position:absolute;width:46px;height:46px;border:1px solid rgba(76,101,62,.35);border-radius:50%;top:-19px;right:24px;background:radial-gradient(circle at 35% 35%,#f8f8ef,#bdcba8);box-shadow:0 5px 16px rgba(20,35,18,.13)}
-    .habitat-number{font-size:10px;letter-spacing:.22em;color:#7e8b72}.habitat-title{display:block;margin:45px 0 12px;font-size:clamp(27px,3vw,42px);line-height:1;letter-spacing:-.045em;font-weight:400}
-    .habitat-copy{display:block;max-width:28ch;color:#687261;font-size:13px;line-height:1.7}.habitat-open{display:block;margin-top:28px;color:#5e704f;font-size:10px;letter-spacing:.2em;text-transform:uppercase}
-    .journey-detail{display:none;position:relative;margin-top:150px;padding-top:45px;scroll-margin-top:40px}.journey-detail.is-open{display:block;animation:journey-rise .85s cubic-bezier(.16,1,.3,1) both}
-    @keyframes journey-rise{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:none}}
-    .detail-title{margin:14px 0 12px;font-size:clamp(34px,6vw,70px);font-weight:300;letter-spacing:-.05em}.detail-copy{max-width:580px;color:rgba(239,243,230,.72);font-size:14px;line-height:1.8}
-    .detail-branches{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:62px}
-    .branch-card{position:relative;min-height:190px;padding:25px 24px;border-radius:22px;background:rgba(232,238,219,.09);border:1px solid rgba(213,229,190,.23);box-shadow:inset 0 1px rgba(255,255,255,.08);backdrop-filter:blur(5px)}
-    .branch-card:before{content:"";position:absolute;width:1px;height:48px;left:30px;top:-49px;background:linear-gradient(#aebf91,transparent)}
-    .branch-card small{color:#b8c8a1;font-size:9px;letter-spacing:.22em;text-transform:uppercase}.branch-card h3{margin:22px 0 8px;font-size:22px;font-weight:400;color:#f0f2e9}.branch-card p{color:rgba(239,243,230,.63);font-size:12px;line-height:1.7}
-    .journey-journal{position:relative;margin-top:170px;padding-top:55px;border-top:1px solid rgba(220,232,204,.17);scroll-margin-top:50px}
-    .journal-line{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:48px}.journal-note{padding:22px 0;border-top:1px solid rgba(220,232,204,.28)}
-    .journal-note b{display:block;margin-bottom:9px;font-size:16px;font-weight:400}.journal-note span{color:rgba(239,243,230,.62);font-size:12px;line-height:1.7}
-    .journey-back{display:inline-block;margin-top:44px;color:#c9d6b5;font-size:10px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
-    @media(max-width:760px){.journey-extension{padding:82px 22px 90px}.habitat-grid,.detail-branches,.journal-line{grid-template-columns:1fr}.habitat-card,.habitat-card:nth-child(2),.habitat-card:nth-child(3){margin-top:0;min-height:220px}.habitat-title{margin-top:28px}.journey-detail{margin-top:100px}.journey-journal{margin-top:110px}}
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.journey-detail.is-open{animation:none}.habitat-card{transition:none}}
-  \`;
+  style.id = "kage-journey-v2-style";
+  style.textContent = [
+    "html{scroll-behavior:smooth}body{height:auto!important;min-height:100%;overflow-x:hidden!important;overflow-y:auto!important}",
+    "body .dock,body .play-wrap,body .knob-float,body .liquid-button--explore,body .card--about,body .card--stove,body .stat{display:none!important}",
+    ".kage-vine-world{position:relative;isolation:isolate;min-height:1700px;overflow:hidden;padding:130px clamp(22px,7vw,110px) 180px;color:#eef0e5;background:radial-gradient(ellipse at 50% 40%,rgba(133,157,105,.15),transparent 58%),linear-gradient(180deg,#41483a 0%,#333b30 55%,#293329 100%)}",
+    ".kage-vine-world:before{content:'';position:absolute;inset:0;z-index:-2;opacity:.18;background-image:radial-gradient(#d6e2c4 .7px,transparent .7px);background-size:31px 31px}",
+    ".kage-vine-svg{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;overflow:visible}",
+    ".kage-vine-svg path{fill:none;stroke:#a9bd8c;stroke-width:2.2;stroke-linecap:round;opacity:.72}.kage-vine-svg .thin{stroke-width:1.15;opacity:.48}.kage-vine-svg .leaf{fill:#a9bd8c;opacity:.72}",
+    ".kage-vine-intro{max-width:700px;margin:0 auto 90px;text-align:center}.kage-vine-eyebrow{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:#bdcba9}.kage-vine-heading{font-size:clamp(42px,7vw,88px);font-weight:300;letter-spacing:-.06em;line-height:.98;margin:22px 0}.kage-vine-sub{max-width:500px;margin:auto;color:rgba(238,240,229,.68);font-size:14px;line-height:1.9}",
+    ".kage-deck-field{position:relative;max-width:1100px;min-height:1050px;margin:auto}",
+    ".kage-deck{position:absolute;width:clamp(190px,24vw,270px);min-height:190px;padding:25px 25px 23px;text-align:left;color:#293329;border:1px solid rgba(244,248,232,.7);border-radius:8px 22px 18px 22px;background:linear-gradient(145deg,#f1f2e7,#dce5ce);box-shadow:0 22px 55px rgba(8,15,8,.27),inset 0 1px 0 white;cursor:pointer;transform:rotate(var(--tilt,-2deg));transition:transform .55s cubic-bezier(.2,.8,.2,1),box-shadow .55s}",
+    ".kage-deck:before{content:'';position:absolute;top:12px;left:50%;width:44px;height:10px;transform:translateX(-50%);border-radius:10px;background:rgba(80,103,66,.18)}",
+    ".kage-deck:hover,.kage-deck:focus-visible,.kage-deck[aria-expanded=true]{transform:translateY(-9px) rotate(0deg) scale(1.025);box-shadow:0 32px 70px rgba(8,15,8,.38);outline:none}",
+    ".kage-deck-index{display:block;margin-top:20px;color:#78866b;font-size:9px;letter-spacing:.24em;text-transform:uppercase}.kage-deck-title{display:block;margin:26px 0 10px;font-size:clamp(24px,3vw,34px);font-weight:400;letter-spacing:-.045em}.kage-deck-caption{display:block;color:#697463;font-size:12px;line-height:1.65}",
+    ".kage-deck:nth-child(1){left:5%;top:0;--tilt:-4deg}.kage-deck:nth-child(2){right:6%;top:110px;--tilt:3deg}.kage-deck:nth-child(3){left:34%;top:270px;--tilt:2deg}.kage-deck:nth-child(4){left:2%;top:500px;--tilt:3deg}.kage-deck:nth-child(5){right:3%;top:600px;--tilt:-3deg}.kage-deck:nth-child(6){left:35%;top:790px;--tilt:-2deg}.kage-deck:nth-child(7){left:8%;top:980px;--tilt:-3deg}.kage-deck:nth-child(8){right:8%;top:1080px;--tilt:3deg}",
+    ".kage-deck-detail{display:none;position:relative;max-width:900px;margin:100px auto 0;padding:54px 0 20px;border-top:1px solid rgba(221,235,202,.25);scroll-margin-top:40px}.kage-deck-detail.is-open{display:block;animation:kageBranchReveal .8s ease both}@keyframes kageBranchReveal{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}",
+    ".kage-detail-label{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:#bdcba9}.kage-detail-title{font-size:clamp(38px,6vw,70px);font-weight:300;letter-spacing:-.055em;margin:16px 0}.kage-detail-note{max-width:620px;color:rgba(238,240,229,.68);font-size:14px;line-height:1.9}.kage-detail-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:45px}.kage-detail-card{min-height:150px;padding:23px;border:1px solid rgba(220,235,200,.22);border-radius:17px;background:rgba(237,242,224,.07);backdrop-filter:blur(8px)}.kage-detail-card small{font-size:9px;letter-spacing:.2em;color:#bdcba9;text-transform:uppercase}.kage-detail-card h3{font-size:20px;font-weight:400;margin:20px 0 8px}.kage-detail-card p{font-size:12px;line-height:1.7;color:rgba(238,240,229,.62)}",
+    "@media(max-width:720px){.kage-vine-world{padding:90px 20px 110px;min-height:0}.kage-vine-intro{margin-bottom:55px}.kage-deck-field{min-height:0;display:grid;grid-template-columns:1fr;gap:22px}.kage-deck,.kage-deck:nth-child(n){position:relative;inset:auto;width:100%;min-height:155px;transform:none}.kage-deck-title{margin:20px 0 8px}.kage-detail-cards{grid-template-columns:1fr}.kage-deck-detail{margin-top:75px}}",
+    "@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.kage-deck,.kage-deck-detail.is-open{transition:none;animation:none}}"
+  ].join("\\n");
   doc.head.appendChild(style);
-  const dock = doc.querySelector(".dock");
-  const dockItems = dock ? [...dock.querySelectorAll(".dock-item")] : [];
-  for (const item of dockItems) {
-    const label = (item.textContent || "").trim().toLowerCase();
-    if (label === "grow" || label === "grove" || label === "enter") item.remove();
-  }
-  const hero = doc.querySelector(".hero");
-  if (!hero || doc.querySelector(".journey-extension")) return;
-  const extension = doc.createElement("section");
-  extension.className = "journey-extension";
-  extension.id = "journey-habitats";
-  extension.innerHTML = \`
-    <svg class="journey-vine" viewBox="0 0 1400 1700" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M80 0 C180 160 40 270 190 420 S320 650 190 820 S110 1120 300 1320 S480 1540 430 1700"/>
-      <path d="M1320 0 C1180 190 1360 320 1200 500 S1050 730 1200 900 S1280 1190 1080 1390 S930 1570 980 1700"/>
-      <path class="fine" d="M190 420 C350 350 420 390 510 520 M1200 500 C1030 430 950 470 880 590 M190 820 C360 780 420 850 500 960 M1200 900 C1030 850 950 930 890 1040"/>
-      <path class="fine" d="M300 1320 C440 1210 540 1240 610 1340 M1080 1390 C960 1290 860 1320 790 1430"/>
-      <circle cx="190" cy="420" r="5"/><circle cx="1200" cy="500" r="5"/><circle cx="500" cy="960" r="4"/><circle cx="890" cy="1040" r="4"/>
-    </svg>
-    <div class="journey-kicker">A living archive · the paths that made me</div>
-    <h2 class="journey-heading">Every path grows<br>from somewhere.</h2>
-    <p class="journey-intro">Three habitats. Different ways of seeing, making, and building. Follow a branch to explore each part of the journey.</p>
-    <div class="habitat-grid">
-      <button class="habitat-card" type="button" data-habitat="movies" aria-controls="detail-movies"><span class="habitat-number">01 — THE FRAME</span><strong class="habitat-title">Movies</strong><span class="habitat-copy">Stories, characters, cinema, and the moments that stay long after the screen goes dark.</span><span class="habitat-open">Follow this branch ↗</span></button>
-      <button class="habitat-card" type="button" data-habitat="songwriting" aria-controls="detail-songwriting"><span class="habitat-number">02 — THE SOUND</span><strong class="habitat-title">Songwriting</strong><span class="habitat-copy">Lyrics, melodies, unfinished ideas, and finding a voice through music.</span><span class="habitat-open">Follow this branch ↗</span></button>
-      <button class="habitat-card" type="button" data-habitat="tech" aria-controls="detail-tech"><span class="habitat-number">03 — THE BUILD</span><strong class="habitat-title">Tech &amp; Management</strong><span class="habitat-copy">Technology, products, experiments, leadership, and bringing people together to make things real.</span><span class="habitat-open">Follow this branch ↗</span></button>
-    </div>
-    <div class="journey-detail" id="detail-movies" data-detail="movies" aria-live="polite"><div class="journey-kicker">Habitat 01 · The frame</div><h2 class="detail-title">Movies</h2><p class="detail-copy">A closer look at the films, ideas, and storytelling instincts that have shaped the way I think.</p><div class="detail-branches"><article class="branch-card"><small>Branch 01</small><h3>What I Know</h3><p>Film language, visual storytelling, characters, and the details I keep noticing.</p></article><article class="branch-card"><small>Branch 02</small><h3>My Journey</h3><p>A growing timeline of films, influences, experiments, and creative discoveries.</p></article><article class="branch-card"><small>Branch 03</small><h3>Things I’ve Made</h3><p>Personal explorations and work shaped by a love of cinema.</p></article></div></div>
-    <div class="journey-detail" id="detail-songwriting" data-detail="songwriting" aria-live="polite"><div class="journey-kicker">Habitat 02 · The sound</div><h2 class="detail-title">Songwriting</h2><p class="detail-copy">The musical side of the journey: words, melodies, fragments, and ideas that slowly find their shape.</p><div class="detail-branches"><article class="branch-card"><small>Branch 01</small><h3>What I Know</h3><p>Lyrics, melody, arrangement ideas, and the craft I’m learning along the way.</p></article><article class="branch-card"><small>Branch 02</small><h3>My Journey</h3><p>From first fragments to songs, collaborations, and creative turning points.</p></article><article class="branch-card"><small>Branch 03</small><h3>Works in Progress</h3><p>Notes, drafts, recordings, and unfinished ideas worth returning to.</p></article></div></div>
-    <div class="journey-detail" id="detail-tech" data-detail="tech" aria-live="polite"><div class="journey-kicker">Habitat 03 · The build</div><h2 class="detail-title">Tech &amp; Management</h2><p class="detail-copy">The systems side of the journey: learning technologies, building products, organizing people, and turning ideas into action.</p><div class="detail-branches"><article class="branch-card"><small>Branch 01</small><h3>What I Know</h3><p>Tools, technologies, product thinking, and practical skills gathered through building.</p></article><article class="branch-card"><small>Branch 02</small><h3>My Journey</h3><p>Projects, experiments, teams, events, and lessons from trying to make things happen.</p></article><article class="branch-card"><small>Branch 03</small><h3>Things I’ve Built</h3><p>Selected products, prototypes, collaborations, and work in progress.</p></article></div></div>
-    <section class="journey-journal" id="journey-journal"><div class="journey-kicker">Field notes · Journal</div><h2 class="detail-title">The story keeps growing.</h2><p class="detail-copy">A place for the notes between milestones: ideas, experiments, lessons, and small moments that become part of the bigger journey.</p><div class="journal-line"><div class="journal-note"><b>Ideas</b><span>Thoughts worth following before they become projects.</span></div><div class="journal-note"><b>Experiments</b><span>Things tried, changed, learned, and tried again.</span></div><div class="journal-note"><b>Milestones</b><span>Moments that mark a new branch in the path.</span></div></div><a class="journey-back" href="#hero">Back to the beginning ↑</a></section>
-  \`;
-  hero.insertAdjacentElement("afterend", extension);
-  extension.querySelectorAll("[data-habitat]").forEach((card) => {
-    card.addEventListener("click", () => {
-      const key = card.getAttribute("data-habitat");
-      extension.querySelectorAll("[data-detail]").forEach((panel) => panel.classList.toggle("is-open", panel.getAttribute("data-detail") === key));
-      extension.querySelectorAll(".habitat-card").forEach((item) => item.setAttribute("aria-expanded", String(item === card)));
-      extension.querySelector('[data-detail="' + key + '"]')?.scrollIntoView({behavior:"smooth",block:"start"});
+
+  const hero = doc.querySelector(".hero") || doc.querySelector("main") || doc.body;
+  if (!hero || doc.querySelector(".kage-vine-world")) return;
+
+  // The Sylva opening scene remains intact; only its navigation/controls and old promo decks are removed.
+  doc.querySelectorAll(".dock,.play-wrap,.knob-float,.liquid-button--explore,.card--about,.card--stove,.stat").forEach(el => el.remove());
+  doc.querySelectorAll("a,button").forEach(el => {
+    const label = (el.innerText || el.getAttribute("aria-label") || "").trim().toLowerCase();
+    if (/^(grow|grove|enter|journal|habitats|play|explore)$/.test(label)) el.remove();
+  });
+
+  const section = doc.createElement("section");
+  section.className = "kage-vine-world";
+  section.id = "kage-vine-world";
+  section.innerHTML = [
+    '<svg class="kage-vine-svg" viewBox="0 0 1400 1900" preserveAspectRatio="none" aria-hidden="true">',
+    '<path d="M80 -20 C260 170 40 330 220 500 S360 760 190 930 S120 1220 340 1430 S480 1680 430 1920"/>',
+    '<path d="M1320 -20 C1130 190 1370 360 1180 550 S1030 800 1210 980 S1270 1280 1060 1480 S930 1710 980 1920"/>',
+    '<path class="thin" d="M220 500 C390 390 500 470 590 610 M1180 550 C1010 450 900 530 830 670 M190 930 C390 840 480 930 570 1060 M1210 980 C1020 880 930 980 850 1110 M340 1430 C500 1300 600 1360 680 1510 M1060 1480 C900 1340 810 1410 740 1550"/>',
+    '<path class="thin" d="M270 470 Q180 390 150 310 M1150 520 Q1240 430 1280 340 M270 920 Q160 850 120 770 M1130 960 Q1240 880 1290 790 M410 1400 Q320 1310 280 1220 M1000 1450 Q1110 1360 1160 1270"/>',
+    '<ellipse class="leaf" cx="150" cy="310" rx="8" ry="20" transform="rotate(-35 150 310)"/><ellipse class="leaf" cx="1280" cy="340" rx="8" ry="20" transform="rotate(35 1280 340)"/><ellipse class="leaf" cx="120" cy="770" rx="8" ry="20" transform="rotate(-35 120 770)"/><ellipse class="leaf" cx="1290" cy="790" rx="8" ry="20" transform="rotate(35 1290 790)"/>',
+    '</svg>',
+    '<header class="kage-vine-intro"><div class="kage-vine-eyebrow">A living archive · things that made me</div><h1 class="kage-vine-heading">A life, growing<br>in many directions.</h1><p class="kage-vine-sub">No categories. No straight lines. Just different branches of curiosity, work, stories, and everything still growing.</p></header>',
+    '<div class="kage-deck-field">',
+    '<button class="kage-deck" type="button" data-deck="journey"><span class="kage-deck-index">01 · The beginning</span><strong class="kage-deck-title">My Journey</strong><span class="kage-deck-caption">The turns, detours, people, and moments that shaped the path.</span></button>',
+    '<button class="kage-deck" type="button" data-deck="knowledge"><span class="kage-deck-index">02 · The roots</span><strong class="kage-deck-title">What I Know</strong><span class="kage-deck-caption">Skills, tools, ideas, and things I keep learning.</span></button>',
+    '<button class="kage-deck" type="button" data-deck="music"><span class="kage-deck-index">03 · The sound</span><strong class="kage-deck-title">Music & Songwriting</strong><span class="kage-deck-caption">Lyrics, melodies, listening, and making things that feel.</span></button>',
+    '<button class="kage-deck" type="button" data-deck="film"><span class="kage-deck-index">04 · The frame</span><strong class="kage-deck-title">Filmmaking & Cinema</strong><span class="kage-deck-caption">Stories, images, characters, and the art of seeing.</span></button>',
+    '<button class="kage-deck" type="button" data-deck="building"><span class="kage-deck-index">05 · The making</span><strong class="kage-deck-title">Things I’ve Built</strong><span class="kage-deck-caption">Products, experiments, prototypes, and unfinished ideas.</span></button>',
+    '<button class="kage-deck" type="button" data-deck="leadership"><span class="kage-deck-index">06 · The people</span><strong class="kage-deck-title">Tech & Management</strong><span class="kage-deck-caption">Building teams, organizing ideas, and making things happen.</span></button>',
+    '<button class="kage-deck" type="button" data-deck="events"><span class="kage-deck-index">07 · The gathering</span><strong class="kage-deck-title">Events & Community</strong><span class="kage-deck-caption">Rooms full of people, shared energy, and things brought to life.</span></button>',
+    '<button class="kage-deck" type="button" data-deck="experiments"><span class="kage-deck-index">08 · The unknown</span><strong class="kage-deck-title">Experiments</strong><span class="kage-deck-caption">Curiosity-led attempts, strange ideas, and happy accidents.</span></button>',
+    '</div>',
+    '<div class="kage-deck-detail" data-detail="journey"><div class="kage-detail-label">A branch · The beginning</div><h2 class="kage-detail-title">My Journey</h2><p class="kage-detail-note">A growing collection of chapters, turning points, lessons, and people. This space is intentionally left open to add the real story over time.</p><div class="kage-detail-cards"><article class="kage-detail-card"><small>01 · Chapters</small><h3>The timeline</h3><p>Milestones and moments along the way.</p></article><article class="kage-detail-card"><small>02 · Lessons</small><h3>What stayed</h3><p>Things experience taught me.</p></article><article class="kage-detail-card"><small>03 · People</small><h3>Along the way</h3><p>Collaborators, mentors, and communities.</p></article></div></div>',
+    '<div class="kage-deck-detail" data-detail="knowledge"><div class="kage-detail-label">A branch · The roots</div><h2 class="kage-detail-title">What I Know</h2><p class="kage-detail-note">A living map of skills and interests, from software and AI to creative tools and working with people.</p><div class="kage-detail-cards"><article class="kage-detail-card"><small>01 · Technology</small><h3>Tools & code</h3><p>Languages, frameworks, systems, and workflows.</p></article><article class="kage-detail-card"><small>02 · Creative</small><h3>Making & media</h3><p>Visual ideas, storytelling, music, and design.</p></article><article class="kage-detail-card"><small>03 · Practice</small><h3>Learning by doing</h3><p>Skills developed through projects and experiments.</p></article></div></div>',
+    '<div class="kage-deck-detail" data-detail="music"><div class="kage-detail-label">A branch · The sound</div><h2 class="kage-detail-title">Music & Songwriting</h2><p class="kage-detail-note">A place for lyrics, melodies, musical influences, recordings, and works in progress.</p><div class="kage-detail-cards"><article class="kage-detail-card"><small>01 · Notes</small><h3>What I’m learning</h3><p>Songwriting, structure, and sound.</p></article><article class="kage-detail-card"><small>02 · The process</small><h3>My journey</h3><p>Ideas from first line to finished piece.</p></article><article class="kage-detail-card"><small>03 · The work</small><h3>Originals</h3><p>Songs, drafts, and collaborations.</p></article></div></div>',
+    '<div class="kage-deck-detail" data-detail="film"><div class="kage-detail-label">A branch · The frame</div><h2 class="kage-detail-title">Filmmaking & Cinema</h2><p class="kage-detail-note">Films that changed how I see, stories I want to tell, and experiments behind the camera.</p><div class="kage-detail-cards"><article class="kage-detail-card"><small>01 · The eye</small><h3>What I notice</h3><p>Visual language, performances, and storytelling.</p></article><article class="kage-detail-card"><small>02 · The path</small><h3>My journey</h3><p>Influences, learning, and creative attempts.</p></article><article class="kage-detail-card"><small>03 · The work</small><h3>Films & ideas</h3><p>Projects, concepts, and experiments.</p></article></div></div>',
+    '<div class="kage-deck-detail" data-detail="building"><div class="kage-detail-label">A branch · The making</div><h2 class="kage-detail-title">Things I’ve Built</h2><p class="kage-detail-note">Products and experiments that began as a question and became something people could try.</p><div class="kage-detail-cards"><article class="kage-detail-card"><small>01 · Projects</small><h3>Selected builds</h3><p>Products, prototypes, and shipped work.</p></article><article class="kage-detail-card"><small>02 · Process</small><h3>How it happened</h3><p>Decisions, iterations, and lessons.</p></article><article class="kage-detail-card"><small>03 · Next</small><h3>In progress</h3><p>Ideas still taking shape.</p></article></div></div>',
+    '<div class="kage-deck-detail" data-detail="leadership"><div class="kage-detail-label">A branch · The people</div><h2 class="kage-detail-title">Tech & Management</h2><p class="kage-detail-note">The human side of making things: teams, coordination, leadership, operations, and turning a shared idea into action.</p><div class="kage-detail-cards"><article class="kage-detail-card"><small>01 · Skills</small><h3>What I know</h3><p>Planning, communication, coordination, and product thinking.</p></article><article class="kage-detail-card"><small>02 · Experience</small><h3>My journey</h3><p>Teams, initiatives, responsibilities, and lessons.</p></article><article class="kage-detail-card"><small>03 · Outcomes</small><h3>What we made</h3><p>Communities, events, and collaborative work.</p></article></div></div>',
+    '<div class="kage-deck-detail" data-detail="events"><div class="kage-detail-label">A branch · The gathering</div><h2 class="kage-detail-title">Events & Community</h2><p class="kage-detail-note">The energy of bringing people together around ideas, learning, music, and making.</p><div class="kage-detail-cards"><article class="kage-detail-card"><small>01 · Gatherings</small><h3>Events</h3><p>Meetups, festivals, and campus experiences.</p></article><article class="kage-detail-card"><small>02 · Community</small><h3>People</h3><p>Organizing, connecting, and collaborating.</p></article><article class="kage-detail-card"><small>03 · Behind it</small><h3>How it came together</h3><p>Planning, production, and the little details.</p></article></div></div>',
+    '<div class="kage-deck-detail" data-detail="experiments"><div class="kage-detail-label">A branch · The unknown</div><h2 class="kage-detail-title">Experiments</h2><p class="kage-detail-note">A home for things that do not fit anywhere else: curious attempts, prototypes, rabbit holes, and happy accidents.</p><div class="kage-detail-cards"><article class="kage-detail-card"><small>01 · Curiosity</small><h3>Questions</h3><p>Things I want to understand or explore.</p></article><article class="kage-detail-card"><small>02 · Attempts</small><h3>Experiments</h3><p>Trying, breaking, adjusting, and trying again.</p></article><article class="kage-detail-card"><small>03 · Discoveries</small><h3>What emerged</h3><p>Unexpected outcomes and new directions.</p></article></div></div>'
+  ].join("");
+  hero.insertAdjacentElement("afterend", section);
+
+  section.querySelectorAll("[data-deck]").forEach(deck => {
+    deck.addEventListener("click", () => {
+      const key = deck.getAttribute("data-deck");
+      section.querySelectorAll("[data-deck]").forEach(item => item.setAttribute("aria-expanded", String(item === deck)));
+      section.querySelectorAll("[data-detail]").forEach(panel => panel.classList.toggle("is-open", panel.getAttribute("data-detail") === key));
+      section.querySelector('[data-detail="' + key + '"]').scrollIntoView({behavior:"smooth",block:"start"});
     });
   });
-  const scrollTo = (selector) => doc.querySelector(selector)?.scrollIntoView({behavior:"smooth",block:"start"});
-  dock?.addEventListener("click", (event) => {
-    const item = event.target.closest(".dock-item");
-    if (!item) return;
-    const label = (item.textContent || "").trim().toLowerCase();
-    if (label === "habitats") { event.preventDefault(); scrollTo("#journey-habitats"); }
-    else if (label === "journal") { event.preventDefault(); scrollTo("#journey-journal"); }
-  }, true);
-  doc.querySelector(".liquid-button--explore")?.addEventListener("click", () => scrollTo("#journey-habitats"));
-  extension.querySelector(".journey-back")?.addEventListener("click", (event) => { event.preventDefault(); scrollTo("#hero"); });
 })();
