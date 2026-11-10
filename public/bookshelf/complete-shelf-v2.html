@@ -1224,6 +1224,44 @@
       transition: opacity 600ms var(--ease-out);
     }
 
+    .kage-back {
+      position: fixed;
+      top: 24px;
+      left: 28px;
+      z-index: 30;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 42px;
+      padding: 0 15px 0 12px;
+      border: 1px solid rgba(235, 232, 224, .24);
+      border-radius: 999px;
+      background: rgba(8, 10, 18, .58);
+      color: #f1eee8;
+      font: 500 10px/1 var(--sans);
+      letter-spacing: .14em;
+      text-decoration: none;
+      text-transform: uppercase;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 8px 30px rgba(0,0,0,.18);
+      transition: background 220ms ease, border-color 220ms ease, transform 220ms ease;
+      pointer-events: auto;
+    }
+    .kage-back:hover {
+      background: rgba(30, 30, 38, .88);
+      border-color: rgba(245, 241, 232, .55);
+      transform: translateY(-2px);
+    }
+    .kage-back:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+    }
+    .kage-back svg { width: 14px; height: 14px; flex: none; stroke: currentColor; }
+    @media (max-width: 640px) {
+      .kage-back { top: 14px; left: 14px; min-height: 38px; padding: 0 12px 0 10px; font-size: 9px; }
+    }
+
     .editorial-header {
       position: absolute;
       top: 30px;
@@ -1661,6 +1699,10 @@
   </script>
 </head>
 <body>
+  <a class="kage-back" href="/" aria-label="Back to KAGE homepage">
+    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10.5 3.5 6 8l4.5 4.5M6.5 8H14" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span>Back to KAGE</span>
+  </a>
   <main class="experience" id="experience">
     <div class="scene-shell">
       <canvas id="scene" aria-hidden="true"></canvas>
