@@ -23,7 +23,7 @@
     ".kage-detail-label{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:#bdcba9}.kage-detail-title{font-size:clamp(38px,6vw,70px);font-weight:300;letter-spacing:-.055em;margin:16px 0}.kage-detail-note{max-width:620px;color:rgba(238,240,229,.68);font-size:14px;line-height:1.9}.kage-detail-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:45px}.kage-detail-card{min-height:150px;padding:23px;border:1px solid rgba(220,235,200,.22);border-radius:17px;background:rgba(237,242,224,.07);backdrop-filter:blur(8px)}.kage-detail-card small{font-size:9px;letter-spacing:.2em;color:#bdcba9;text-transform:uppercase}.kage-detail-card h3{font-size:20px;font-weight:400;margin:20px 0 8px}.kage-detail-card p{font-size:12px;line-height:1.7;color:rgba(238,240,229,.62)}",
     "@media(max-width:720px){.kage-vine-world{padding:90px 20px 110px;min-height:0}.kage-vine-intro{margin-bottom:55px}.kage-deck-field{min-height:0;display:grid;grid-template-columns:1fr;gap:22px}.kage-deck,.kage-deck:nth-child(n){position:relative;inset:auto;width:100%;min-height:155px;transform:none}.kage-deck-title{margin:20px 0 8px}.kage-detail-cards{grid-template-columns:1fr}.kage-deck-detail{margin-top:75px}}",
     "@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.kage-deck,.kage-deck-detail.is-open{transition:none;animation:none}}"
-  ].join("\\n");
+  ].join(String.fromCharCode(10));
   doc.head.appendChild(style);
 
   const hero = doc.querySelector(".hero") || doc.querySelector("main") || doc.body;
