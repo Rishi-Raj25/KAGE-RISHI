@@ -18,7 +18,6 @@ export default function JourneyPage() {
       }}
     >
       <SylvaHero
-        variant="living-green"
         headingFont="lexend"
         bodyFont="lexend"
         headingWeight="300"
