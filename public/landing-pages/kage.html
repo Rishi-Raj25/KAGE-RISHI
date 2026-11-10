@@ -414,6 +414,27 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
   transform:scaleX(0); transform-origin:left; transition:transform .7s var(--ease-out); }
 .les:hover .bar{ transform:scaleX(1); }
 
+/* — chapter III: one journey deck, retaining the original KAGE palette and atmosphere */
+.journey-wrap{border-top:0!important;display:block!important;background:transparent!important}
+.journey-card{
+  position:relative;display:flex;flex-direction:column;justify-content:space-between;
+  min-height:clamp(250px,34vw,410px);padding:clamp(24px,4vw,54px);
+  border:1px solid var(--line-soft);background:linear-gradient(135deg,rgba(5,7,10,.76),rgba(5,7,10,.48));
+  overflow:hidden;transition:border-color .5s var(--ease),transform .6s var(--ease-out);
+}
+.journey-card::before{content:'';position:absolute;inset:0;background:linear-gradient(110deg,rgba(224,35,28,.07),transparent 48%);opacity:.8;pointer-events:none}
+.journey-card:hover{border-color:rgba(223,231,224,.42);transform:translateY(-3px)}
+.journey-card__top,.journey-card__main{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:center;gap:24px}
+.journey-card__main{align-items:flex-end;margin-top:55px}
+.journey-card h3{font-size:clamp(34px,6vw,78px);font-weight:400;letter-spacing:-.045em;line-height:.98}
+.journey-card p{max-width:54ch;margin-top:18px;color:#a1aaa4;font-size:clamp(13px,1.15vw,16px);line-height:1.75}
+.journey-arrow{display:inline-block;margin-left:18px;color:var(--vermilion);font-size:.62em;vertical-align:top;transition:transform .4s var(--ease-out)}
+.journey-card:hover .journey-arrow{transform:translate(5px,-5px)}
+.journey-card__hint{flex:none;font-size:10px;letter-spacing:.18em;color:var(--muted)}
+.journey-card__line{position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--vermilion);transform:scaleX(.12);transform-origin:left;transition:transform .7s var(--ease-out)}
+.journey-card:hover .journey-card__line{transform:scaleX(1)}
+@media(max-width:820px){.journey-card{min-height:260px;padding:24px}.journey-card__main{align-items:flex-start;flex-direction:column;gap:28px;margin-top:42px}.journey-card h3{font-size:clamp(34px,9vw,54px)}.journey-card__hint{align-self:flex-end}}
+ 
 /* — chapter IV: eternity */
 .fin{ min-height:100svh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; }
 .fin .eyebrow{ margin-bottom:26px; }
@@ -1085,36 +1106,17 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
     <h2 class="display h-sec" data-rv="up">Machines can process. Humans can understand.</h2>
     <p class="body-lg" data-rv="up">Robots are powerful at repetition, speed and scale. But human work is more than completing tasks. We bring context, care, imagination and responsibility — qualities that matter when the answer is not obvious.</p>
   </div>
-  <div class="cur" id="cur">
-    <div class="les" data-les="0" data-cursor>
-      <span class="k">01</span>
-      <h3>Empathy<em class="jp">共感</em></h3>
-      <p>Recognising another person's feelings and responding with care.</p>
-      <span class="t">1 min</span><i class="bar"></i>
-    </div>
-    <div class="les" data-les="1" data-cursor>
-      <span class="k">02</span>
-      <h3>Creativity<em class="jp">創造</em></h3>
-      <p>Connecting ideas, imagining possibilities and making meaning.</p>
-      <span class="t">1 min</span><i class="bar"></i>
-    </div>
-    <div class="les" data-les="2" data-cursor>
-      <span class="k">03</span>
-      <h3>Judgment<em class="jp">判断</em></h3>
-      <p>Making responsible choices when context and consequences matter.</p>
-      <span class="t">1 min</span><i class="bar"></i>
-    </div>
-    <div class="les" data-les="3" data-cursor>
-      <span class="k">04</span>
-      <h3>Adaptability<em class="jp">適応</em></h3>
-      <p>Responding to unfamiliar situations that do not follow a script.</p>
-      <span class="t">1 min</span><i class="bar"></i>
-    </div>
-    <div class="les" data-les="4" data-cursor>
-      <span class="k">05</span>
-      <h3>Detroit: Become Human<em class="jp">未来</em></h3>
-      <p>Connor, Kara and Markus imagine android consciousness. A powerful fictional thought experiment — not a prediction.</p>
-      <span class="t">1 min</span><i class="bar"></i>
+  <div class="cur journey-wrap" id="cur">
+    <div class="journey-card" data-rv="up">
+      <div class="journey-card__top"><span class="k">01 — THE HUMAN STORY</span><span class="k jp">旅路</span></div>
+      <div class="journey-card__main">
+        <div>
+          <h3>View My Journey<span class="journey-arrow" aria-hidden="true">↗</span></h3>
+          <p>A slightly chaotic timeline of ideas, experiments, ambitious plans, questionable sleep schedules — and figuring things out along the way.</p>
+        </div>
+        <span class="journey-card__hint">THE STORY SO FAR</span>
+      </div>
+      <i class="journey-card__line" aria-hidden="true"></i>
     </div>
   </div>
 </section>
