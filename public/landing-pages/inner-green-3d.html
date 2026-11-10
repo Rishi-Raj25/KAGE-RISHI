@@ -4317,12 +4317,12 @@ window.__seek   = v => { clock = v; drawn = null; };
 
     /* Use the real Sylva root mesh four times. Each clone gets independent
        shader materials so the continuation cannot interfere with the hero. */
-    var side = smallFlow ? 1.15 : 1.8;
+    var side = smallFlow ? 1.0 : 1.4;
     var placements = [
-      { x: -side, y:  18.5, s: 0.96, r: 1.5708 },
-      { x:  side, y:   6.2, s: 0.96, r: 1.4050 },
-      { x: -side, y:  -6.2, s: 0.96, r: 1.7350 },
-      { x:  side, y: -18.5, s: 0.96, r: 1.4850 }
+      { x: -side, y:  19.5, s: 2.4, r: 1.5708 },
+      { x:  side, y:   6.5, s: 2.4, r: 1.4050 },
+      { x: -side, y:  -6.5, s: 2.4, r: 1.7350 },
+      { x:  side, y: -19.5, s: 2.4, r: 1.4850 }
     ];
 
     placements.forEach(function (p) {
