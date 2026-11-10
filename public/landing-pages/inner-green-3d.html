@@ -709,6 +709,10 @@
     .scroll{ left:calc(702 * var(--u)); top:calc(470 * var(--u)); }
     .ghost{ font-size:calc(184 * var(--u)); letter-spacing:calc(14 * var(--u)); bottom:calc(660 * var(--u)); left:calc(-10 * var(--u)); }
   }
+
+  /* Clean hero: remove all legacy copy, navigation and floating controls. */
+  .dock-wrap, .headline, .lede, .pill-clip, .play-wrap,
+  .stat, .knob-float { display:none !important; }
 </style>
 </head>
 <body>
