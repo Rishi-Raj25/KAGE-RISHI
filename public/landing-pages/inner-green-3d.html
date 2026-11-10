@@ -4278,6 +4278,7 @@ window.__seek   = v => { clock = v; drawn = null; };
     emitSpray(dt);
 
     renderer.render(scene, camera);
+    if (window.__renderSylvaRootFlow) window.__renderSylvaRootFlow();
     if (++frames === 2) window.__ready = true;
   }
 
@@ -4287,15 +4288,22 @@ window.__seek   = v => { clock = v; drawn = null; };
   window.__mountSylvaRootFlow = function (target) {
     if (!target || !nearGroup || !window.THREE || target.__mounted) return;
     target.__mounted = true;
+
     var smallFlow = window.innerWidth < 760;
     var flowRenderer;
     try {
-      flowRenderer = new THREE.WebGLRenderer({ canvas: target, alpha: true, antialias: !smallFlow });
+      flowRenderer = new THREE.WebGLRenderer({
+        canvas: target,
+        alpha: true,
+        antialias: !smallFlow,
+        powerPreference: 'high-performance'
+      });
     } catch (err) {
       target.__mounted = false;
       console.error('Sylva root flow renderer could not start', err);
       return;
     }
+
     flowRenderer.setClearColor(0x000000, 0);
     flowRenderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, smallFlow ? 1.25 : 1.6));
     flowRenderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -4303,19 +4311,20 @@ window.__seek   = v => { clock = v; drawn = null; };
     if ('sRGBEncoding' in THREE) flowRenderer.outputEncoding = THREE.sRGBEncoding;
 
     var flowScene = new THREE.Scene();
-    var flowCamera = new THREE.OrthographicCamera(-10, 10, 16, -16, 0.1, 300);
+    var flowCamera = new THREE.OrthographicCamera(-20, 20, 28, -28, 0.1, 300);
     flowCamera.position.set(0, 0, 80);
     flowCamera.lookAt(0, 0, 0);
 
-    /* Four instances of the original moss-root model, turned into descending
-       limbs and gently offset so their arches and offshoots weave together. */
-    var side = smallFlow ? 0.42 : 0.72;
+    /* Use the real Sylva root mesh four times. Each clone gets independent
+       shader materials so the continuation cannot interfere with the hero. */
+    var side = smallFlow ? 1.15 : 1.8;
     var placements = [
-      { x: -side, y:  11.1, s: 0.94, r: 1.5708 },
-      { x:  side, y:   3.7, s: 0.91, r: 1.4050 },
-      { x: -side, y:  -3.7, s: 0.96, r: 1.7350 },
-      { x:  side, y: -11.1, s: 0.92, r: 1.4850 }
+      { x: -side, y:  18.5, s: 0.96, r: 1.5708 },
+      { x:  side, y:   6.2, s: 0.96, r: 1.4050 },
+      { x: -side, y:  -6.2, s: 0.96, r: 1.7350 },
+      { x:  side, y: -18.5, s: 0.96, r: 1.4850 }
     ];
+
     placements.forEach(function (p) {
       var limb = nearGroup.clone(true);
       limb.position.set(p.x, p.y, 0);
@@ -4323,31 +4332,51 @@ window.__seek   = v => { clock = v; drawn = null; };
       limb.scale.setScalar(p.s);
       limb.traverse(function (node) {
         node.frustumCulled = false;
-        if (node.material) {
-          var mats = Array.isArray(node.material) ? node.material : [node.material];
-          mats.forEach(function (mat) {
-            if (mat && mat.uniforms && mat.uniforms.uMouse) mat.uniforms.uMouse.value.set(9999,9999,9999);
-          });
+        if (!node.material) return;
+        if (Array.isArray(node.material)) {
+          node.material = node.material.map(function (mat) { return mat.clone(); });
+        } else {
+          node.material = node.material.clone();
         }
+        var mats = Array.isArray(node.material) ? node.material : [node.material];
+        mats.forEach(function (mat) {
+          if (mat && mat.uniforms && mat.uniforms.uMouse) {
+            mat.uniforms.uMouse.value.set(9999, 9999, 9999);
+          }
+        });
       });
       flowScene.add(limb);
     });
 
     function resizeFlow() {
       var rect = target.getBoundingClientRect();
-      var width = Math.max(1, rect.width), height = Math.max(1, rect.height);
+      var width = Math.max(1, rect.width);
+      var height = Math.max(1, rect.height);
       flowRenderer.setSize(width, height, false);
-      var halfH = smallFlow ? 19.5 : 19.5;
+      var halfH = smallFlow ? 28 : 28;
       var halfW = halfH * width / height;
-      flowCamera.left = -halfW; flowCamera.right = halfW;
-      flowCamera.top = halfH; flowCamera.bottom = -halfH;
+      flowCamera.left = -halfW;
+      flowCamera.right = halfW;
+      flowCamera.top = halfH;
+      flowCamera.bottom = -halfH;
       flowCamera.updateProjectionMatrix();
-      flowRenderer.render(flowScene, flowCamera);
     }
+
     var flowObserver = new ResizeObserver(resizeFlow);
     flowObserver.observe(target);
     resizeFlow();
-    target.__flowDispose = function () { flowObserver.disconnect(); flowRenderer.dispose(); };
+
+    /* The root shaders animate from the same clock as the original scene.
+       Repaint this second scene on every homepage frame so it stays alive. */
+    window.__renderSylvaRootFlow = function () {
+      if (target.isConnected) flowRenderer.render(flowScene, flowCamera);
+    };
+    target.__flowDispose = function () {
+      flowObserver.disconnect();
+      flowRenderer.dispose();
+      window.__renderSylvaRootFlow = null;
+    };
+    flowRenderer.render(flowScene, flowCamera);
   };
 
   /* ── boot ──────────────────────────────────────────────────────────── */
