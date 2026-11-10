@@ -4309,11 +4309,12 @@ window.__seek   = v => { clock = v; drawn = null; };
 
     /* Four instances of the original moss-root model, turned into descending
        limbs and gently offset so their arches and offshoots weave together. */
+    var side = smallFlow ? 0.42 : 0.72;
     var placements = [
-      { x: -3.25, y: 0.0, s: 1.05, r: 1.5708 },
-      { x: -1.05, y: 0.25, s: 0.94, r: 1.4050 },
-      { x:  1.10, y: -0.18, s: 1.00, r: 1.7350 },
-      { x:  3.20, y: 0.10, s: 0.91, r: 1.4850 }
+      { x: -side, y:  11.1, s: 0.94, r: 1.5708 },
+      { x:  side, y:   3.7, s: 0.91, r: 1.4050 },
+      { x: -side, y:  -3.7, s: 0.96, r: 1.7350 },
+      { x:  side, y: -11.1, s: 0.92, r: 1.4850 }
     ];
     placements.forEach(function (p) {
       var limb = nearGroup.clone(true);
@@ -4336,7 +4337,7 @@ window.__seek   = v => { clock = v; drawn = null; };
       var rect = target.getBoundingClientRect();
       var width = Math.max(1, rect.width), height = Math.max(1, rect.height);
       flowRenderer.setSize(width, height, false);
-      var halfH = smallFlow ? 18.5 : 17.0;
+      var halfH = smallFlow ? 19.5 : 19.5;
       var halfW = halfH * width / height;
       flowCamera.left = -halfW; flowCamera.right = halfW;
       flowCamera.top = halfH; flowCamera.bottom = -halfH;
