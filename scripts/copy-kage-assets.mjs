@@ -1,4 +1,4 @@
-import { cp, mkdir, access } from "node:fs/promises";
+import { cp, mkdir, access, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const source = path.resolve(
@@ -6,19 +6,26 @@ const source = path.resolve(
 );
 const destination = path.resolve("public/landing-pages");
 const customKage = path.resolve("custom/kage.html");
+const customJourney = path.join(destination, "inner-green-3d.html");
 const bookshelfSource = path.resolve("public/bookshelf/complete-shelf-v2.html");
 
 try {
   await access(path.join(source, "kage.html"));
   await access(customKage);
+  await access(customJourney);
   await access(bookshelfSource);
 } catch {
-  console.error("Required KAGE or BOOKSHELF assets are missing.");
+  console.error("Required KAGE, JOURNEY, or BOOKSHELF assets are missing.");
   process.exit(1);
 }
 
+// Keep the repository-owned Journey HTML before copying package assets,
+// because the package also contains an older file with the same name.
+const journeyHtml = await readFile(customJourney);
+
 await mkdir(destination, { recursive: true });
 await cp(source, destination, { recursive: true });
-// Restore the repository-owned KAGE page after package assets are copied.
+// Restore repository-owned pages after package assets are copied.
 await cp(customKage, path.join(destination, "kage.html"));
-console.log("Copied ThreeUI assets, restored KAGE, and retained BOOKSHELF-CN assets.");
+await writeFile(customJourney, journeyHtml);
+console.log("Copied ThreeUI assets and restored custom KAGE and Journey pages.");
