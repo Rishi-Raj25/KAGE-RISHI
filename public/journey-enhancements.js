@@ -11,8 +11,8 @@
     ".kage-vine-world{position:relative;isolation:isolate;min-height:1900px;overflow:hidden;margin-top:-1px;padding:150px clamp(22px,7vw,110px) 220px;color:#eef0e5;background:radial-gradient(ellipse 72% 26% at 50% 0%,rgba(221,231,201,.12),transparent 78%),radial-gradient(ellipse 58% 24% at 8% 24%,rgba(124,151,91,.17),transparent 75%),radial-gradient(ellipse 54% 28% at 92% 49%,rgba(92,119,73,.19),transparent 78%),radial-gradient(ellipse 78% 30% at 48% 84%,rgba(139,157,102,.13),transparent 80%),linear-gradient(180deg,#383b34 0%,#3b4437 16%,#343d31 43%,#2c372d 72%,#263129 100%)}",
     ".kage-vine-world:before{content:'';position:absolute;inset:-2px 0 0;z-index:-2;pointer-events:none;opacity:.32;background:radial-gradient(ellipse 90% 12% at 50% 0%,rgba(226,233,209,.15),transparent 72%),radial-gradient(ellipse 30% 18% at 0% 16%,rgba(154,174,117,.18),transparent 80%),radial-gradient(ellipse 34% 22% at 100% 38%,rgba(131,157,101,.16),transparent 80%),radial-gradient(ellipse 38% 17% at 50% 68%,rgba(111,140,87,.12),transparent 82%),repeating-linear-gradient(112deg,transparent 0 58px,rgba(216,226,194,.018) 59px,transparent 61px)}",
 ".kage-vine-world:after{content:'';position:absolute;z-index:-1;inset:0;pointer-events:none;opacity:.6;background:radial-gradient(ellipse 34% 9% at 7% 18%,rgba(115,144,83,.22),transparent 78%),radial-gradient(ellipse 28% 8% at 91% 31%,rgba(133,155,98,.2),transparent 80%),radial-gradient(ellipse 44% 10% at 22% 58%,rgba(83,112,70,.2),transparent 80%),radial-gradient(ellipse 42% 10% at 78% 76%,rgba(108,133,82,.18),transparent 80%)}",
-    ".kage-vine-svg{position:absolute;inset:-1px 0 0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:visible;opacity:.7}.kage-vine-world>*:not(.kage-vine-svg){position:relative;z-index:1}",
-    ".kage-vine-svg path{fill:none;stroke:#b6c79a;stroke-width:2.5;stroke-linecap:round;opacity:.58;filter:drop-shadow(0 0 7px rgba(173,195,137,.18))}.kage-vine-svg .thin{stroke-width:1.25;opacity:.42}.kage-vine-svg .leaf{fill:#b6c79a;opacity:.62}",
+    ".kage-root-flow{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.98}.kage-vine-world>*:not(.kage-root-flow){position:relative;z-index:1}",
+    ".kage-root-flow{display:block;filter:drop-shadow(0 18px 35px rgba(8,14,8,.22))}",
     ".kage-vine-intro{max-width:700px;margin:0 auto 90px;text-align:center}.kage-vine-eyebrow{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:#bdcba9}.kage-vine-heading{font-size:clamp(42px,7vw,88px);font-weight:300;letter-spacing:-.06em;line-height:.98;margin:22px 0}.kage-vine-sub{max-width:500px;margin:auto;color:rgba(238,240,229,.68);font-size:14px;line-height:1.9}",
     ".kage-deck-field{position:relative;max-width:1100px;min-height:1050px;margin:auto}",
     ".kage-deck{position:absolute;width:clamp(190px,24vw,270px);min-height:190px;padding:25px 25px 23px;text-align:left;color:#e8edda;border:1px solid rgba(224,235,204,.24);border-radius:8px 22px 18px 22px;background:linear-gradient(145deg,rgba(219,231,199,.17),rgba(134,157,109,.09));box-shadow:0 24px 58px rgba(8,15,8,.23),inset 0 1px 0 rgba(245,249,232,.19);backdrop-filter:blur(10px);cursor:pointer;transform:rotate(var(--tilt,-2deg));transition:transform .55s cubic-bezier(.2,.8,.2,1),box-shadow .55s,border-color .55s}",
@@ -41,13 +41,7 @@
   section.className = "kage-vine-world";
   section.id = "kage-vine-world";
   section.innerHTML = [
-    '<svg class="kage-vine-svg" viewBox="0 0 1400 1900" preserveAspectRatio="none" aria-hidden="true">',
-    '<path d="M80 -20 C260 170 40 330 220 500 S360 760 190 930 S120 1220 340 1430 S480 1680 430 1920"/>',
-    '<path d="M1320 -20 C1130 190 1370 360 1180 550 S1030 800 1210 980 S1270 1280 1060 1480 S930 1710 980 1920"/>',
-    '<path class="thin" d="M220 500 C390 390 500 470 590 610 M1180 550 C1010 450 900 530 830 670 M190 930 C390 840 480 930 570 1060 M1210 980 C1020 880 930 980 850 1110 M340 1430 C500 1300 600 1360 680 1510 M1060 1480 C900 1340 810 1410 740 1550"/>',
-    '<path class="thin" d="M270 470 Q180 390 150 310 M1150 520 Q1240 430 1280 340 M270 920 Q160 850 120 770 M1130 960 Q1240 880 1290 790 M410 1400 Q320 1310 280 1220 M1000 1450 Q1110 1360 1160 1270"/>',
-    '<ellipse class="leaf" cx="150" cy="310" rx="8" ry="20" transform="rotate(-35 150 310)"/><ellipse class="leaf" cx="1280" cy="340" rx="8" ry="20" transform="rotate(35 1280 340)"/><ellipse class="leaf" cx="120" cy="770" rx="8" ry="20" transform="rotate(-35 120 770)"/><ellipse class="leaf" cx="1290" cy="790" rx="8" ry="20" transform="rotate(35 1290 790)"/>',
-    '</svg>',
+    '<canvas class="kage-root-flow" aria-hidden="true"></canvas>',
     '<header class="kage-vine-intro"><div class="kage-vine-eyebrow">A living archive · things that made me</div><h1 class="kage-vine-heading">A life, growing<br>in many directions.</h1><p class="kage-vine-sub">No categories. No straight lines. Just different branches of curiosity, work, stories, and everything still growing.</p></header>',
     '<div class="kage-deck-field">',
     '<button class="kage-deck" type="button" data-deck="journey"><span class="kage-deck-index">01 · The beginning</span><strong class="kage-deck-title">My Journey</strong><span class="kage-deck-caption">The turns, detours, people, and moments that shaped the path.</span></button>',
@@ -69,6 +63,16 @@
     '<div class="kage-deck-detail" data-detail="experiments"><div class="kage-detail-label">A branch · The unknown</div><h2 class="kage-detail-title">Experiments</h2><p class="kage-detail-note">A home for things that do not fit anywhere else: curious attempts, prototypes, rabbit holes, and happy accidents.</p><div class="kage-detail-cards"><article class="kage-detail-card"><small>01 · Curiosity</small><h3>Questions</h3><p>Things I want to understand or explore.</p></article><article class="kage-detail-card"><small>02 · Attempts</small><h3>Experiments</h3><p>Trying, breaking, adjusting, and trying again.</p></article><article class="kage-detail-card"><small>03 · Discoveries</small><h3>What emerged</h3><p>Unexpected outcomes and new directions.</p></article></div></div>'
   ].join("");
   hero.insertAdjacentElement("afterend", section);
+  const rootFlowCanvas = section.querySelector(".kage-root-flow");
+  const mountRootFlow = () => {
+    if (window.__mountSylvaRootFlow && window.__ready) {
+      window.__mountSylvaRootFlow(rootFlowCanvas);
+      return;
+    }
+    window.requestAnimationFrame(mountRootFlow);
+  };
+  mountRootFlow();
+
 
   section.querySelectorAll("[data-deck]").forEach(deck => {
     deck.addEventListener("click", () => {
