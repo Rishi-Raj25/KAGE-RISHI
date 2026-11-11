@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Kage — Where stillness reveals the unseen",
-  description: "A five-chapter night walk through a Kyoto mountain temple.",
+  title: "KAGE — Code × Creativity",
+  description: "Software, AI experiments, digital experiences, music, film, and the curiosity that connects them.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
