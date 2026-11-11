@@ -727,6 +727,98 @@
     .journey-extra-3{left:calc(34 * var(--u));top:calc(2200 * var(--u));}
   }
 
+
+  /* ── KAGE: five chapter covers and the living chapter archive ── */
+  .card[data-chapter]{cursor:pointer}
+  .card[data-chapter]::after{
+    content:"OPEN CHAPTER ↗"; position:absolute; right:calc(28 * var(--u)); bottom:calc(24 * var(--u));
+    color:#7c8177; font-size:calc(9 * var(--u)); letter-spacing:calc(1.6 * var(--u));
+    opacity:.72; transition:opacity .25s ease, transform .25s ease;
+  }
+  .card[data-chapter]:hover::after{opacity:1;transform:translate(2px,-2px)}
+  .journey-overlay{
+    position:fixed; inset:0; z-index:80; display:grid; place-items:center;
+    padding:clamp(12px,2.4vw,38px); background:rgba(18,23,17,.78);
+    backdrop-filter:blur(14px); opacity:0; visibility:hidden; pointer-events:none;
+    transition:opacity .55s ease,visibility .55s ease;
+  }
+  .journey-overlay.is-open{opacity:1;visibility:visible;pointer-events:auto}
+  .journey-window{
+    position:relative; width:min(1480px,100%); height:min(900px,94dvh); overflow:auto;
+    border:1px solid rgba(240,244,231,.18); border-radius:28px;
+    color:#f2f3ec; background:
+      radial-gradient(ellipse at 18% 100%,rgba(166,183,135,.18),transparent 48%),
+      radial-gradient(ellipse at 92% 0%,rgba(103,126,88,.17),transparent 42%),
+      linear-gradient(145deg,rgba(48,57,43,.97),rgba(30,37,29,.98));
+    box-shadow:0 35px 100px rgba(0,0,0,.5); isolation:isolate;
+    transform:translateY(28px) scale(.985); transition:transform .7s cubic-bezier(.16,1,.3,1);
+  }
+  .journey-overlay.is-open .journey-window{transform:translateY(0) scale(1)}
+  .journey-window::before,.journey-window::after{
+    content:"";position:absolute;pointer-events:none;z-index:-1;border:1px solid rgba(214,226,194,.10);
+    border-radius:50%;width:58vw;height:58vw;max-width:850px;max-height:850px;
+  }
+  .journey-window::before{left:-25%;bottom:-65%}
+  .journey-window::after{right:-30%;top:-70%;width:48vw;height:48vw}
+  .journey-topbar{display:flex;align-items:center;justify-content:space-between;padding:22px 30px;border-bottom:1px solid rgba(255,255,255,.12)}
+  .journey-mark{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(241,244,232,.62)}
+  .journey-close{width:42px;height:42px;border:1px solid rgba(255,255,255,.28);border-radius:50%;background:rgba(255,255,255,.06);color:#fff;font-size:22px;cursor:pointer;transition:background .2s,transform .2s}
+  .journey-close:hover{background:rgba(255,255,255,.16);transform:rotate(90deg)}
+  .journey-layout{display:grid;grid-template-columns:minmax(180px,.72fr) minmax(420px,1.7fr) minmax(180px,.72fr);gap:clamp(18px,3vw,48px);padding:clamp(24px,4vw,62px)}
+  .journey-side{align-self:center}
+  .journey-kicker{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#b9c5a7;margin-bottom:18px}
+  .journey-title{font-family:Georgia,serif;font-weight:400;font-size:clamp(36px,5vw,72px);line-height:.98;letter-spacing:-2px;margin-bottom:18px;color:#f0f0e7}
+  .journey-intro{font-size:14px;line-height:1.85;color:rgba(241,244,232,.72);max-width:310px}
+  .journey-side-note{margin-top:34px;padding-top:18px;border-top:1px solid rgba(255,255,255,.15);font-family:Georgia,serif;font-size:18px;line-height:1.5;color:#d4ddc6}
+  .journey-vine-stage{position:relative;min-height:520px;padding:12px 0}
+  .journey-vine-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+  .journey-vine-svg path{fill:none;stroke:#84976b;stroke-width:3;stroke-linecap:round;opacity:.8;filter:drop-shadow(0 2px 5px rgba(0,0,0,.3))}
+  .journey-leaves{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:18px 26px;align-items:start}
+  .journey-leaf{
+    position:relative;min-height:142px;padding:20px 20px 18px;color:#30372c;
+    background:linear-gradient(145deg,#e8e8d8,#d5ddc8);
+    clip-path:polygon(3% 4%,16% 2%,25% 4%,39% 1%,54% 4%,69% 1%,84% 4%,98% 2%,96% 18%,99% 32%,96% 47%,99% 64%,96% 80%,98% 96%,82% 94%,66% 98%,50% 95%,34% 99%,18% 95%,2% 98%,4% 80%,1% 64%,4% 48%,1% 31%,4% 17%);
+    filter:drop-shadow(0 12px 16px rgba(0,0,0,.22));
+    transform:rotate(var(--tilt,-1deg));transition:transform .3s ease,filter .3s ease;
+    animation:leaf-arrive .75s cubic-bezier(.16,1,.3,1) both;animation-delay:var(--delay,0ms)
+  }
+  .journey-leaf:nth-child(2n){margin-top:42px}
+  .journey-leaf:nth-child(3n){margin-left:10px}
+  .journey-leaf:hover{transform:rotate(0) translateY(-5px);filter:drop-shadow(0 18px 20px rgba(0,0,0,.28))}
+  .journey-leaf small{display:block;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#75816b;margin-bottom:10px}
+  .journey-leaf h3{font-family:Georgia,serif;font-size:19px;font-weight:400;margin-bottom:8px;color:#30372c}
+  .journey-leaf p{font-size:11px;line-height:1.65;color:#4c5547}
+  .journey-side-right{align-self:center}
+  .journey-side-right .journey-side-note{font-size:20px}
+  .journey-foot{display:flex;justify-content:space-between;gap:20px;padding:18px 30px;border-top:1px solid rgba(255,255,255,.12);font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:rgba(241,244,232,.48)}
+  @keyframes leaf-arrive{from{opacity:0;transform:translateY(26px) rotate(var(--tilt,-1deg)) scale(.92)}to{opacity:1;transform:translateY(0) rotate(var(--tilt,-1deg)) scale(1)}}
+  @media(max-width:900px){
+    .journey-window{height:94dvh}
+    .journey-layout{grid-template-columns:1fr;gap:20px;padding:26px}
+    .journey-side{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:end}
+    .journey-title{font-size:42px;margin:0}
+    .journey-intro{max-width:none}
+    .journey-side-note{margin-top:10px}
+    .journey-vine-stage{min-height:520px}
+    .journey-side-right{display:block}
+    .journey-side-right .journey-side-note{font-size:16px}
+  }
+  @media(max-width:560px){
+    .journey-overlay{padding:7px}
+    .journey-window{border-radius:18px;height:96dvh}
+    .journey-topbar{padding:15px 18px}
+    .journey-layout{padding:22px 16px;gap:14px}
+    .journey-side{grid-template-columns:1fr}
+    .journey-title{font-size:38px}
+    .journey-intro{font-size:13px}
+    .journey-side-note{font-size:15px}
+    .journey-vine-stage{min-height:760px}
+    .journey-leaves{grid-template-columns:1fr;gap:12px}
+    .journey-leaf{min-height:122px;padding:18px}
+    .journey-leaf:nth-child(2n),.journey-leaf:nth-child(3n){margin:0 0 0 18px}
+    .journey-foot{padding:14px 18px;font-size:8px}
+  }
+
 </style>
 </head>
 <body>
@@ -780,13 +872,13 @@
     <div class="ghost fade" style="--d:1150ms" aria-hidden="true">SYLVA</div>
 
     <!-- card 1 sits *behind* the canvas so the moss drapes over its shoulder -->
-    <article class="card card--about mask" style="--d:760ms; --pd:10; --pr:2.2">
+    <article class="card card--about mask" data-chapter="origins" style="--d:760ms; --pd:10; --pr:2.2">
       <figure class="portal" data-delay="920">
         <span class="portal-media"><img src="inner-green-assets/card-ethos.jpg" alt="A cushion of moss grown over lichen-crusted stones" loading="eager" decoding="async"></span>
         <canvas class="pixel-reveal" aria-hidden="true"></canvas>
       </figure>
-      <p class="label">Our Ethos</p>
-      <h2>Let the wild lead.</h2>
+      <p class="label">CHAPTER 01</p>
+      <h2>Origins</h2>
     </article>
 
     <!-- the About knob rides *outside* the card: the card has to stay a plain
@@ -868,9 +960,9 @@
       <div><dt>Native species</dt><dd>43 mapped</dd></div>
     </dl>
 
-    <article class="card card--stove mask" style="--d:880ms; --pd:22; --pr:2.4">
-      <p class="label">Field Note 07</p>
-      <h2>After the Rain</h2>
+    <article class="card card--stove mask" data-chapter="machine" style="--d:880ms; --pd:22; --pr:2.4">
+      <p class="label">CHAPTER 02</p>
+      <h2>Machine</h2>
       <figure class="portal" data-delay="1080">
         <span class="portal-media"><img src="inner-green-assets/card-ecostove.jpg" alt="Moss-covered boulders in a misty grove" loading="eager" decoding="async"></span>
         <canvas class="pixel-reveal" aria-hidden="true"></canvas>
@@ -884,18 +976,50 @@
     </article>
 
 
-    <article class="card card--about mask journey-extra-1" style="--d:1040ms; --pd:10; --pr:2.2">
+    <article class="card card--about mask journey-extra-1" data-chapter="detours" style="--d:1040ms; --pd:10; --pr:2.2">
       <figure class="portal" data-delay="1180"><span class="portal-media"><img src="inner-green-assets/card-ethos.jpg" alt="A cushion of moss grown over lichen-crusted stones" loading="lazy" decoding="async"></span><canvas class="pixel-reveal" aria-hidden="true"></canvas></figure>
-      <p class="label">Our Ethos</p><h2>Let the wild lead.</h2>
+      <p class="label">CHAPTER 03</p><h2>Detours</h2>
     </article>
-    <article class="card card--stove mask journey-extra-2" style="--d:1160ms; --pd:22; --pr:2.4">
-      <p class="label">Field Note 07</p><h2>After the Rain</h2>
+    <article class="card card--stove mask journey-extra-2" data-chapter="making" style="--d:1160ms; --pd:22; --pr:2.4">
+      <p class="label">CHAPTER 04</p><h2>Making</h2>
       <figure class="portal" data-delay="1280"><span class="portal-media"><img src="inner-green-assets/card-ecostove.jpg" alt="Moss-covered boulders in a misty grove" loading="lazy" decoding="async"></span><canvas class="pixel-reveal" aria-hidden="true"></canvas></figure>
     </article>
-    <article class="card card--about mask journey-extra-3" style="--d:1280ms; --pd:10; --pr:2.2">
+    <article class="card card--about mask journey-extra-3" data-chapter="return" style="--d:1280ms; --pd:10; --pr:2.2">
       <figure class="portal" data-delay="1380"><span class="portal-media"><img src="inner-green-assets/card-ethos.jpg" alt="A cushion of moss grown over lichen-crusted stones" loading="lazy" decoding="async"></span><canvas class="pixel-reveal" aria-hidden="true"></canvas></figure>
-      <p class="label">Our Ethos</p><h2>Let the wild lead.</h2>
+      <p class="label">CHAPTER 05</p><h2>Return</h2>
     </article>
+
+    
+  <section class="journey-overlay" id="journeyOverlay" aria-hidden="true">
+    <div class="journey-window" role="dialog" aria-modal="true" aria-labelledby="journeyChapterTitle">
+      <header class="journey-topbar">
+        <div class="journey-mark">KAGE / FIELD JOURNAL</div>
+        <button class="journey-close" type="button" aria-label="Close chapter">×</button>
+      </header>
+      <div class="journey-layout">
+        <aside class="journey-side">
+          <div>
+            <div class="journey-kicker" id="journeyKicker">CHAPTER 01 / THE BEGINNING</div>
+            <h2 class="journey-title" id="journeyChapterTitle">Origins</h2>
+          </div>
+          <p class="journey-intro" id="journeyIntro"></p>
+          <p class="journey-side-note" id="journeyLeftNote"></p>
+        </aside>
+        <section class="journey-vine-stage" aria-label="Chapter memos">
+          <svg class="journey-vine-svg" viewBox="0 0 600 560" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M290 4 C160 70 430 118 280 190 S420 300 280 370 S390 470 300 556"/>
+          </svg>
+          <div class="journey-leaves" id="journeyLeaves"></div>
+        </section>
+        <aside class="journey-side journey-side-right">
+          <div class="journey-kicker">A NOTE TO SELF</div>
+          <p class="journey-intro" id="journeyReflection"></p>
+          <p class="journey-side-note" id="journeyRightNote"></p>
+        </aside>
+      </div>
+      <footer class="journey-foot"><span id="journeyFootLeft">A living archive</span><span>Five chapters · still growing</span></footer>
+    </div>
+  </section>
 
     <a class="scroll mask" style="--d:1040ms; --pd:9" href="#">Discover<span class="track"></span></a>
 
@@ -4332,5 +4456,110 @@ window.__seek   = v => { clock = v; drawn = null; };
   setTimeout(ready, 4000);
 })();
 </script>
+
+<script>
+(function(){
+  const chapters = {
+    origins:{
+      number:"01",kicker:"CHAPTER 01 / BEFORE THE CODE",title:"Origins",
+      intro:"Before there were frameworks, there was the urge to make something felt. Stories, images, music and the little details of how an experience lands came first.",
+      left:"The first instinct was never just to make things work. It was to make them mean something.",
+      reflection:"The creative instinct did not disappear when technology arrived. It became the compass for everything that followed.",
+      right:"A story can begin long before you know what tools you will need.",
+      leaves:[
+        ["THE FIRST LANGUAGE","Storytelling","Film, scenes and visual ideas were an early way of understanding people, mood and meaning."],
+        ["SOUNDTRACK","Music & lyrics","Songwriting and music became another way to shape emotion when words alone were not enough."],
+        ["THE FRAME","Visual thinking","Composition, atmosphere and pacing mattered: not just what appears, but how someone experiences it."],
+        ["CURIOSITY","Making things","The habit of noticing an idea and wondering how it could become a real experience kept growing."],
+        ["THE SEED","A wider canvas","Those creative instincts would later find an unexpected partner in code, design and interactive work."]
+      ],foot:"Where the instinct began"
+    },
+    machine:{
+      number:"02",kicker:"CHAPTER 02 / THE MACHINE ROOM",title:"Machine",
+      intro:"Curiosity moved from stories into systems. Learning code opened a new kind of canvas: interfaces, tools, automations and eventually AI-powered experiences.",
+      left:"The machine room was not a straight syllabus. It was a workshop full of things to take apart and rebuild.",
+      reflection:"Learning became less about collecting languages and more about discovering what could be built with them.",
+      right:"Every new tool made the question bigger: what can I make now?",
+      leaves:[
+        ["FIRST TOOLS","Code & logic","C, C++ and Python became ways to reason through problems, one small concept and experiment at a time."],
+        ["THE WEB","Building interfaces","HTML, CSS, JavaScript, React and Next.js opened the door to turning ideas into things people could use."],
+        ["THE STACK","Learning by building","Flask, databases, APIs and deployment connected the visible interface to the systems behind it."],
+        ["THE NEW FRONTIER","AI curiosity","Exploring AI, machine learning, speech and language systems shifted the question from what code does to what an experience can do."],
+        ["THE WORKSHOP","A changing toolkit","Tailwind, Framer Motion, Supabase, Vercel and other tools became parts of an evolving maker's toolkit."]
+      ],foot:"Learning the language of systems"
+    },
+    detours:{
+      number:"03",kicker:"CHAPTER 03 / THE WRONG TURNS",title:"Detours",
+      intro:"Not every experiment worked. Builds broke, integrations hit limits, ideas changed shape and the distance between a working demo and a finished product became very real.",
+      left:"The wrong turns were not a separate chapter from making. They were the material it was made from.",
+      reflection:"A failed build is frustrating. It is also specific: it shows exactly where the next question begins.",
+      right:"Progress often looked less like a breakthrough and more like one more attempt.",
+      leaves:[
+        ["THE DEBUG LOOP","Things that broke","Build errors, missing assets, deployment surprises and small details taught the value of checking the whole path, not just the code."],
+        ["REAL-WORLD LIMITS","Integrations","Working with APIs, telephony and external services revealed that a good idea still has to negotiate real platform constraints."],
+        ["THE REDRAFT","Changing direction","Some designs and implementations needed to be pulled apart, simplified and rebuilt without losing the original vision."],
+        ["THE GAP","Demo to product","Making something run was only the start. Reliability, usability, edge cases and deployment all demanded their own attention."],
+        ["PATIENCE","Staying with it","The lesson was not to romanticise failure, but to inspect it, learn the constraint and keep moving."]
+      ],foot:"The useful part of getting lost"
+    },
+    making:{
+      number:"04",kicker:"CHAPTER 04 / THINGS MADE REAL",title:"Making",
+      intro:"Ideas began taking recognisable forms: AI agents, agriculture-focused experiments, product prototypes, campus experiences and websites built for actual people.",
+      left:"This is where curiosity left the notebook and started asking to be tested in the world.",
+      reflection:"The most satisfying moment is when separate pieces — interface, model, data and interaction — finally behave like one experience.",
+      right:"A project becomes real when someone can actually use it.",
+      leaves:[
+        ["KARMA AI","A voice with a role","A reverse-scam-call agent explored speech-to-text, conversational AI and text-to-speech to create a character-led phone experience."],
+        ["KRISHILENS","Technology meets agriculture","An experiment in applying computer vision and AI thinking to an agricultural context, where usefulness matters more than novelty."],
+        ["DAAV","A product experiment","A marketplace-style MVP brought together product flow, Supabase and payment integration as a practical build."],
+        ["CAMPUS","Building with people","GDG on Campus SBU and DevSpark 2026 connected technology, community, event-making and the experience of building for a real audience."],
+        ["THE PORTFOLIO","A world of its own","KAGE became a way to bring projects, skills and creative identity into one deliberately designed environment."]
+      ],foot:"From experiments to experiences"
+    },
+    return:{
+      number:"05",kicker:"CHAPTER 05 / THE WAY BACK",title:"Return",
+      intro:"The route through technology did not replace the creative beginning. It made the return richer: music, film, design and code can now live in the same body of work.",
+      left:"This is not going backwards. It is bringing the different parts of the journey into the same room.",
+      reflection:"The point was never to choose between being technical and being creative. The interesting work happens where they meet.",
+      right:"Keep the curiosity. Keep the feeling. Keep making.",
+      leaves:[
+        ["THE SOUND","Music again","Songwriting and music remain part of the creative vocabulary, not something left behind while learning technology."],
+        ["THE FRAME","Film & atmosphere","Visual storytelling still shapes how an idea is paced, revealed and remembered."],
+        ["THE INTERSECTION","Creative technology","Interactive worlds, motion, AI and interfaces offer new ways to tell stories and create emotion."],
+        ["THE PRACTICE","A multidisciplinary maker","Technology, music and film are not competing identities; they are different tools for expressing one curiosity."],
+        ["STILL GROWING","No final version","The journey stays open: learn something, make something, share it, rethink it and begin again."]
+      ],foot:"The story continues"
+    }
+  };
+  const overlay=document.getElementById('journeyOverlay');
+  if(!overlay)return;
+  const $=id=>document.getElementById(id);
+  const close=()=>{overlay.classList.remove('is-open');overlay.setAttribute('aria-hidden','true');document.body.classList.remove('chapter-open');};
+  function open(key){
+    const c=chapters[key];if(!c)return;
+    $('journeyKicker').textContent=c.kicker;
+    $('journeyChapterTitle').textContent=c.title;
+    $('journeyIntro').textContent=c.intro;
+    $('journeyLeftNote').textContent=c.left;
+    $('journeyReflection').textContent=c.reflection;
+    $('journeyRightNote').textContent=c.right;
+    $('journeyFootLeft').textContent=c.foot;
+    $('journeyLeaves').innerHTML=c.leaves.map((leaf,i)=>'<article class="journey-leaf" style="--delay:'+(i*90)+'ms;--tilt:'+(i%2?1.4:-1.2)+'deg"><small>'+leaf[0]+'</small><h3>'+leaf[1]+'</h3><p>'+leaf[2]+'</p></article>').join('');
+    overlay.classList.add('is-open');overlay.setAttribute('aria-hidden','false');document.body.classList.add('chapter-open');
+    setTimeout(()=>$('journeyClose')?.focus(),80);
+  }
+  document.querySelectorAll('.card[data-chapter]').forEach(card=>{
+    card.setAttribute('role','button');card.setAttribute('tabindex','0');
+    card.setAttribute('aria-label','Open chapter '+(chapters[card.dataset.chapter]?.title||''));
+    card.addEventListener('click',()=>open(card.dataset.chapter));
+    card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open(card.dataset.chapter);}});
+  });
+  overlay.querySelector('.journey-close').id='journeyClose';
+  overlay.querySelector('.journey-close').addEventListener('click',close);
+  overlay.addEventListener('click',e=>{if(e.target===overlay)close();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('is-open'))close();});
+})();
+</script>
+
 </body>
 </html>
