@@ -728,96 +728,60 @@
   }
 
 
-  /* ── KAGE: five chapter covers and the living chapter archive ── */
+  /* ── KAGE chapter covers: clean hierarchy inside the original Sylva cards ── */
   .card[data-chapter]{cursor:pointer}
-  .card[data-chapter]::after{
-    content:"OPEN CHAPTER ↗"; position:absolute; right:calc(28 * var(--u)); bottom:calc(24 * var(--u));
-    color:#7c8177; font-size:calc(9 * var(--u)); letter-spacing:calc(1.6 * var(--u));
-    opacity:.72; transition:opacity .25s ease, transform .25s ease;
-  }
-  .card[data-chapter]:hover::after{opacity:1;transform:translate(2px,-2px)}
-  .journey-overlay{
-    position:fixed; inset:0; z-index:80; display:grid; place-items:center;
-    padding:clamp(12px,2.4vw,38px); background:rgba(18,23,17,.78);
-    backdrop-filter:blur(14px); opacity:0; visibility:hidden; pointer-events:none;
-    transition:opacity .55s ease,visibility .55s ease;
-  }
+  .card[data-chapter]::after{content:"OPEN CHAPTER ↗";position:absolute;right:calc(25 * var(--u));bottom:calc(22 * var(--u));font-size:calc(8.5 * var(--u));letter-spacing:calc(1.4 * var(--u));color:#858b7e;opacity:.8}
+  .card[data-chapter] .label{left:calc(28 * var(--u));top:auto!important;bottom:calc(78 * var(--u));font-size:calc(10 * var(--u));letter-spacing:calc(1.5 * var(--u));font-weight:500;text-transform:uppercase;color:#818779}
+  .card[data-chapter] h2{left:calc(27 * var(--u));top:auto!important;bottom:calc(42 * var(--u));width:calc(240 * var(--u));font-family:Georgia,serif;font-size:calc(27 * var(--u));line-height:1.02;letter-spacing:calc(-.6 * var(--u));font-weight:400;color:#292e26}
+  .card[data-chapter].card--stove .label{top:calc(38 * var(--u))!important;bottom:auto}
+  .card[data-chapter].card--stove h2{top:calc(61 * var(--u))!important;bottom:auto}
+  .card[data-chapter].card--stove::after{bottom:calc(25 * var(--u))}
+  .journey-overlay{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:clamp(8px,1.5vw,22px);background:rgba(15,20,14,.66);backdrop-filter:blur(10px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .35s ease,visibility .35s ease}
   .journey-overlay.is-open{opacity:1;visibility:visible;pointer-events:auto}
-  .journey-window{
-    position:relative; width:min(1480px,100%); height:min(900px,94dvh); overflow:auto;
-    border:1px solid rgba(240,244,231,.18); border-radius:28px;
-    color:#f2f3ec; background:
-      radial-gradient(ellipse at 18% 100%,rgba(166,183,135,.18),transparent 48%),
-      radial-gradient(ellipse at 92% 0%,rgba(103,126,88,.17),transparent 42%),
-      linear-gradient(145deg,rgba(48,57,43,.97),rgba(30,37,29,.98));
-    box-shadow:0 35px 100px rgba(0,0,0,.5); isolation:isolate;
-    transform:translateY(28px) scale(.985); transition:transform .7s cubic-bezier(.16,1,.3,1);
-  }
+  .journey-window{position:relative;width:min(1320px,100%);height:min(700px,91dvh);overflow:hidden;border:1px solid rgba(240,244,231,.2);border-radius:26px;color:#f2f3ec;background:radial-gradient(ellipse at 48% 100%,rgba(166,183,135,.24),transparent 55%),linear-gradient(145deg,rgba(49,59,43,.97),rgba(25,33,25,.985));box-shadow:0 28px 90px rgba(0,0,0,.48);isolation:isolate;transform:translateY(18px) scale(.985);transition:transform .55s cubic-bezier(.16,1,.3,1)}
   .journey-overlay.is-open .journey-window{transform:translateY(0) scale(1)}
-  .journey-window::before,.journey-window::after{
-    content:"";position:absolute;pointer-events:none;z-index:-1;border:1px solid rgba(214,226,194,.10);
-    border-radius:50%;width:58vw;height:58vw;max-width:850px;max-height:850px;
-  }
-  .journey-window::before{left:-25%;bottom:-65%}
-  .journey-window::after{right:-30%;top:-70%;width:48vw;height:48vw}
-  .journey-topbar{display:flex;align-items:center;justify-content:space-between;padding:22px 30px;border-bottom:1px solid rgba(255,255,255,.12)}
-  .journey-mark{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(241,244,232,.62)}
-  .journey-close{width:42px;height:42px;border:1px solid rgba(255,255,255,.28);border-radius:50%;background:rgba(255,255,255,.06);color:#fff;font-size:22px;cursor:pointer;transition:background .2s,transform .2s}
-  .journey-close:hover{background:rgba(255,255,255,.16);transform:rotate(90deg)}
-  .journey-layout{display:grid;grid-template-columns:minmax(180px,.72fr) minmax(420px,1.7fr) minmax(180px,.72fr);gap:clamp(18px,3vw,48px);padding:clamp(24px,4vw,62px)}
-  .journey-side{align-self:center}
-  .journey-kicker{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#b9c5a7;margin-bottom:18px}
-  .journey-title{font-family:Georgia,serif;font-weight:400;font-size:clamp(36px,5vw,72px);line-height:.98;letter-spacing:-2px;margin-bottom:18px;color:#f0f0e7}
-  .journey-intro{font-size:14px;line-height:1.85;color:rgba(241,244,232,.72);max-width:310px}
-  .journey-side-note{margin-top:34px;padding-top:18px;border-top:1px solid rgba(255,255,255,.15);font-family:Georgia,serif;font-size:18px;line-height:1.5;color:#d4ddc6}
-  .journey-vine-stage{position:relative;min-height:520px;padding:12px 0}
-  .journey-vine-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
-  .journey-vine-svg path{fill:none;stroke:#84976b;stroke-width:3;stroke-linecap:round;opacity:.8;filter:drop-shadow(0 2px 5px rgba(0,0,0,.3))}
-  .journey-leaves{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:18px 26px;align-items:start}
-  .journey-leaf{
-    position:relative;min-height:142px;padding:20px 20px 18px;color:#30372c;
-    background:linear-gradient(145deg,#e8e8d8,#d5ddc8);
-    clip-path:polygon(3% 4%,16% 2%,25% 4%,39% 1%,54% 4%,69% 1%,84% 4%,98% 2%,96% 18%,99% 32%,96% 47%,99% 64%,96% 80%,98% 96%,82% 94%,66% 98%,50% 95%,34% 99%,18% 95%,2% 98%,4% 80%,1% 64%,4% 48%,1% 31%,4% 17%);
-    filter:drop-shadow(0 12px 16px rgba(0,0,0,.22));
-    transform:rotate(var(--tilt,-1deg));transition:transform .3s ease,filter .3s ease;
-    animation:leaf-arrive .75s cubic-bezier(.16,1,.3,1) both;animation-delay:var(--delay,0ms)
-  }
-  .journey-leaf:nth-child(2n){margin-top:42px}
-  .journey-leaf:nth-child(3n){margin-left:10px}
-  .journey-leaf:hover{transform:rotate(0) translateY(-5px);filter:drop-shadow(0 18px 20px rgba(0,0,0,.28))}
-  .journey-leaf small{display:block;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#75816b;margin-bottom:10px}
-  .journey-leaf h3{font-family:Georgia,serif;font-size:19px;font-weight:400;margin-bottom:8px;color:#30372c}
-  .journey-leaf p{font-size:11px;line-height:1.65;color:#4c5547}
-  .journey-side-right{align-self:center}
-  .journey-side-right .journey-side-note{font-size:20px}
-  .journey-foot{display:flex;justify-content:space-between;gap:20px;padding:18px 30px;border-top:1px solid rgba(255,255,255,.12);font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:rgba(241,244,232,.48)}
-  @keyframes leaf-arrive{from{opacity:0;transform:translateY(26px) rotate(var(--tilt,-1deg)) scale(.92)}to{opacity:1;transform:translateY(0) rotate(var(--tilt,-1deg)) scale(1)}}
-  @media(max-width:900px){
-    .journey-window{height:94dvh}
-    .journey-layout{grid-template-columns:1fr;gap:20px;padding:26px}
-    .journey-side{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:end}
-    .journey-title{font-size:42px;margin:0}
-    .journey-intro{max-width:none}
-    .journey-side-note{margin-top:10px}
-    .journey-vine-stage{min-height:520px}
-    .journey-side-right{display:block}
-    .journey-side-right .journey-side-note{font-size:16px}
-  }
-  @media(max-width:560px){
-    .journey-overlay{padding:7px}
-    .journey-window{border-radius:18px;height:96dvh}
-    .journey-topbar{padding:15px 18px}
-    .journey-layout{padding:22px 16px;gap:14px}
-    .journey-side{grid-template-columns:1fr}
-    .journey-title{font-size:38px}
-    .journey-intro{font-size:13px}
-    .journey-side-note{font-size:15px}
-    .journey-vine-stage{min-height:760px}
-    .journey-leaves{grid-template-columns:1fr;gap:12px}
-    .journey-leaf{min-height:122px;padding:18px}
-    .journey-leaf:nth-child(2n),.journey-leaf:nth-child(3n){margin:0 0 0 18px}
-    .journey-foot{padding:14px 18px;font-size:8px}
-  }
+  .journey-window::before{content:"";position:absolute;z-index:-1;left:-8%;bottom:-48%;width:70%;height:70%;border:1px solid rgba(207,222,185,.13);border-radius:50%;box-shadow:0 0 0 22px rgba(207,222,185,.025),0 0 0 54px rgba(207,222,185,.02)}
+  .journey-topbar{height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;border-bottom:1px solid rgba(255,255,255,.11)}
+  .journey-mark{font-size:9px;letter-spacing:2.6px;text-transform:uppercase;color:rgba(241,244,232,.58)}
+  .journey-close{width:34px;height:34px;border:1px solid rgba(255,255,255,.28);border-radius:50%;background:rgba(255,255,255,.06);color:#fff;font-size:19px;cursor:pointer}
+  .journey-layout{height:calc(100% - 94px);display:grid;grid-template-columns:minmax(170px,.76fr) minmax(440px,1.8fr) minmax(155px,.66fr);gap:clamp(14px,2vw,28px);padding:clamp(18px,2.3vw,32px);align-items:center}
+  .journey-side{position:relative;z-index:3;align-self:center}
+  .journey-kicker{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#bdcba9;margin-bottom:12px}
+  .journey-title{font-family:Georgia,serif;font-weight:400;font-size:clamp(34px,4vw,58px);line-height:.94;letter-spacing:-1.8px;margin-bottom:13px;color:#f0f0e7}
+  .journey-intro{font-size:12px;line-height:1.65;color:rgba(241,244,232,.76);max-width:280px}
+  .journey-side-note{margin-top:18px;padding-top:12px;border-top:1px solid rgba(255,255,255,.15);font-family:Georgia,serif;font-size:15px;line-height:1.4;color:#d4ddc6}
+  .journey-side-right .journey-side-note{font-size:17px}
+  .journey-vine-stage{position:relative;min-height:0;height:100%;display:grid;place-items:center;perspective:900px}
+  .journey-vine-stage::before{content:"";position:absolute;left:50%;top:50%;width:82%;height:72%;transform:translate(-50%,-50%);background:radial-gradient(ellipse,rgba(151,174,117,.18),transparent 68%);filter:blur(14px)}
+  .journey-vine-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:1}
+  .journey-vine-svg path{fill:none;stroke:#91a779;stroke-width:3.3;stroke-linecap:round;opacity:.9;filter:drop-shadow(0 2px 4px rgba(0,0,0,.45))}
+  .journey-vine-svg .fine-vine{stroke:#718b60;stroke-width:1.7;opacity:.9}
+  .journey-leaves{position:relative;z-index:2;width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:13px 12px;align-items:center;justify-items:center}
+  .journey-leaf{position:relative;width:100%;min-height:132px;padding:15px 14px 13px;color:#30372c;background:linear-gradient(145deg,#eef0df,#d3ddc6);clip-path:polygon(3% 5%,17% 2%,30% 5%,43% 1%,58% 4%,72% 2%,97% 5%,95% 20%,99% 36%,96% 51%,99% 68%,96% 83%,98% 96%,80% 94%,64% 99%,49% 95%,32% 99%,17% 95%,2% 98%,4% 79%,1% 63%,4% 47%,1% 30%,4% 16%);filter:drop-shadow(0 9px 12px rgba(0,0,0,.28));transform:rotate(var(--tilt,-1deg)) translateZ(0);transition:transform .3s ease;animation:leaf-arrive .6s cubic-bezier(.16,1,.3,1) both;animation-delay:var(--delay,0ms)}
+  .journey-leaf:nth-child(2){transform:rotate(2deg) translateY(9px)}
+  .journey-leaf:nth-child(3){transform:rotate(-2deg) translateY(-5px)}
+  .journey-leaf:nth-child(4){transform:rotate(1.5deg) translateY(5px)}
+  .journey-leaf:nth-child(5){transform:rotate(-1deg) translateY(-3px)}
+  .journey-leaf small{display:block;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:#75816b;margin-bottom:7px}
+  .journey-leaf h3{font-family:Georgia,serif;font-size:16px;line-height:1.1;font-weight:400;margin-bottom:6px;color:#30372c}
+  .journey-leaf p{font-size:10px;line-height:1.45;color:#4c5547}
+  .journey-leaf:nth-child(5){grid-column:2}
+  .journey-foot{height:40px;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:0 22px;border-top:1px solid rgba(255,255,255,.11);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(241,244,232,.48)}
+  .journey-forest{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .journey-root{position:absolute;left:50%;bottom:-42px;width:340px;height:170px;transform:translateX(-50%) rotateX(58deg);border-radius:50%;background:radial-gradient(ellipse at 50% 35%,#899d6b 0%,#596e48 32%,#354632 63%,transparent 72%);filter:drop-shadow(0 -12px 24px rgba(0,0,0,.35));opacity:.68}
+  .journey-root::before,.journey-root::after{content:"";position:absolute;left:50%;top:35%;width:270px;height:90px;border:9px solid #778c5c;border-bottom:0;border-radius:50% 50% 0 0;transform:translateX(-50%) rotate(-13deg);filter:drop-shadow(0 4px 5px rgba(0,0,0,.35))}
+  .journey-root::after{width:210px;transform:translateX(-50%) rotate(17deg);border-color:#a1ae7b}
+  .journey-moss{position:absolute;width:110px;height:48px;border-radius:60% 40% 65% 35%;background:radial-gradient(ellipse at 40% 30%,#b1bd83,#60794f 65%,#3e563a);filter:drop-shadow(0 9px 12px rgba(0,0,0,.25));opacity:.65}
+  .journey-moss.m1{left:8%;bottom:12%}.journey-moss.m2{right:8%;top:16%;transform:rotate(28deg) scale(.7)}
+  .journey-butterfly{position:absolute;right:15%;top:16%;width:30px;height:22px;opacity:.85;filter:drop-shadow(0 3px 5px #172116);animation:butterfly-drift 6s ease-in-out infinite}
+  .journey-butterfly::before,.journey-butterfly::after{content:"";position:absolute;top:0;width:14px;height:20px;background:linear-gradient(145deg,#e0d6a5,#899d70);border-radius:90% 10% 80% 20%;transform-origin:100% 100%;animation:wing 0.38s ease-in-out infinite alternate}
+  .journey-butterfly::after{left:14px;transform-origin:0 100%;transform:scaleX(-1);animation-name:wing2}
+  @keyframes butterfly-drift{0%,100%{translate:0 0}50%{translate:-16px -12px}}
+  @keyframes wing{to{transform:rotateY(62deg) rotateZ(-10deg)}}
+  @keyframes wing2{to{transform:scaleX(-1) rotateY(62deg) rotateZ(-10deg)}}
+  @keyframes leaf-arrive{from{opacity:0;transform:translateY(18px) rotate(var(--tilt,-1deg)) scale(.92)}to{opacity:1;transform:translateY(0) rotate(var(--tilt,-1deg)) scale(1)}}
+  @media(max-width:1000px){.journey-window{height:min(780px,94dvh)}.journey-layout{grid-template-columns:155px minmax(340px,1fr);gap:14px;padding:18px}.journey-side-right{display:none}.journey-leaf{min-height:122px}.journey-vine-stage{min-height:0}}
+  @media(max-width:650px){.journey-overlay{padding:5px}.journey-window{height:96dvh;border-radius:17px}.journey-topbar{height:46px;padding:0 14px}.journey-layout{height:calc(100% - 82px);grid-template-columns:1fr;grid-template-rows:auto 1fr;gap:8px;padding:12px}.journey-side{display:grid;grid-template-columns:.7fr 1.3fr;gap:12px;align-items:center}.journey-title{font-size:31px;margin:0}.journey-kicker{font-size:7px;margin-bottom:6px}.journey-intro{font-size:10px;line-height:1.4}.journey-side-note,.journey-side-right{display:none}.journey-vine-stage{height:100%;min-height:0}.journey-leaves{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:7px}.journey-leaf{min-height:0;height:100%;padding:11px 10px 9px}.journey-leaf h3{font-size:14px}.journey-leaf p{font-size:9px;line-height:1.32}.journey-leaf small{font-size:7px;margin-bottom:4px}.journey-leaf:nth-child(5){grid-column:1 / -1;width:54%}.journey-foot{height:36px;padding:0 14px;font-size:7px}}
 
 </style>
 </head>
@@ -1012,6 +976,7 @@
         <div class="journey-mark">KAGE / FIELD JOURNAL</div>
         <button class="journey-close" type="button" aria-label="Close chapter">×</button>
       </header>
+      <div class="journey-forest" aria-hidden="true"><div class="journey-root"></div><i class="journey-moss m1"></i><i class="journey-moss m2"></i><i class="journey-butterfly"></i></div>
       <div class="journey-layout">
         <aside class="journey-side">
           <div>
@@ -1023,7 +988,9 @@
         </aside>
         <section class="journey-vine-stage" aria-label="Chapter memos">
           <svg class="journey-vine-svg" viewBox="0 0 600 560" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M290 4 C160 70 430 118 280 190 S420 300 280 370 S390 470 300 556"/>
+            <path class="main-vine" d="M292 560 C220 475 390 425 286 340 S390 230 292 150 S345 68 300 0"/>
+            <path class="fine-vine" d="M286 440 C190 410 125 355 70 300 M300 350 C420 320 500 260 560 210 M288 240 C175 205 120 160 60 110 M304 145 C420 130 485 80 535 35 M270 505 C160 490 105 465 45 425"/>
+            <path class="fine-vine" d="M120 355 C145 315 145 290 130 265 M500 260 C470 220 465 190 485 165 M120 160 C145 130 145 100 130 75 M420 130 C395 95 400 65 425 45"/>
           </svg>
           <div class="journey-leaves" id="journeyLeaves"></div>
         </section>
@@ -4465,9 +4432,9 @@ window.__seek   = v => { clock = v; drawn = null; };
   const chapters = {
     origins:{
       number:"01",kicker:"CHAPTER 01 / BEFORE THE CODE",title:"Origins",
-      intro:"Before there were frameworks, there was the urge to make something felt. Stories, images, music and the little details of how an experience lands came first.",
-      left:"The first instinct was never just to make things work. It was to make them mean something.",
-      reflection:"The creative instinct did not disappear when technology arrived. It became the compass for everything that followed.",
+      intro:"Before code, there were stories, music and images — ways to make people feel something.",
+      left:"Making things feel alive came first.",
+      reflection:"Creativity stayed the compass.",
       right:"A story can begin long before you know what tools you will need.",
       leaves:[
         ["THE FIRST LANGUAGE","Storytelling","Film, scenes and visual ideas were an early way of understanding people, mood and meaning."],
@@ -4479,9 +4446,9 @@ window.__seek   = v => { clock = v; drawn = null; };
     },
     machine:{
       number:"02",kicker:"CHAPTER 02 / THE MACHINE ROOM",title:"Machine",
-      intro:"Curiosity moved from stories into systems. Learning code opened a new kind of canvas: interfaces, tools, automations and eventually AI-powered experiences.",
-      left:"The machine room was not a straight syllabus. It was a workshop full of things to take apart and rebuild.",
-      reflection:"Learning became less about collecting languages and more about discovering what could be built with them.",
+      intro:"Stories led to systems: code, interfaces, tools and AI.",
+      left:"A workshop, not a straight syllabus.",
+      reflection:"Tools became ways to build, not trophies to collect.",
       right:"Every new tool made the question bigger: what can I make now?",
       leaves:[
         ["FIRST TOOLS","Code & logic","C, C++ and Python became ways to reason through problems, one small concept and experiment at a time."],
@@ -4493,9 +4460,9 @@ window.__seek   = v => { clock = v; drawn = null; };
     },
     detours:{
       number:"03",kicker:"CHAPTER 03 / THE WRONG TURNS",title:"Detours",
-      intro:"Not every experiment worked. Builds broke, integrations hit limits, ideas changed shape and the distance between a working demo and a finished product became very real.",
-      left:"The wrong turns were not a separate chapter from making. They were the material it was made from.",
-      reflection:"A failed build is frustrating. It is also specific: it shows exactly where the next question begins.",
+      intro:"Builds broke, APIs said no, and ideas had to change shape.",
+      left:"The detours became part of the craft.",
+      reflection:"Every error pointed to the next question.",
       right:"Progress often looked less like a breakthrough and more like one more attempt.",
       leaves:[
         ["THE DEBUG LOOP","Things that broke","Build errors, missing assets, deployment surprises and small details taught the value of checking the whole path, not just the code."],
@@ -4507,9 +4474,9 @@ window.__seek   = v => { clock = v; drawn = null; };
     },
     making:{
       number:"04",kicker:"CHAPTER 04 / THINGS MADE REAL",title:"Making",
-      intro:"Ideas began taking recognisable forms: AI agents, agriculture-focused experiments, product prototypes, campus experiences and websites built for actual people.",
-      left:"This is where curiosity left the notebook and started asking to be tested in the world.",
-      reflection:"The most satisfying moment is when separate pieces — interface, model, data and interaction — finally behave like one experience.",
+      intro:"Ideas became AI agents, product experiments, campus events and real websites.",
+      left:"Curiosity stepped out of the notebook.",
+      reflection:"The pieces finally started working as one.",
       right:"A project becomes real when someone can actually use it.",
       leaves:[
         ["KARMA AI","A voice with a role","A reverse-scam-call agent explored speech-to-text, conversational AI and text-to-speech to create a character-led phone experience."],
@@ -4521,9 +4488,9 @@ window.__seek   = v => { clock = v; drawn = null; };
     },
     return:{
       number:"05",kicker:"CHAPTER 05 / THE WAY BACK",title:"Return",
-      intro:"The route through technology did not replace the creative beginning. It made the return richer: music, film, design and code can now live in the same body of work.",
-      left:"This is not going backwards. It is bringing the different parts of the journey into the same room.",
-      reflection:"The point was never to choose between being technical and being creative. The interesting work happens where they meet.",
+      intro:"Technology brought the creative beginning back in a new form.",
+      left:"Not backwards. All the parts, together.",
+      reflection:"The interesting work lives where they meet.",
       right:"Keep the curiosity. Keep the feeling. Keep making.",
       leaves:[
         ["THE SOUND","Music again","Songwriting and music remain part of the creative vocabulary, not something left behind while learning technology."],
@@ -4549,6 +4516,15 @@ window.__seek   = v => { clock = v; drawn = null; };
     $('journeyFootLeft').textContent=c.foot;
     $('journeyLeaves').innerHTML=c.leaves.map((leaf,i)=>'<article class="journey-leaf" style="--delay:'+(i*90)+'ms;--tilt:'+(i%2?1.4:-1.2)+'deg"><small>'+leaf[0]+'</small><h3>'+leaf[1]+'</h3><p>'+leaf[2]+'</p></article>').join('');
     overlay.classList.add('is-open');overlay.setAttribute('aria-hidden','false');document.body.classList.add('chapter-open');
+    const leaves=overlay.querySelectorAll('.journey-leaf');
+    if(window.gsap){
+      gsap.killTweensOf([overlay.querySelector('.journey-root'),overlay.querySelectorAll('.journey-moss'),overlay.querySelector('.journey-butterfly'),leaves]);
+      gsap.fromTo(leaves,{y:24,rotation:()=>gsap.utils.random(-5,5),opacity:0,scale:.88},{y:0,rotation:0,opacity:1,scale:1,duration:.75,stagger:.09,ease:'power3.out',delay:.18});
+      gsap.fromTo(overlay.querySelector('.journey-root'),{y:35,rotateX:68,scale:.8,opacity:0},{y:0,rotateX:58,scale:1,opacity:.72,duration:1.1,ease:'power3.out'});
+      gsap.to(overlay.querySelectorAll('.journey-moss'),{y:-7,rotation:4,duration:2.4,repeat:-1,yoyo:true,stagger:.35,ease:'sine.inOut'});
+      gsap.to(overlay.querySelector('.journey-butterfly'),{x:-18,y:-12,rotation:8,duration:3.8,repeat:-1,yoyo:true,ease:'sine.inOut'});
+      gsap.fromTo(overlay.querySelectorAll('.journey-vine-svg path'),{strokeDasharray:900,strokeDashoffset:900},{strokeDashoffset:0,duration:1.4,stagger:.12,ease:'power2.out',delay:.08});
+    }
     setTimeout(()=>$('journeyClose')?.focus(),80);
   }
   document.querySelectorAll('.card[data-chapter]').forEach(card=>{
@@ -4564,5 +4540,6 @@ window.__seek   = v => { clock = v; drawn = null; };
 })();
 </script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 </body>
 </html>
