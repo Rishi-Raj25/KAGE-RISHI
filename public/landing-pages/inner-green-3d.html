@@ -10,7 +10,7 @@
 <style>
   @font-face{
     font-family:'Lexend';
-    src:url('https://ublctyddhtbgaersvxxb.supabase.co/storage/v1/object/public/threeui-media/scene-images/embedded/1ec8f6ee2750554b4bc59ff0b507d316a82a7ba37e0e5bebc41d3bd9b9faad46.woff2') format('woff2');
+    src:url('inner-green-assets/lexend-latin.woff2') format('woff2');
     font-weight:100 900; font-style:normal; font-display:swap;
     unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
   }
@@ -102,10 +102,6 @@
     color:rgba(255,255,255,.055);
     white-space:nowrap; user-select:none; pointer-events:none;
   }
-
-  /* The vertical continuation reuses Sylva's actual moss-root meshes.
-     It sits behind the primary scene and chapter decks. */
-  #sylva-root-flow{ position:absolute; inset:0; z-index:2; width:100%; height:100%; pointer-events:none; opacity:.92; }
 
   /* ── three.js canvas (z 3 — above card 1, below everything else) ─────── */
   #scene{
@@ -714,103 +710,199 @@
     .ghost{ font-size:calc(184 * var(--u)); letter-spacing:calc(14 * var(--u)); bottom:calc(660 * var(--u)); left:calc(-10 * var(--u)); }
   }
 
-  /* Clean hero: remove all legacy copy, navigation and floating controls. */
-  .dock-wrap, .headline, .lede, .pill-clip, .play-wrap,
-  .stat, .knob-float { display:none !important; }
+  /* KAGE Journey: keep the original Sylva environment and original deck design. */
+  .dock-wrap,.guides,.ghost,.headline,.lede,.pill-clip,.play-wrap,
+  .stat,.scroll,.knob-float,.card .knob { display:none !important; }
+  .journey-extra-1{ left:calc(54 * var(--u)); top:calc(190 * var(--u)); }
+  .journey-extra-2{ left:calc(430 * var(--u)); top:calc(520 * var(--u)); }
+  .journey-extra-3{ left:calc(470 * var(--u)); top:calc(105 * var(--u)); }
+  .journey-extra-1,.journey-extra-2,.journey-extra-3{
+    width:calc(300 * var(--u)); height:calc(286 * var(--u)); z-index:4;
+  }
+  .journey-extra-1 figure,.journey-extra-3 figure{height:calc(112 * var(--u));}
+  .journey-extra-2 figure{height:calc(144 * var(--u));}
+  @media(max-width:760px){
+    .journey-extra-1{left:calc(34 * var(--u));top:calc(1600 * var(--u));}
+    .journey-extra-2{left:calc(34 * var(--u));top:calc(1900 * var(--u));}
+    .journey-extra-3{left:calc(34 * var(--u));top:calc(2200 * var(--u));}
+  }
+
 </style>
 </head>
 <body>
 
 <main class="hero" id="hero">
-  <canvas id="sylva-root-flow" aria-hidden="true"></canvas>
   <canvas id="scene"></canvas>
 
-  <div class="ghost fade" style="--d:1150ms" aria-hidden="true">SYLVA</div>
+  <div class="dock-wrap">
+    <nav class="dock par-dock" style="--pd:5" data-spec aria-label="Primary">
+      <a class="dock-item dock-mark" data-dock data-spec data-burst href="#" style="--d:120ms" aria-label="Sylva — home">
+        <svg viewBox="0 0 22 24" aria-hidden="true">
+          <path d="M11 1.3c-2.1 0-3.95 1.2-4.75 2.95C3.95 4.55 2.3 6.25 2.3 8.35c0 2.3 1.9 4.2 4.3 4.2h8.8c2.4 0 4.3-1.9 4.3-4.2 0-2.1-1.65-3.8-4-4.1C14.95 2.5 13.1 1.3 11 1.3Z"/>
+          <path d="M9.6 12.55h2.8v4.2c1.35.3 2.45 1.15 3.15 2.4-1.35.4-2.4.15-3.15-.4v4.15H9.6v-4.15c-.75.55-1.8.8-3.15.4.7-1.25 1.8-2.1 3.15-2.4v-4.2Z"/>
+        </svg>
+      </a>
+      <a class="dock-item is-active" data-dock data-spec data-burst href="#" style="--d:180ms">
+        <span class="glyph" aria-hidden="true">
+          <svg viewBox="0 0 16 16"><path d="M8 14V9"/><path d="M8 9c0-2.4 1.7-4.3 4-4.3.2 2.6-1.6 4.6-4 4.3Z"/><path d="M8 10.5C7.9 8.4 6.4 6.8 4.4 6.8 4.3 8.9 5.9 10.6 8 10.5Z"/></svg>
+        </span>
+        <span>Grove</span>
+      </a>
+      <a class="dock-item" data-dock data-spec data-burst href="#" style="--d:230ms">
+        <span class="glyph" aria-hidden="true">
+          <svg viewBox="0 0 16 16"><path d="M1.6 12.4c2.4-3.4 4.3-5.1 5.7-5.1 2 0 3 3.6 5 3.6 1.1 0 1.9-.5 2.4-1.4"/><path d="M4.3 6.2C5.5 4.4 6.6 3.5 7.6 3.5c1.5 0 2.2 2.4 3.7 2.4"/></svg>
+        </span>
+        <span>Habitats</span>
+      </a>
+      <a class="dock-item" data-dock data-spec data-burst href="#" style="--d:280ms">
+        <span class="glyph" aria-hidden="true">
+          <svg viewBox="0 0 16 16"><path d="M4 2.4h5.3L12 5.1v8.5H4z"/><path d="M9.2 2.4V5h2.7"/><path d="M6 8.4h4M6 10.8h2.8"/></svg>
+        </span>
+        <span>Journal</span>
+      </a>
+      <a class="dock-item dock-item--enter" data-dock data-spec data-burst href="#" style="--d:330ms">
+        <span class="glyph" aria-hidden="true">
+          <svg viewBox="0 0 16 16"><path d="M6.6 2.5h5.1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6.6"/><path d="M2.6 8h6.6"/><path d="m7 5.6 2.4 2.4L7 10.4"/></svg>
+        </span>
+        <span>Enter</span>
+      </a>
+    </nav>
+  </div>
+
+  <div class="stage" id="stage">
+
+    <div class="guides fade" style="--d:900ms" aria-hidden="true">
+      <i style="left:calc(405 * var(--u))"></i>
+      <i style="left:calc(748 * var(--u))"></i>
+      <i style="left:calc(1091 * var(--u))"></i>
+    </div>
+
+    <div class="ghost fade" style="--d:1150ms" aria-hidden="true">SYLVA</div>
 
     <!-- card 1 sits *behind* the canvas so the moss drapes over its shoulder -->
-    <article class="card card--about mask journey-deck journey-deck--1" data-chapter="0" role="button" tabindex="0" aria-label="Open chapter one: Before the code" style="--d:760ms; --pd:10; --pr:2.2">
+    <article class="card card--about mask" style="--d:760ms; --pd:10; --pr:2.2">
       <figure class="portal" data-delay="920">
-        <span class="portal-media"><img crossorigin="anonymous" src="https://ublctyddhtbgaersvxxb.supabase.co/storage/v1/object/public/threeui-media/scene-images/c74a626e396794aa239bca6f/card-ethos.jpg" alt="A cushion of moss grown over lichen-crusted stones" loading="eager" decoding="async"></span>
+        <span class="portal-media"><img src="inner-green-assets/card-ethos.jpg" alt="A cushion of moss grown over lichen-crusted stones" loading="eager" decoding="async"></span>
         <canvas class="pixel-reveal" aria-hidden="true"></canvas>
       </figure>
       <p class="label">Our Ethos</p>
-      <h2>Before the code.</h2>
-    </article>
-
-
-    <article class="card card--stove mask journey-deck journey-deck--2" data-chapter="1" role="button" tabindex="0" aria-label="Open chapter two: The machine room" style="--d:900ms; --pd:9; --pr:1.8">
-      <figure class="portal" data-delay="1080">
-        <span class="portal-media"><img crossorigin="anonymous" src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=900&q=85" alt="Sunlight filtering through a dense green forest" loading="lazy" decoding="async"></span>
-        <canvas class="pixel-reveal" aria-hidden="true"></canvas>
-      </figure>
-      <p class="label">Field Note 7</p>
-      <h2>The machine room.</h2>
-    </article>
-
-    <article class="card card--about mask journey-deck journey-deck--3" data-chapter="2" role="button" tabindex="0" aria-label="Open chapter three: The wrong turns" style="--d:1040ms; --pd:8; --pr:1.7">
-      <figure class="portal" data-delay="1180">
-        <span class="portal-media"><img crossorigin="anonymous" src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=900&q=85" alt="A winding path through a quiet mountain landscape" loading="lazy" decoding="async"></span>
-        <canvas class="pixel-reveal" aria-hidden="true"></canvas>
-      </figure>
-      <p class="label">Field Note 8</p>
-      <h2>The wrong turns.</h2>
-    </article>
-
-    <article class="card card--stove mask journey-deck journey-deck--4" data-chapter="3" role="button" tabindex="0" aria-label="Open chapter four: Things made real" style="--d:1180ms; --pd:8; --pr:1.7">
-      <figure class="portal" data-delay="1280">
-        <span class="portal-media"><img crossorigin="anonymous" src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=900&q=85" alt="Water moving through a deep green landscape" loading="lazy" decoding="async"></span>
-        <canvas class="pixel-reveal" aria-hidden="true"></canvas>
-      </figure>
-      <p class="label">Field Note 9</p>
-      <h2>Things made real.</h2>
-    </article>
-
-    <article class="card card--about mask journey-deck journey-deck--5" data-chapter="4" role="button" tabindex="0" aria-label="Open chapter five: The way back" style="--d:1320ms; --pd:7; --pr:1.5">
-      <figure class="portal" data-delay="1380">
-        <span class="portal-media"><img crossorigin="anonymous" src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=85" alt="A sunlit forest path between tall trees" loading="lazy" decoding="async"></span>
-        <canvas class="pixel-reveal" aria-hidden="true"></canvas>
-      </figure>
-      <p class="label">Field Note 10</p>
-      <h2>The way back.</h2>
+      <h2>Let the wild lead.</h2>
     </article>
 
     <!-- the About knob rides *outside* the card: the card has to stay a plain
          painted box under #scene, so anything that must sit in front of the
          moss lives here instead, sharing the card's parallax origin -->
+    <span class="knob-float" style="--pd:10; --pr:2.2">
+      <button class="knob knob--about mask-circle" style="--d:1100ms" aria-label="Read about Sylva">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 21v-7"/><path d="M12 14c0-3.3 2.4-6 5.5-6 .3 3.6-2.2 6.4-5.5 6Z"/>
+          <path d="M12 16c-.1-2.9-2.2-5.2-4.9-5.2C6.8 13.7 9 16 12 16Z"/>
+        </svg>
+      </button>
+    </span>
+
+    <h1 class="headline" style="--pd:18; --pr:1.2">
+      <span><i style="--d:260ms">Step into</i></span>
+      <span><i style="--d:360ms">the living world</i></span>
+    </h1>
+
+    <p class="lede mask" style="--d:480ms; --pd:14; --pr:1">We restore wild places through patient design, native planting, and a deeper kind of stewardship.</p>
+
+    <div class="pill-clip">
+      <div class="pill mask" style="--d:600ms; --pd:15; --pr:1.4">
+        <div class="liquid-stage liquid-stage--explore" data-liquid-metal="explore">
+          <div class="liquid-plate plate" aria-hidden="true"></div>
+          <canvas class="liquid-fx" aria-hidden="true"></canvas>
+          <button class="liquid-button liquid-button--explore btn" type="button">
+            <svg class="ico" viewBox="0 0 115 115" aria-hidden="true">
+              <g stroke="currentColor" stroke-width="11" stroke-linecap="round">
+                <path d="M14 34.5 H101"/>
+                <path d="M14 57.5 H101"/>
+                <path d="M14 80.5 H68"/>
+              </g>
+            </svg>
+            <span class="lbl">Explore the work</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <span class="play-wrap" style="--pd:20">
+      <span class="play-clip">
+        <span class="play-glass mask-circle" style="--d:900ms">
+          <span class="liquid-stage liquid-stage--play" data-liquid-metal="play">
+            <span class="liquid-plate plate" aria-hidden="true"></span>
+            <canvas class="liquid-fx" aria-hidden="true"></canvas>
+            <button class="liquid-button liquid-button--play btn" type="button" aria-label="Play the film">
+              <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8 5.2v13.6L19 12z" fill="currentColor"/>
+              </svg>
+            </button>
+          </span>
+        </span>
+      </span>
+      <span class="play-ring mask-circle" style="--d:840ms" aria-hidden="true"></span>
+    </span>
+
+    <dl class="stat stat--a mask" style="--d:700ms; --pd:12">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+          <circle cx="15" cy="15" r="10.5" stroke-dasharray="0.6 3.6"/>
+          <circle cx="15" cy="15" r="5.6" stroke-dasharray="0.6 3.2"/>
+          <circle cx="15" cy="15" r="1.1" fill="currentColor" stroke="none"/>
+        </svg>
+      </span>
+      <div><dt>Canopy restored</dt><dd>282 ha</dd></div>
+    </dl>
+
+    <dl class="stat stat--b mask" style="--d:770ms; --pd:13">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+          <g id="rays">
+            <path d="M15 3.5v5"/><path d="M15 21.5v5"/><path d="M3.5 15h5"/><path d="M21.5 15h5"/>
+            <path d="M6.9 6.9l3.5 3.5"/><path d="M19.6 19.6l3.5 3.5"/><path d="M23.1 6.9l-3.5 3.5"/><path d="M10.4 19.6l-3.5 3.5"/>
+          </g>
+          <circle cx="15" cy="15" r="3.6"/>
+        </svg>
+      </span>
+      <div><dt>Native species</dt><dd>43 mapped</dd></div>
+    </dl>
+
+    <article class="card card--stove mask" style="--d:880ms; --pd:22; --pr:2.4">
+      <p class="label">Field Note 07</p>
+      <h2>After the Rain</h2>
+      <figure class="portal" data-delay="1080">
+        <span class="portal-media"><img src="inner-green-assets/card-ecostove.jpg" alt="Moss-covered boulders in a misty grove" loading="eager" decoding="async"></span>
+        <canvas class="pixel-reveal" aria-hidden="true"></canvas>
+      </figure>
+      <button class="knob" aria-label="Open field note: After the Rain">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 21v-7"/><path d="M12 14c0-3.3 2.4-6 5.5-6 .3 3.6-2.2 6.4-5.5 6Z"/>
+          <path d="M12 16c-.1-2.9-2.2-5.2-4.9-5.2C6.8 13.7 9 16 12 16Z"/>
+        </svg>
+      </button>
+    </article>
+
+
+    <article class="card card--about mask journey-extra-1" style="--d:1040ms; --pd:10; --pr:2.2">
+      <figure class="portal" data-delay="1180"><span class="portal-media"><img src="inner-green-assets/card-ethos.jpg" alt="A cushion of moss grown over lichen-crusted stones" loading="lazy" decoding="async"></span><canvas class="pixel-reveal" aria-hidden="true"></canvas></figure>
+      <p class="label">Our Ethos</p><h2>Let the wild lead.</h2>
+    </article>
+    <article class="card card--stove mask journey-extra-2" style="--d:1160ms; --pd:22; --pr:2.4">
+      <p class="label">Field Note 07</p><h2>After the Rain</h2>
+      <figure class="portal" data-delay="1280"><span class="portal-media"><img src="inner-green-assets/card-ecostove.jpg" alt="Moss-covered boulders in a misty grove" loading="lazy" decoding="async"></span><canvas class="pixel-reveal" aria-hidden="true"></canvas></figure>
+    </article>
+    <article class="card card--about mask journey-extra-3" style="--d:1280ms; --pd:10; --pr:2.2">
+      <figure class="portal" data-delay="1380"><span class="portal-media"><img src="inner-green-assets/card-ethos.jpg" alt="A cushion of moss grown over lichen-crusted stones" loading="lazy" decoding="async"></span><canvas class="pixel-reveal" aria-hidden="true"></canvas></figure>
+      <p class="label">Our Ethos</p><h2>Let the wild lead.</h2>
+    </article>
+
     <a class="scroll mask" style="--d:1040ms; --pd:9" href="#">Discover<span class="track"></span></a>
 
   </div>
 </main>
 
-
-<div class="sylva-mini" id="sylva-mini" aria-hidden="true" hidden>
-  <div class="sylva-mini__grain" aria-hidden="true"></div>
-  <button class="sylva-mini__close" type="button" aria-label="Close chapter">×</button>
-  <div class="sylva-mini__inner">
-    <header class="sylva-mini__header">
-      <span class="sylva-mini__eyebrow">SYLVA / A LIVING ARCHIVE</span>
-      <span class="sylva-mini__chapter" id="sylva-mini-index">CHAPTER 01</span>
-    </header>
-    <div class="sylva-mini__intro">
-      <p class="sylva-mini__kicker" id="sylva-mini-kicker">A PERSONAL FIELD NOTE</p>
-      <h2 id="sylva-mini-title">Before the code</h2>
-      <p id="sylva-mini-description"></p>
-      <span class="sylva-mini__instruction">Choose a leaf to follow the story <span>↓</span></span>
-    </div>
-    <div class="sylva-mini__leaves" id="sylva-mini-leaves" aria-label="Chapter story fragments"></div>
-    <section class="sylva-mini__detail" id="sylva-mini-detail" hidden aria-live="polite">
-      <button class="sylva-mini__back" type="button" id="sylva-mini-back">← Back to the leaves</button>
-      <p class="sylva-mini__detail-label" id="sylva-mini-detail-label"></p>
-      <h3 id="sylva-mini-detail-title"></h3>
-      <p id="sylva-mini-detail-copy"></p>
-      <span class="sylva-mini__scribble" id="sylva-mini-scribble"></span>
-    </section>
-    <footer class="sylva-mini__footer"><span>ROOTED IN THE PAST</span><span>GROWING INTO WHAT'S NEXT</span></footer>
-  </div>
-  <div class="sylva-mini__particles" id="sylva-mini-particles" aria-hidden="true"></div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/three@0.159.0/build/three.min.js"></script>
+<script src="inner-green-assets/three.min.js"></script>
 <script>
 (function () {
   'use strict';
@@ -937,7 +1029,8 @@ float perim(vec2 d, float a, float r){
     s = r*PI*1.5 + 2.*a + (d.x + a);
   }
   return s / P;
-}// periodic bump, so a highlight wraps cleanly at s = 0
+}
+// periodic bump, so a highlight wraps cleanly at s = 0
 float pb(float u, float w){ u = fract(u); float x = min(u, 1.-u); return exp(-(x*x)/(w*w)); }
 
 // travelling brightness around the rim — three lobes at different speeds and
@@ -1936,7 +2029,8 @@ window.__seek   = v => { clock = v; drawn = null; };
           st.target = prox * prox * (3 - 2 * prox);
           st.el.dataset.near = st.target > 0.08 ? 'true' : 'false';
         }
-        DOCK.live = true;        DOCK.dirty = true;
+        DOCK.live = true;
+        DOCK.dirty = true;
       } else if (DOCK.live) dockRest();
     }
 
@@ -2935,7 +3029,8 @@ window.__seek   = v => { clock = v; drawn = null; };
         '  lit += base * uKeyCol * pow(max(dot(V, -uKeyDir), 0.0), 2.0) * 1.05;',
         '  float a = uAlpha * maskAt(vL, uBoxH);',
         '  if (a < 0.004) discard;',
-        '  gl_FragColor = vec4(aerial(lit, vH), a);',        '  #include <tonemapping_fragment>',
+        '  gl_FragColor = vec4(aerial(lit, vH), a);',
+        '  #include <tonemapping_fragment>',
         '  #include <encodings_fragment>',
         '}'
       ].join('\n')
@@ -3934,7 +4029,8 @@ window.__seek   = v => { clock = v; drawn = null; };
     };
     /* Local units, and the frame's left edge is at x = -4: a butterfly that
        wanders off the side or drops behind the moss may as well not be there,
-       so the box is cut to the air directly above the crest. */    var BOX = { x0: perch.x - 1.5, x1: perch.x + 2.1, y0: perch.y - 0.10, y1: perch.y + 1.35,
+       so the box is cut to the air directly above the crest. */
+    var BOX = { x0: perch.x - 1.5, x1: perch.x + 2.1, y0: perch.y - 0.10, y1: perch.y + 1.35,
                 z0: perch.z - 0.25, z1: perch.z + 0.95 };
 
     function pickTarget() {
@@ -4218,93 +4314,8 @@ window.__seek   = v => { clock = v; drawn = null; };
     emitSpray(dt);
 
     renderer.render(scene, camera);
-    var rootFlowCanvas = document.getElementById("sylva-root-flow");
-    if (window.__mountSylvaRootFlow && rootFlowCanvas && !rootFlowCanvas.__mounted && nearGroup) {
-      window.__mountSylvaRootFlow(rootFlowCanvas);
-    }
-    if (window.__renderSylvaRootFlow) window.__renderSylvaRootFlow();
     if (++frames === 2) window.__ready = true;
   }
-
-
-  /* Expose the homepage's actual moss-root geometry for the vertical continuation.
-     The continuation clones the built root meshes; it does not draw substitute vines. */
-  /* Expose the homepage's actual moss-root geometry for the vertical continuation.
-     The continuation clones the built root meshes; it does not draw substitute vines. */
-  window.__mountSylvaRootFlow = function (target) {
-    if (!target || !nearGroup || !window.THREE || target.__mounted) return;
-    target.__mounted = true;
-    var smallFlow = window.innerWidth < 760;
-    var flowRenderer;
-    try {
-      flowRenderer = new THREE.WebGLRenderer({ canvas: target, alpha: true, antialias: !smallFlow, powerPreference: 'high-performance' });
-    } catch (err) {
-      target.__mounted = false;
-      console.error('Sylva vertical root renderer could not start', err);
-      return;
-    }
-    flowRenderer.setClearColor(0x000000, 0);
-    flowRenderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, smallFlow ? 1.2 : 1.5));
-    flowRenderer.toneMapping = THREE.ACESFilmicToneMapping;
-    flowRenderer.toneMappingExposure = 1.30;
-    if ('sRGBEncoding' in THREE) flowRenderer.outputEncoding = THREE.sRGBEncoding;
-
-    var flowScene = new THREE.Scene();
-    var flowCamera = new THREE.OrthographicCamera(-36, 36, 48, -48, 0.1, 300);
-    flowCamera.position.set(0, 0, 80);
-    flowCamera.lookAt(0, 0, 0);
-
-    /* Three large copies of Sylva's original, fully modelled root cluster.
-       They overlap vertically so the bark and moss read as one continuous,
-       branching structure rather than separate decorative cards. */
-    var placements = [
-      { x: -2.4, y:  27, s: 4.3, r: 1.5708 },
-      { x:  2.0, y:   0, s: 4.3, r: 1.4050 },
-      { x: -1.7, y: -27, s: 4.3, r: 1.7350 }
-    ];
-    placements.forEach(function (p) {
-      var root = nearGroup.clone(true);
-      root.position.set(p.x, p.y, 0);
-      root.rotation.set(0, 0, p.r);
-      root.scale.setScalar(p.s);
-      root.traverse(function (node) {
-        node.frustumCulled = false;
-        if (!node.material) return;
-        if (Array.isArray(node.material)) node.material = node.material.map(function (mat) { return mat.clone(); });
-        else node.material = node.material.clone();
-        var mats = Array.isArray(node.material) ? node.material : [node.material];
-        mats.forEach(function (mat) {
-          if (mat && mat.uniforms && mat.uniforms.uMouse) mat.uniforms.uMouse.value.set(9999, 9999, 9999);
-        });
-      });
-      flowScene.add(root);
-    });
-
-    function resizeFlow() {
-      var rect = target.getBoundingClientRect();
-      var width = Math.max(1, rect.width), height = Math.max(1, rect.height);
-      flowRenderer.setSize(width, height, false);
-      var halfH = 48;
-      var halfW = halfH * width / height;
-      flowCamera.left = -halfW;
-      flowCamera.right = halfW;
-      flowCamera.top = halfH;
-      flowCamera.bottom = -halfH;
-      flowCamera.updateProjectionMatrix();
-      flowRenderer.render(flowScene, flowCamera);
-    }
-    var flowObserver = new ResizeObserver(resizeFlow);
-    flowObserver.observe(target);
-    resizeFlow();
-    window.__renderSylvaRootFlow = function () {
-      if (target.isConnected) flowRenderer.render(flowScene, flowCamera);
-    };
-    target.__flowDispose = function () {
-      flowObserver.disconnect();
-      flowRenderer.dispose();
-      window.__renderSylvaRootFlow = null;
-    };
-  };
 
   /* ── boot ──────────────────────────────────────────────────────────── */
   /* Kick the entrance off first. Growing the roots and compiling the
@@ -4321,234 +4332,5 @@ window.__seek   = v => { clock = v; drawn = null; };
   setTimeout(ready, 4000);
 })();
 </script>
-
-<style>
-  /* Five chapter decks: same Sylva card anatomy, extended across the landscape. */
-  .journey-deck { width:calc(300 * var(--u)); cursor:pointer; transition:filter .45s var(--ease), box-shadow .7s var(--ease); }
-  .journey-deck:hover { filter:brightness(1.045); }
-  .journey-deck:focus-visible { outline:2px solid rgba(245,248,233,.92); outline-offset:8px; }
-  .journey-deck--1 { left:calc(20 * var(--u)); top:calc(135 * var(--u)); }
-  .journey-deck--2 { left:calc(335 * var(--u)); top:calc(455 * var(--u)); }
-  .journey-deck--3 { left:calc(650 * var(--u)); top:calc(135 * var(--u)); }
-  .journey-deck--4 { left:calc(965 * var(--u)); top:calc(455 * var(--u)); }
-  .journey-deck--5 { left:calc(1280 * var(--u)); top:calc(135 * var(--u)); }
-  .journey-deck--1 .portal-media img { object-position:center 55%; }
-  .journey-deck--2 .portal-media img { object-position:center 50%; }
-  .journey-deck--3 .portal-media img { object-position:center 58%; }
-  .journey-deck--4 .portal-media img { object-position:center 50%; }
-  .journey-deck--5 .portal-media img { object-position:center 50%; }
-
-  .sylva-mini[hidden] { display:none !important; }
-  .sylva-mini { position:fixed; inset:0; z-index:99999; overflow:auto; color:#edf0e4; background:
-    radial-gradient(ellipse at 50% 110%,rgba(170,190,137,.22),transparent 48%),
-    radial-gradient(ellipse at 8% 12%,rgba(112,135,91,.18),transparent 35%),
-    linear-gradient(145deg,#20291f 0%,#303c2d 48%,#1d281f 100%);
-    opacity:0; visibility:hidden; transition:opacity .55s ease,visibility .55s ease; }
-  .sylva-mini.is-visible { opacity:1; visibility:visible; }
-  .sylva-mini.is-closing { opacity:0; visibility:hidden; }
-  .sylva-mini__grain { position:fixed; inset:0; pointer-events:none; opacity:.15; z-index:0;
-    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.2'/%3E%3C/svg%3E"); }
-  .sylva-mini__inner { position:relative; z-index:2; width:min(1180px,calc(100% - 64px)); min-height:100%; margin:0 auto; padding:42px 0 30px; display:flex; flex-direction:column; }
-  .sylva-mini__header,.sylva-mini__footer { display:flex; justify-content:space-between; gap:20px; font:10px/1.4 'Lexend',sans-serif; letter-spacing:.24em; color:rgba(239,242,226,.55); text-transform:uppercase; }
-  .sylva-mini__close { position:fixed; z-index:5; top:25px; right:30px; width:48px; height:48px; border:1px solid rgba(240,245,224,.28); border-radius:50%; background:rgba(20,29,20,.45); color:#f1f3e9; font:300 30px/1 sans-serif; cursor:pointer; transition:transform .3s,background .3s; }
-  .sylva-mini__close:hover { transform:rotate(90deg); background:rgba(240,245,224,.12); }
-  .sylva-mini__intro { max-width:760px; margin:clamp(52px,9vh,105px) auto 0; text-align:center; }
-  .sylva-mini__kicker,.sylva-mini__detail-label { margin:0 0 16px; font:10px/1.4 'Lexend',sans-serif; letter-spacing:.28em; text-transform:uppercase; color:#c5d0a8; }
-  .sylva-mini__intro h2 { margin:0; color:#f2f0e5; font:300 clamp(42px,6.5vw,82px)/.98 'Lexend',sans-serif; letter-spacing:-.065em; }
-  .sylva-mini__intro>p:not(.sylva-mini__kicker) { max-width:620px; margin:22px auto 0; color:rgba(238,241,225,.72); font:300 15px/1.9 'Lexend',sans-serif; }
-  .sylva-mini__instruction { display:inline-block; margin-top:25px; color:rgba(238,241,225,.55); font:10px/1.4 'Lexend',sans-serif; letter-spacing:.18em; text-transform:uppercase; }
-  .sylva-mini__instruction span { display:inline-block; margin-left:8px; animation:sylva-bob 1.8s ease-in-out infinite; }
-  .sylva-mini__leaves { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); align-items:center; gap:clamp(12px,2vw,28px); width:100%; margin:auto 0; padding:70px 0 85px; perspective:1100px; }
-  .sylva-leaf { position:relative; min-height:245px; padding:0; border:0; background:transparent; color:#253323; cursor:pointer; opacity:0; transform:translateY(42px) scale(.08) rotate(-48deg); transform-origin:50% 80%; }
-  .sylva-mini.is-open .sylva-leaf { animation:sylva-leaf-open .95s cubic-bezier(.16,1,.3,1) both; }
-  .sylva-mini.is-open .sylva-leaf:nth-child(2) { animation-delay:.12s; }
-  .sylva-mini.is-open .sylva-leaf:nth-child(3) { animation-delay:.24s; }
-  .sylva-mini.is-open .sylva-leaf:nth-child(4) { animation-delay:.36s; }
-  .sylva-leaf__shape { position:absolute; inset:8px 4px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:32px 22px; text-align:center;
-    border:1px solid rgba(239,244,222,.3); border-radius:0 88% 0 88%; transform:rotate(45deg);
-    background:linear-gradient(145deg,rgba(214,226,183,.94),rgba(118,145,96,.94) 55%,rgba(62,91,62,.98));
-    box-shadow:inset 12px 10px 28px rgba(255,255,255,.16),inset -12px -14px 30px rgba(18,38,22,.25),0 24px 45px rgba(7,16,8,.3);
-    transition:filter .35s,transform .5s cubic-bezier(.16,1,.3,1); }
-  .sylva-leaf:hover .sylva-leaf__shape { filter:brightness(1.12); transform:rotate(45deg) scale(1.045); }
-  .sylva-leaf__content { display:block; transform:rotate(-45deg); }
-  .sylva-leaf__number { display:block; margin-bottom:15px; color:rgba(31,50,31,.65); font:10px/1 'Lexend',sans-serif; letter-spacing:.22em; }
-  .sylva-leaf__title { display:block; color:#1f301f; font:400 clamp(16px,1.6vw,21px)/1.2 'Lexend',sans-serif; letter-spacing:-.035em; }
-  .sylva-leaf__hint { display:block; margin-top:12px; color:rgba(31,48,31,.7); font:9px/1.4 'Lexend',sans-serif; letter-spacing:.13em; text-transform:uppercase; }
-  .sylva-mini__detail { width:min(760px,100%); margin:20px auto auto; padding:clamp(28px,5vw,58px); border:1px solid rgba(229,237,211,.18); border-radius:28px; background:rgba(17,28,19,.48); box-shadow:0 30px 80px rgba(5,12,6,.2); animation:sylva-detail-in .55s ease both; }
-  .sylva-mini__back { margin-bottom:35px; padding:0; border:0; background:none; color:#cbd6b7; font:10px 'Lexend',sans-serif; letter-spacing:.16em; text-transform:uppercase; cursor:pointer; }
-  .sylva-mini__detail h3 { margin:0; color:#f3f1e6; font:300 clamp(30px,4.5vw,48px)/1.06 'Lexend',sans-serif; letter-spacing:-.05em; }
-  .sylva-mini__detail-copy { margin:22px 0 0; color:rgba(239,242,226,.78); font:300 15px/2 'Lexend',sans-serif; }
-  .sylva-mini__scribble { display:block; margin-top:28px; color:#c5d0a8; font:italic 17px Georgia,serif; }
-  .sylva-mini__footer { margin-top:auto; padding-top:35px; border-top:1px solid rgba(239,242,226,.13); }
-  .sylva-mini__particles { position:fixed; z-index:3; left:50%; top:50%; width:1px; height:1px; pointer-events:none; }
-  .sylva-particle { position:absolute; left:0; top:0; width:var(--size,5px); height:var(--size,5px); border-radius:50% 0 50% 50%; background:var(--leaf-particle,#b7c997); opacity:0; transform:translate(-50%,-50%); }
-  .sylva-mini.is-crumbling .sylva-particle { animation:sylva-crumble 1.15s cubic-bezier(.16,.7,.3,1) forwards; }
-  @keyframes sylva-crumble { 0%{opacity:0;transform:translate(-50%,-50%) scale(.4)} 12%{opacity:.95} 100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) rotate(var(--spin)) scale(.05)} }
-  @keyframes sylva-leaf-open { 0%{opacity:0;transform:translateY(42px) scale(.08) rotate(-48deg);filter:blur(8px)} 68%{opacity:1;filter:blur(0)} 100%{opacity:1;transform:translateY(0) scale(1) rotate(0)} }
-  @keyframes sylva-detail-in { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
-  @keyframes sylva-bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
-  @media (max-width:900px) {
-    .hero { height:auto; min-height:100svh; padding:58px 0 44px; display:flex; flex-direction:column; align-items:center; overflow:visible; }
-    .journey-deck { --u:1; position:relative !important; left:auto !important; top:auto !important; width:min(84vw,360px) !important; height:310px !important; margin:13px auto; transform:none !important; flex:none; }
-    .journey-deck .portal-media { transform:none; }
-    .journey-deck--1 { margin-top:0; }
-    .journey-deck--5 { margin-bottom:22px; }
-    .sylva-mini__inner { width:calc(100% - 38px); padding-top:82px; }
-    .sylva-mini__header,.sylva-mini__footer { font-size:8px; letter-spacing:.14em; }
-    .sylva-mini__intro { margin-top:60px; }
-    .sylva-mini__leaves { grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; padding:55px 0 70px; }
-    .sylva-leaf { min-height:190px; }
-    .sylva-leaf__shape { padding:20px 12px; }
-    .sylva-leaf__title { font-size:16px; }
-    .sylva-mini__close { top:16px; right:16px; }
-  }
-  @media (max-width:420px) {
-    .sylva-mini__leaves { gap:8px; }
-    .sylva-leaf { min-height:165px; }
-    .sylva-leaf__shape { inset:8px 2px; }
-  }
-  @media (prefers-reduced-motion:reduce) {
-    .sylva-mini *, .sylva-mini *::before, .sylva-mini *::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
-  }
-</style>
-<script>
-(function(){
-  const chapters = [
-    { title:"Before the code", kicker:"CHAPTER 01 / THE FIRST INSTINCT", description:"Before there was a technical roadmap, there was a pull toward stories: images, moments, music and the feeling of making something that stays with someone.", leaves:[
-      ["The instinct to tell stories","I was drawn to the way a scene, a frame or a small human moment could communicate more than a long explanation. Storytelling was the instinct that came before I knew where it would lead.","ORIGIN NOTE","start with the feeling"],
-      ["Learning to look closer","Framing, timing, silence and the details people miss became things worth noticing. Curiosity came first; the tools could be learned along the way.","OBSERVATION","look again, a little closer"],
-      ["The stories I carried","As technology took up more space, the creative instinct did not disappear. It stayed in the background, waiting for a way to meet the things I was learning.","UNFINISHED THOUGHT","keep the thread alive"],
-      ["A different kind of beginning","This chapter is not a polished origin myth. It is a record of the interests that existed before a clear plan—and the questions that kept returning.","FIELD REFLECTION","the beginning was a question"]
-    ]},
-    { title:"The machine room", kicker:"CHAPTER 02 / CURIOSITY FOUND A LANGUAGE", description:"Programming gave curiosity a new language: logic, experiments, errors and the satisfaction of turning an idea into something that works.", leaves:[
-      ["Following the questions","Learning to code opened a way to understand how digital things are made. An idea could become a working interaction through structure, logic and persistence.","LEARNING LOG","understand it, then build it"],
-      ["The errors were part of it","Progress meant reading errors, retracing assumptions, changing approaches and trying again. The debugging was not separate from learning; it was the learning.","DEBUGGING NOTE","one more attempt"],
-      ["Building with AI","Exploring AI, machine learning and voice systems made technology feel more expressive. The question became not only whether a system worked, but how it felt to use.","TURNING POINT","make the system feel human"],
-      ["A growing toolkit","Python, JavaScript, React, Next.js, SQL, APIs and the surrounding tools became parts of a practical learning journey—picked up while making things, not collected as badges.","TOOLBOX NOTE","learn by making"]
-    ]},
-    { title:"The wrong turns", kicker:"CHAPTER 03 / THE PARTS THAT DID NOT GO TO PLAN", description:"Not every attempt became a success story. Failed experiments, unfinished ideas and a film that was not selected belong in the record too.", leaves:[
-      ["No straight line","The path has included changing plans, competing interests and uncertain next steps. Looking back can make a detour look intentional; living through it rarely feels that tidy.","MARGIN NOTE","detours count too"],
-      ["The projects that did not survive","Some startup attempts and project ideas did not become what I hoped. They still taught me about execution, timing, people and the distance between an idea and something sustainable.","POSTMORTEM","keep the lesson, not the illusion"],
-      ["A film that was not selected","I made a short film for the Jharkhand Film Festival 2026. It was not selected. The disappointment is real, but so is the fact that I made it and learned from the attempt.","FILM NOTE","the work still happened"],
-      ["Letting an old version go","Not every draft needs to represent who I am now. I can keep what taught me something and make room for a better next version without pretending the earlier one never existed.","REVISION LOG","revise without erasing"]
-    ]},
-    { title:"Things made real", kicker:"CHAPTER 04 / IDEAS LEFT THE NOTEBOOK", description:"The questions became projects: experiments in applied AI, voice, computer vision and products shaped around problems beyond the screen.", leaves:[
-      ["Karma AI","A conversational scam-baiting agent exploring real-time speech recognition, model responses and generated voice. The challenge was bringing the pipeline together while making the interaction feel natural.","PROJECT TRACE","give the system a voice"],
-      ["KrishiLens","An image-based cattle and buffalo breed recognition project exploring how computer vision could make Indian livestock identification more accessible.","BUILD NOTE","build for someone"],
-      ["DAAV and product experiments","Building product prototypes brought together interfaces, databases, payments and deployment. Each experiment made the gap between a demo and a dependable product more visible.","PRODUCT LOG","make the idea usable"],
-      ["The unfinished versions","A finished demo hides the decisions underneath: what to simplify, what to fix, what to postpone and what to try differently. The rough versions are part of the work.","WORKING NOTES","save the rough drafts"]
-    ]},
-    { title:"The way back", kicker:"CHAPTER 05 / THE STORYTELLER RETURNS", description:"Technology did not replace the storyteller. Music, filmmaking, creative direction and building now sit beside one another rather than competing for a single identity.", leaves:[
-      ["Music as another language","Songwriting and making music create room for feelings that do not always fit into a technical explanation. A melody or rough lyric can hold something a polished paragraph cannot.","MUSIC NOTE","leave the rough edge in"],
-      ["Back to the frame","Filmmaking and visual storytelling remain part of the direction ahead: the framing, the silence and the small details that make a moment stay with someone.","FILM NOTE","find the frame again"],
-      ["Many interests, one person","I do not want to choose only one side of myself. Technology, music, film and management can inform one another and make the work more human.","DIRECTION NOTE","bring the worlds together"],
-      ["Still becoming","There are songs to finish, stories to tell, things to build and plenty left to learn. This archive is a living record, not a claim that the journey is finished.","OPEN ENTRY","to be continued"]
-    ]}
-  ];
-  const overlay=document.getElementById("sylva-mini");
-  if(!overlay) return;
-  const title=document.getElementById("sylva-mini-title");
-  const kicker=document.getElementById("sylva-mini-kicker");
-  const description=document.getElementById("sylva-mini-description");
-  const index=document.getElementById("sylva-mini-index");
-  const leaves=document.getElementById("sylva-mini-leaves");
-  const detail=document.getElementById("sylva-mini-detail");
-  const particles=document.getElementById("sylva-mini-particles");
-  const closeButton=overlay.querySelector(".sylva-mini__close");
-  let closeTimer=null;
-  let previousFocus=null;
-  const reduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  function openChapter(chapterIndex,trigger){
-    const chapter=chapters[chapterIndex];
-    if(!chapter) return;
-    previousFocus=trigger;
-    title.textContent=chapter.title;
-    kicker.textContent=chapter.kicker;
-    description.textContent=chapter.description;
-    index.textContent="CHAPTER "+String(chapterIndex+1).padStart(2,"0");
-    detail.hidden=true;
-    leaves.hidden=false;
-    leaves.innerHTML="";
-    chapter.leaves.forEach((leaf,i)=>{
-      const button=document.createElement("button");
-      button.type="button";
-      button.className="sylva-leaf";
-      button.innerHTML='<span class="sylva-leaf__shape"><span class="sylva-leaf__content"><span class="sylva-leaf__number">FRAGMENT 0'+(i+1)+'</span><span class="sylva-leaf__title"></span><span class="sylva-leaf__hint">UNFOLD STORY ↗</span></span></span>';
-      button.querySelector(".sylva-leaf__title").textContent=leaf[0];
-      button.addEventListener("click",()=>showLeaf(leaf));
-      leaves.appendChild(button);
-    });
-    particles.innerHTML="";
-    for(let i=0;i<42;i++){
-      const particle=document.createElement("i");
-      particle.className="sylva-particle";
-      const angle=(Math.PI*2*i)/42;
-      const distance=90+(i%7)*23;
-      particle.style.setProperty("--dx",Math.cos(angle)*distance+"px");
-      particle.style.setProperty("--dy",Math.sin(angle)*distance+"px");
-      particle.style.setProperty("--spin",(i*47%300-150)+"deg");
-      particle.style.setProperty("--size",(3+i%4)+"px");
-      particle.style.setProperty("--leaf-particle",i%3===0?"#d5dfb7":i%3===1?"#a9bd8a":"#829c70");
-      particles.appendChild(particle);
-    }
-    overlay.hidden=false;
-    overlay.setAttribute("aria-hidden","false");
-    document.body.style.overflow="hidden";
-    requestAnimationFrame(()=>{
-      overlay.classList.add("is-visible","is-crumbling");
-      if(reduceMotion){
-        overlay.classList.add("is-open");
-      }else{
-        window.setTimeout(()=>overlay.classList.add("is-open"),1120);
-      }
-    });
-    window.setTimeout(()=>closeButton.focus(),reduceMotion?30:1350);
-  }
-  function showLeaf(leaf){
-    document.getElementById("sylva-mini-detail-label").textContent=leaf[2];
-    document.getElementById("sylva-mini-detail-title").textContent=leaf[0];
-    document.getElementById("sylva-mini-detail-copy").textContent=leaf[1];
-    document.getElementById("sylva-mini-scribble").textContent=leaf[3];
-    leaves.hidden=true;
-    detail.hidden=false;
-  }
-  function closeChapter(){
-    if(overlay.hidden) return;
-    overlay.classList.remove("is-open","is-crumbling","is-visible");
-    overlay.classList.add("is-closing");
-    if(closeTimer) window.clearTimeout(closeTimer);
-    closeTimer=window.setTimeout(()=>{
-      overlay.hidden=true;
-      overlay.classList.remove("is-closing");
-      overlay.setAttribute("aria-hidden","true");
-      document.body.style.overflow="";
-      if(previousFocus) previousFocus.focus();
-    },reduceMotion?20:570);
-  }
-  document.querySelectorAll(".journey-deck[data-chapter]").forEach(card=>{
-    const activate=()=>openChapter(Number(card.dataset.chapter),card);
-    card.addEventListener("click",activate);
-    card.addEventListener("keydown",event=>{
-      if(event.key==="Enter"||event.key===" "){event.preventDefault();activate();}
-    });
-  });
-  closeButton.addEventListener("click",closeChapter);
-  document.getElementById("sylva-mini-back").addEventListener("click",()=>{
-    detail.hidden=true;
-    leaves.hidden=false;
-  });
-  overlay.addEventListener("click",event=>{
-    if(event.target===overlay) closeChapter();
-  });
-  document.addEventListener("keydown",event=>{
-    if(event.key==="Escape"&&!overlay.hidden){
-      if(!detail.hidden){detail.hidden=true;leaves.hidden=false;}
-      else closeChapter();
-    }
-  });
-})();
-</script>
-
 </body>
 </html>
