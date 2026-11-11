@@ -16,7 +16,7 @@ export default function JourneyPage() {
     >
       <iframe
         title="Original Sylva living green environment"
-        src="/landing-pages/inner-green-3d.html?v=kage-compact-gsap-sylva"
+        src="/landing-pages/inner-green-3d.html?v=kage-reflection-placement-20261111"
         loading="eager"
         allow="fullscreen"
         allowFullScreen
