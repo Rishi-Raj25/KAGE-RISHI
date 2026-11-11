@@ -740,6 +740,8 @@
   .journey-overlay.is-open{opacity:1;visibility:visible;pointer-events:auto}
   .journey-window{position:relative;width:min(1320px,100%);height:min(700px,91dvh);overflow:hidden;border:1px solid rgba(240,244,231,.2);border-radius:26px;color:#f2f3ec;background:radial-gradient(ellipse at 48% 100%,rgba(166,183,135,.24),transparent 55%),linear-gradient(145deg,rgba(49,59,43,.97),rgba(25,33,25,.985));box-shadow:0 28px 90px rgba(0,0,0,.48);isolation:isolate;transform:translateY(18px) scale(.985);transition:transform .55s cubic-bezier(.16,1,.3,1)}
   .journey-overlay.is-open .journey-window{transform:translateY(0) scale(1)}
+  .journey-window #scene{position:absolute!important;inset:0!important;z-index:0!important;width:100%!important;height:100%!important;opacity:.34!important;pointer-events:none!important;mix-blend-mode:screen}
+  .journey-forest{z-index:1}.journey-layout{position:relative;z-index:2}
   .journey-window::before{content:"";position:absolute;z-index:-1;left:-8%;bottom:-48%;width:70%;height:70%;border:1px solid rgba(207,222,185,.13);border-radius:50%;box-shadow:0 0 0 22px rgba(207,222,185,.025),0 0 0 54px rgba(207,222,185,.02)}
   .journey-topbar{height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;border-bottom:1px solid rgba(255,255,255,.11)}
   .journey-mark{font-size:9px;letter-spacing:2.6px;text-transform:uppercase;color:rgba(241,244,232,.58)}
@@ -971,7 +973,7 @@
 </main>
 
   <section class="journey-overlay" id="journeyOverlay" aria-hidden="true">
-    <div class="journey-window" role="dialog" aria-modal="true" aria-labelledby="journeyChapterTitle">
+    <div class="journey-window" id="journeyWindow" role="dialog" aria-modal="true" aria-labelledby="journeyChapterTitle">
       <header class="journey-topbar">
         <div class="journey-mark">KAGE / FIELD JOURNAL</div>
         <button class="journey-close" type="button" aria-label="Close chapter">×</button>
@@ -4502,9 +4504,17 @@ window.__seek   = v => { clock = v; drawn = null; };
     }
   };
   const overlay=document.getElementById('journeyOverlay');
+  const sylvaCanvas=document.getElementById('scene');
+  const canvasHome=sylvaCanvas?sylvaCanvas.parentNode:null;
+  const canvasNext=sylvaCanvas?sylvaCanvas.nextSibling:null;
+  function dockSylvaCanvas(inChapter){
+    if(!sylvaCanvas)return;
+    if(inChapter){$('journeyWindow')?.prepend(sylvaCanvas);}
+    else if(canvasHome){canvasHome.insertBefore(sylvaCanvas,canvasNext&&canvasNext.parentNode===canvasHome?canvasNext:null);}
+  }
   if(!overlay)return;
   const $=id=>document.getElementById(id);
-  const close=()=>{overlay.classList.remove('is-open');overlay.setAttribute('aria-hidden','true');document.body.classList.remove('chapter-open');};
+  const close=()=>{overlay.classList.remove('is-open');overlay.setAttribute('aria-hidden','true');document.body.classList.remove('chapter-open');dockSylvaCanvas(false);};
   function open(key){
     const c=chapters[key];if(!c)return;
     $('journeyKicker').textContent=c.kicker;
@@ -4515,7 +4525,7 @@ window.__seek   = v => { clock = v; drawn = null; };
     $('journeyRightNote').textContent=c.right;
     $('journeyFootLeft').textContent=c.foot;
     $('journeyLeaves').innerHTML=c.leaves.map((leaf,i)=>'<article class="journey-leaf" style="--delay:'+(i*90)+'ms;--tilt:'+(i%2?1.4:-1.2)+'deg"><small>'+leaf[0]+'</small><h3>'+leaf[1]+'</h3><p>'+leaf[2]+'</p></article>').join('');
-    overlay.classList.add('is-open');overlay.setAttribute('aria-hidden','false');document.body.classList.add('chapter-open');
+    dockSylvaCanvas(true);overlay.classList.add('is-open');overlay.setAttribute('aria-hidden','false');document.body.classList.add('chapter-open');
     const leaves=overlay.querySelectorAll('.journey-leaf');
     if(window.gsap){
       gsap.killTweensOf([overlay.querySelector('.journey-root'),overlay.querySelectorAll('.journey-moss'),overlay.querySelector('.journey-butterfly'),leaves]);
