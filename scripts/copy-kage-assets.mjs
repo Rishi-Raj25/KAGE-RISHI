@@ -1,4 +1,4 @@
-import { cp, mkdir, access } from "node:fs/promises";
+import { cp, mkdir, access, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const source = path.resolve(
@@ -6,23 +6,26 @@ const source = path.resolve(
 );
 const destination = path.resolve("public/landing-pages");
 const customKage = path.resolve("custom/kage.html");
+const customJourney = path.join(destination, "inner-green-3d.html");
 const bookshelfSource = path.resolve("public/bookshelf/complete-shelf-v2.html");
 
 try {
   await access(path.join(source, "kage.html"));
   await access(path.join(source, "inner-green-3d.html"));
   await access(customKage);
+  await access(customJourney);
   await access(bookshelfSource);
 } catch {
-  console.error("Required KAGE, original Sylva, or BOOKSHELF assets are missing.");
+  console.error("Required KAGE, Sylva, or BOOKSHELF assets are missing.");
   process.exit(1);
 }
 
+// Keep the customized Journey scene (original Sylva environment + five decks)
+// while refreshing all supporting package assets on every deployment.
+const journeyHtml = await readFile(customJourney);
+
 await mkdir(destination, { recursive: true });
-// Copy the package's original landing-page assets, including the untouched
-// inner-green-3d.html Sylva scene with its original environmental artwork.
 await cp(source, destination, { recursive: true });
-// KAGE's main homepage remains repository-owned; Journey uses the package's
-// original Sylva scene rather than the previously customized replacement.
 await cp(customKage, path.join(destination, "kage.html"));
-console.log("Copied original ThreeUI Sylva assets and restored custom KAGE homepage.");
+await writeFile(customJourney, journeyHtml);
+console.log("Copied ThreeUI assets and restored the five-deck Sylva Journey scene.");
