@@ -2146,7 +2146,37 @@
       });
     });
 
+
     document.head.appendChild(kageThemeStyle);
+    const bookshelfCosmos = document.createElement("style");
+    bookshelfCosmos.textContent = `
+      /* Background-only celestial details, always behind the transparent 3D canvas. */
+      .scene-shell::before {
+        content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+        background:
+          radial-gradient(circle at 12% 21%,rgba(255,255,255,.92) 0 1px,transparent 2px),
+          radial-gradient(circle at 24% 74%,rgba(204,195,255,.85) 0 1px,transparent 2px),
+          radial-gradient(circle at 78% 17%,rgba(255,255,255,.9) 0 1px,transparent 2px),
+          radial-gradient(circle at 88% 65%,rgba(153,197,255,.9) 0 1px,transparent 2px),
+          radial-gradient(circle at 61% 83%,rgba(255,255,255,.7) 0 1px,transparent 2px),
+          radial-gradient(ellipse at 12% 45%,rgba(83,105,190,.14),transparent 22%),
+          radial-gradient(ellipse at 88% 32%,rgba(132,77,183,.12),transparent 24%);
+      }
+      .scene-shell::after {
+        content:"";position:absolute;z-index:0;pointer-events:none;
+        width:clamp(110px,14vw,210px);aspect-ratio:1;right:7%;top:13%;
+        border-radius:50%;
+        background:
+          radial-gradient(ellipse at 30% 42%,rgba(255,255,255,.24),transparent 34%),
+          radial-gradient(circle at 32% 28%,#9cc9ed 0%,#536fb2 35%,#282755 70%,#11152c 100%);
+        box-shadow:inset -18px -15px 28px rgba(4,7,22,.48),0 0 55px rgba(103,119,210,.16);
+        opacity:.34;
+      }
+      #scene{position:relative;z-index:1}
+      @media(max-width:700px){.scene-shell::after{width:105px;right:4%;top:18%;opacity:.24}}
+    `;
+    document.head.appendChild(bookshelfCosmos);
+
 
     const collectionName = kageTheme === "abstract" ? "Skills" : "Projects";
     document.title = collectionName + " — BOOKSHELF-CN";
