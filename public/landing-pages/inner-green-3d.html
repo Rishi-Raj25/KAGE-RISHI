@@ -842,9 +842,20 @@
     .journey-side-right{display:none!important}
   }
 
+
+  /* KAGE return route — always above the canvas and its visual layers. */
+  .journey-home{position:fixed;z-index:90;top:clamp(14px,2.2vw,28px);left:clamp(14px,2.2vw,30px);display:inline-flex;align-items:center;gap:10px;padding:11px 16px;border:1px solid rgba(245,247,237,.22);border-radius:999px;background:rgba(29,35,27,.72);color:#f3f4ec;text-decoration:none;font:500 10px/1 'Lexend',sans-serif;letter-spacing:.16em;text-transform:uppercase;box-shadow:0 8px 28px rgba(10,14,8,.2);backdrop-filter:blur(12px);transition:background .3s ease,border-color .3s ease,transform .35s cubic-bezier(.16,1,.3,1)}
+  .journey-home:hover{background:rgba(238,243,231,.16);border-color:rgba(245,247,237,.48);transform:translateY(-2px)}
+  .journey-home svg{width:15px;height:15px;flex:none}
+  .journey-enter{position:fixed;inset:0;z-index:200;background:#4a4d44;pointer-events:none;opacity:1;animation:journey-arrive 1.05s cubic-bezier(.22,.61,.36,1) .08s forwards}
+  @keyframes journey-arrive{0%{opacity:1;clip-path:inset(0 0 0 0)}55%{opacity:.92}100%{opacity:0;clip-path:inset(0 0 100% 0)}}
+  @media(prefers-reduced-motion:reduce){.journey-enter{display:none}.journey-home{transition:none}}
+
 </style>
 </head>
 <body>
+<a class="journey-home" href="/" aria-label="Back to the KAGE home page"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/><path d="M7.5 10H18"/></svg><span>Back to KAGE</span></a>
+<div class="journey-enter" aria-hidden="true"></div>
 
 <main class="hero" id="hero">
   <canvas id="scene"></canvas>
@@ -897,7 +908,7 @@
     <!-- card 1 sits *behind* the canvas so the moss drapes over its shoulder -->
     <article class="card card--about mask" data-chapter="origins" style="--d:760ms; --pd:10; --pr:2.2">
       <figure class="portal" data-delay="920">
-        <span class="portal-media"><img src="inner-green-assets/card-ethos.jpg" alt="A cushion of moss grown over lichen-crusted stones" loading="eager" decoding="async"></span>
+        <span class="portal-media"><img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1100&q=85" alt="Sunlight filtering through an old forest canopy — the creative roots" loading="eager" decoding="async"></span>
         <canvas class="pixel-reveal" aria-hidden="true"></canvas>
       </figure>
       <p class="label">CHAPTER 01</p>
@@ -987,7 +998,7 @@
       <p class="label">CHAPTER 02</p>
       <h2>Machine</h2>
       <figure class="portal" data-delay="1080">
-        <span class="portal-media"><img src="inner-green-assets/card-ecostove.jpg" alt="Moss-covered boulders in a misty grove" loading="eager" decoding="async"></span>
+        <span class="portal-media"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1100&q=85" alt="A close view of a circuit board, representing code and systems" loading="eager" decoding="async"></span>
         <canvas class="pixel-reveal" aria-hidden="true"></canvas>
       </figure>
       <button class="knob" aria-label="Open field note: After the Rain">
@@ -1000,15 +1011,15 @@
 
 
     <article class="card card--about mask journey-extra-1" data-chapter="detours" style="--d:1040ms; --pd:10; --pr:2.2">
-      <figure class="portal" data-delay="1180"><span class="portal-media"><img src="inner-green-assets/card-ethos.jpg" alt="A cushion of moss grown over lichen-crusted stones" loading="lazy" decoding="async"></span><canvas class="pixel-reveal" aria-hidden="true"></canvas></figure>
+      <figure class="portal" data-delay="1180"><span class="portal-media"><img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1100&q=85" alt="A winding mountain landscape representing unexpected detours" loading="lazy" decoding="async"></span><canvas class="pixel-reveal" aria-hidden="true"></canvas></figure>
       <p class="label">CHAPTER 03</p><h2>Detours</h2>
     </article>
     <article class="card card--stove mask journey-extra-2" data-chapter="making" style="--d:1160ms; --pd:22; --pr:2.4">
       <p class="label">CHAPTER 04</p><h2>Making</h2>
-      <figure class="portal" data-delay="1280"><span class="portal-media"><img src="inner-green-assets/card-ecostove.jpg" alt="Moss-covered boulders in a misty grove" loading="lazy" decoding="async"></span><canvas class="pixel-reveal" aria-hidden="true"></canvas></figure>
+      <figure class="portal" data-delay="1280"><span class="portal-media"><img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1100&q=85" alt="A creative workspace with a laptop, representing projects in the making" loading="lazy" decoding="async"></span><canvas class="pixel-reveal" aria-hidden="true"></canvas></figure>
     </article>
     <article class="card card--about mask journey-extra-3" data-chapter="return" style="--d:1280ms; --pd:10; --pr:2.2">
-      <figure class="portal" data-delay="1380"><span class="portal-media"><img src="inner-green-assets/card-ethos.jpg" alt="A cushion of moss grown over lichen-crusted stones" loading="lazy" decoding="async"></span><canvas class="pixel-reveal" aria-hidden="true"></canvas></figure>
+      <figure class="portal" data-delay="1380"><span class="portal-media"><img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1100&q=85" alt="A quiet forest landscape at first light, representing return and reflection" loading="lazy" decoding="async"></span><canvas class="pixel-reveal" aria-hidden="true"></canvas></figure>
       <p class="label">CHAPTER 05</p><h2>Return</h2>
     </article>
 
