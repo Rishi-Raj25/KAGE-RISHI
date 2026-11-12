@@ -13,7 +13,7 @@ export default function Home() {
   }, []);
   return (
     <main className="kage-host" data-ready={ready ? "true" : "false"}>
-      <iframe className="kage-document" title="KAGE — Can Robots Replace Humans?" src="/landing-pages/kage.html?v=portfolio-copy-20261111" loading="eager" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen sandbox="allow-scripts allow-same-origin allow-forms allow-modals allow-downloads allow-popups allow-popups-to-escape-sandbox" />
+      <iframe className="kage-document" title="KAGE — Code × Creativity" src="/landing-pages/kage.html?v=portfolio-copy-sync-20261112" loading="eager" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen sandbox="allow-scripts allow-same-origin allow-forms allow-modals allow-downloads allow-popups allow-popups-to-escape-sandbox" />
     </main>
   );
 }
