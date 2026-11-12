@@ -3,7 +3,7 @@
 <head><script>function __threeuiStorageImage(...args){const image=new Image(...args);const property=Object.getOwnPropertyDescriptor(HTMLImageElement.prototype,"src");Object.defineProperty(image,"src",{configurable:true,get(){return property.get.call(this)},set(value){try{const url=new URL(value,document.baseURI);if(this.crossOrigin===null&&(url.href.startsWith("https://ublctyddhtbgaersvxxb.supabase.co/storage/v1/object/public/threeui-media/scene-images/")||url.origin===new URL(document.baseURI).origin))this.crossOrigin="anonymous"}catch{}property.set.call(this,value)}});return image;}
 </script>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#171a24">
   <meta
     name="description"
@@ -1711,6 +1711,41 @@
         width: 19px;
       }
     }
+
+
+/* Android / touch-screen finishing pass. */
+@supports(height:100dvh){.experience{height:100dvh}.detail-panel{max-height:min(42dvh,560px)}}
+@media(max-width:700px){
+  .frame{inset:max(8px,env(safe-area-inset-top)) max(8px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left))}
+  .editorial-header{top:calc(18px + env(safe-area-inset-top));left:max(18px,env(safe-area-inset-left));right:max(18px,env(safe-area-inset-right));gap:12px}
+  .origin-nav{top:calc(68px + env(safe-area-inset-top));left:max(14px,env(safe-area-inset-left));min-height:40px;padding:5px 12px 5px 6px}
+  .origin-nav__orb{width:28px;height:28px}
+  .browse-ui{left:max(12px,env(safe-area-inset-left));right:max(12px,env(safe-area-inset-right));bottom:calc(10px + env(safe-area-inset-bottom));width:auto;gap:8px 12px}
+  .round-button,.close-button{width:44px;min-width:44px;height:44px;min-height:44px}
+  .text-button{min-height:44px;padding-inline:15px}
+  .marker{width:30px;height:30px;touch-action:manipulation}
+  .detail-panel{left:max(12px,env(safe-area-inset-left));right:max(12px,env(safe-area-inset-right));bottom:calc(12px + env(safe-area-inset-bottom));max-height:min(48dvh,430px);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+  .detail-controls{gap:10px;flex-wrap:wrap}
+  button,a{-webkit-tap-highlight-color:transparent}
+}
+@media(max-width:380px){
+  .editorial-header{left:16px;right:16px}
+  .editorial-index{font-size:8px}
+  .browse-ui{grid-template-columns:minmax(0,1fr);justify-items:stretch}
+  .selection{grid-column:1;justify-content:flex-start}
+  .browse-actions{justify-content:space-between}
+  .index-nav{display:none}
+  .origin-nav__copy strong{font-size:7px}
+}
+@media(orientation:landscape) and (max-height:500px) and (pointer:coarse){
+  .editorial-header{top:calc(12px + env(safe-area-inset-top))}
+  .browse-ui{bottom:calc(8px + env(safe-area-inset-bottom))}
+  .detail-panel{max-height:64dvh}
+}
+@media(hover:none){
+  .round-button:hover,.text-button:hover,.close-button:hover{transform:none}
+  .origin-nav:hover{transform:none}
+}
 
   </style>
   <script type="importmap">
