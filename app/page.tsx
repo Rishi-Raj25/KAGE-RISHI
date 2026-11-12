@@ -13,7 +13,7 @@ export default function Home() {
   }, []);
   return (
     <main className="kage-host" data-ready={ready ? "true" : "false"}>
-      <iframe className="kage-document" title="KAGE — Code × Creativity" src="/landing-pages/kage.html?v=portfolio-bookshelf-open-fix-20261112" loading="eager" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen sandbox="allow-scripts allow-same-origin allow-forms allow-modals allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation" />
+      <iframe className="kage-document" title="KAGE — Code × Creativity" src="/landing-pages/kage.html?v=mobile-android-20261112" loading="eager" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen sandbox="allow-scripts allow-same-origin allow-forms allow-modals allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation" />
     </main>
   );
 }
