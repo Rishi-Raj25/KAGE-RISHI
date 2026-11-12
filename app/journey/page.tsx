@@ -16,7 +16,7 @@ export default function JourneyPage() {
     >
       <iframe
         title="Original Sylva living green environment"
-        src="/landing-pages/inner-green-3d.html?v=sylva-botanical-glass-nav-20261112"
+        src="/landing-pages/inner-green-3d.html?v=sylva-mobile-android-20261112"
         loading="eager"
         allow="fullscreen"
         allowFullScreen
