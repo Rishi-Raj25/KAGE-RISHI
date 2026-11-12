@@ -1107,7 +1107,7 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
     <p class="body-lg" data-rv="up">My toolbox includes Python, JavaScript, React, Next.js, Node.js, SQL, databases, APIs, and AI integrations. Outside the code editor: music, songwriting, film, and visual storytelling. Still learning. Still adding tools. The toolbox is getting crowded.</p>
   </div>
   <div class="cur journey-wrap" id="cur">
-    <a class="journey-card" href="/journey" data-rv="up" data-cursor aria-label="Open my journey">
+    <a class="journey-card" href="/journey" data-rv="up" data-cursor data-journey-transition aria-label="Open my journey">
       <div class="journey-card__top"><span class="k">01 — FIVE CHAPTERS · STILL GROWING</span><span class="k jp">旅路</span></div>
       <div class="journey-card__main">
         <div>
@@ -4816,6 +4816,23 @@ function start() {
 
 if (document.readyState === 'complete' || document.readyState === 'interactive') setTimeout(boot, 0);
 else addEventListener('DOMContentLoaded', boot);
+})();
+</script>
+
+<script>
+(function(){
+  const link=document.querySelector('[data-journey-transition]');
+  if(!link)return;
+  link.addEventListener('click',function(event){
+    if(event.metaKey||event.ctrlKey||event.shiftKey||event.altKey||event.button!==0)return;
+    event.preventDefault();
+    const curtain=document.createElement('div');
+    curtain.setAttribute('aria-hidden','true');
+    Object.assign(curtain.style,{position:'fixed',inset:'0',zIndex:'99999',pointerEvents:'none',background:'#4a4d44',transform:'scaleY(0)',transformOrigin:'bottom',transition:'transform .72s cubic-bezier(.76,0,.24,1)'});
+    document.body.appendChild(curtain);
+    requestAnimationFrame(()=>{curtain.style.transform='scaleY(1)';});
+    window.setTimeout(()=>{window.top.location.href=link.href;},620);
+  });
 })();
 </script>
 </body>
