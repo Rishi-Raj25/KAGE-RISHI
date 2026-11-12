@@ -860,6 +860,28 @@
   @keyframes journey-arrive{0%{opacity:1;clip-path:inset(0 0 0 0)}55%{opacity:.92}100%{opacity:0;clip-path:inset(0 0 100% 0)}}
   @media(prefers-reduced-motion:reduce){.journey-enter{display:none}.origin-nav,.origin-nav::before,.origin-nav__orb,.origin-nav__orb svg,.origin-nav__trail{transition:none!important}}
 
+
+/* Android touch and viewport refinements for the Sylva journey. */
+@supports(height:100dvh){.hero{min-height:100dvh}.journey-overlay{height:100dvh}.journey-window{max-height:100dvh}}
+@media(max-width:760px){
+  .origin-nav{top:calc(12px + env(safe-area-inset-top));left:max(12px,env(safe-area-inset-left));min-height:44px;padding:6px 12px 6px 6px}
+  .journey-overlay{padding:max(5px,env(safe-area-inset-top)) max(5px,env(safe-area-inset-right)) max(5px,env(safe-area-inset-bottom)) max(5px,env(safe-area-inset-left))}
+  .journey-window{height:calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom));max-height:none}
+  .journey-close{width:44px;height:44px;min-width:44px;min-height:44px;touch-action:manipulation}
+  .journey-layout{overscroll-behavior:contain}
+  .journey-leaf{touch-action:pan-y}
+  .card[data-chapter]{touch-action:manipulation}
+}
+@media(orientation:landscape) and (max-height:500px) and (pointer:coarse){
+  .journey-window{height:calc(100dvh - 12px)}
+  .journey-layout{grid-template-columns:130px minmax(0,1fr);padding:10px;gap:10px}
+  .journey-side-right{display:none!important}
+  .journey-leaves{gap:5px}
+  .journey-leaf{min-height:0;padding:8px}
+  .journey-leaf p{font-size:8px}
+}
+@media(hover:none){.origin-nav:hover{transform:none}}
+
 </style>
 </head>
 <body>
