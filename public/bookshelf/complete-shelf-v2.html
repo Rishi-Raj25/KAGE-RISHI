@@ -1723,9 +1723,9 @@
   </script>
 </head>
 <body>
-  <a class="kage-back" href="/?from=bookshelf" aria-label="Back to the KAGE portfolio homepage">
+  <a class="kage-back" href="/?from=bookshelf" aria-label="Return to the homepage — before we got carried away">
     <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10.5 3.5 6 8l4.5 4.5M6.5 8H14" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <span>Back to KAGE</span>
+    <span>Back to the origin story</span>
   </a>
   <main class="experience" id="experience">
     <div class="scene-shell">
@@ -2140,9 +2140,9 @@
       const item = collectionData[index];
       const palette = themePalettes[index] || themePalettes[0];
       Object.assign(book, item, {
-        color: palette[0], foil: palette[1],
-        palette: { paper:palette[2], paperDeep:palette[3], paperPale:palette[4], ink:palette[5], inkSoft:palette[6], wall:palette[7], shelf:palette[8], shelfDark:palette[9], light:palette[10], fill:palette[11] },
-        paletteLabel: kageTheme === "abstract" ? "Graphite · bone · steel" : "Cosmos · nebula · starlight"
+        color: item.color || palette[0], foil: item.foil || palette[1],
+        palette: item.palette || { paper:palette[2], paperDeep:palette[3], paperPale:palette[4], ink:palette[5], inkSoft:palette[6], wall:palette[7], shelf:palette[8], shelfDark:palette[9], light:palette[10], fill:palette[11] },
+        paletteLabel: item.paletteLabel || (kageTheme === "abstract" ? "Graphite · bone · steel" : "Cosmos · nebula · starlight")
       });
     });
 
@@ -2150,7 +2150,9 @@
     document.head.appendChild(kageThemeStyle);
     const bookshelfCosmos = document.createElement("style");
     bookshelfCosmos.textContent = `
-      /* Background-only celestial details, always behind the transparent 3D canvas. */
+      /* A proper shared cosmos behind both bookshelf collections. */
+      .experience { background:radial-gradient(ellipse at 50% 38%,#242044 0%,#11152f 42%,#070916 78%,#03040b 100%) !important; }
+      .scene-shell { background:transparent !important; }
       .scene-shell::before {
         content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
         background:
@@ -2180,7 +2182,7 @@
 
     const collectionName = kageTheme === "abstract" ? "Skills" : "Projects";
     document.title = collectionName + " — BOOKSHELF-CN";
-    document.querySelector('meta[name="description"]')?.setAttribute("content", "The " + collectionName.toLowerCase() + " bookshelf — an interactive collection by KAGE.");
+    document.querySelector('meta[name="description"]')?.setAttribute("content", "The " + collectionName.toLowerCase() + " bookshelf — an interactive collection by Rishi.");
     document.querySelector(".editorial-identity strong")?.replaceChildren(document.createTextNode(collectionName));
     const identitySub = document.querySelector(".editorial-identity span");
     if (identitySub) identitySub.textContent = kageTheme === "abstract" ? "Seven skill volumes · an evolving practice" : "Seven project volumes · selected worlds";
