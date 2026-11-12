@@ -16,7 +16,7 @@ export default function JourneyPage() {
     >
       <iframe
         title="Original Sylva living green environment"
-        src="/landing-pages/inner-green-3d.html?v=sylva-deck-nav-transition-20261112"
+        src="/landing-pages/inner-green-3d.html?v=sylva-liquid-origin-nav-20261112"
         loading="eager"
         allow="fullscreen"
         allowFullScreen
