@@ -20,7 +20,7 @@ export default function JourneyPage() {
         loading="eager"
         allow="fullscreen"
         allowFullScreen
-        sandbox="allow-scripts allow-same-origin allow-forms allow-modals allow-popups allow-downloads"
+        sandbox="allow-scripts allow-same-origin allow-forms allow-modals allow-popups allow-downloads allow-top-navigation-by-user-activation"
         style={{
           position: "absolute",
           inset: 0,
