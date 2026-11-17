@@ -883,6 +883,76 @@
 @media(hover:none){.origin-nav:hover{transform:none}}
 
 </style>
+<style id="sylva-mobile-only-fix">
+  /* Mobile/tablet layout repair. Desktop rules and the 1600px composition stay untouched. */
+  @media (max-width: 900px) {
+    .hero {
+      height: auto;
+      min-height: 100svh;
+    }
+
+    /* The five chapter cards extend to design-unit 2486. The old 1625-unit
+       stage clipped the final cards, so give the narrow layout room to scroll. */
+    .stage {
+      height: calc(2560 * var(--u)) !important;
+    }
+
+    .journey-extra-1 {
+      left: calc(34 * var(--u)) !important;
+      top: calc(1600 * var(--u)) !important;
+      width: calc(692 * var(--u)) !important;
+      height: calc(250 * var(--u)) !important;
+    }
+
+    .journey-extra-2 {
+      left: calc(34 * var(--u)) !important;
+      top: calc(1900 * var(--u)) !important;
+      width: calc(692 * var(--u)) !important;
+      height: calc(268 * var(--u)) !important;
+    }
+
+    .journey-extra-3 {
+      left: calc(34 * var(--u)) !important;
+      top: calc(2200 * var(--u)) !important;
+      width: calc(692 * var(--u)) !important;
+      height: calc(250 * var(--u)) !important;
+    }
+
+    /* Keep chapter labels and actions readable at narrow phone widths. */
+    .card[data-chapter] {
+      cursor: pointer;
+      pointer-events: auto;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .card[data-chapter] .label {
+      font-size: clamp(9px, calc(10 * var(--u)), 11px);
+      letter-spacing: clamp(1px, calc(1.5 * var(--u)), 1.7px);
+    }
+
+    .card[data-chapter] h2 {
+      font-size: clamp(19px, calc(27 * var(--u)), 30px);
+      line-height: 1.04;
+      letter-spacing: -0.35px;
+    }
+
+    .card[data-chapter]::after {
+      font-size: clamp(9px, calc(8.5 * var(--u)), 10px);
+      letter-spacing: clamp(1px, calc(1.4 * var(--u)), 1.5px);
+    }
+  }
+
+  @media (max-width: 380px) {
+    .card[data-chapter] h2 {
+      font-size: 19px;
+    }
+    .card[data-chapter]::after {
+      right: 12px;
+      bottom: 12px;
+    }
+  }
+</style>
 </head>
 <body>
 <a class="origin-nav origin-nav--sylva" href="/" target="_top" aria-label="Back to the KAGE home page"><span class="origin-nav__orb" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V9"/><path d="M12 14C6 14 4.8 9.8 5.2 6.2 9 6.1 12 8.2 12 14Z"/><path d="M12 11c0-4 2.5-6.1 6.5-6.3.5 4.1-1.5 6.8-6.5 6.3Z"/><path d="M12 17c-2.7-2.7-5-2.5-6.8-1.5"/></svg></span><span class="origin-nav__copy"><strong>Return to the grove</strong><small>back to the beginning</small></span><span class="origin-nav__trail" aria-hidden="true">↗</span></a>
